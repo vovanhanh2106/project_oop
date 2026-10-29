@@ -1,0 +1,22 @@
+{
+    "step_count": 2,
+    "steps": [
+        {
+            "action": "calculator",
+            "latency_ms": 120,
+            "result": "221",
+            "step": 1,
+            "thought": "{\"type\":\"tool_call\",\"name\":\"calculator\"}",
+            "tokens": 0
+        },
+        {
+            "action": "final",
+            "latency_ms": 80,
+            "result": "221",
+            "step": 2,
+            "thought": "{\"type\":\"final\",\"content\":\"221\"}",
+            "tokens": 0
+        }
+    ],
+    "task": "Tính 17 nhân 13"
+}

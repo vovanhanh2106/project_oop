@@ -1,0 +1,72 @@
+{
+    "results": [
+        {
+            "actual": "The answer is 221",
+            "execution_error": false,
+            "expected": "221",
+            "feedback": "Numeric result matches the expected value.",
+            "input": "Tính 17 nhân 13",
+            "latency_ms": 24886,
+            "passed": true,
+            "score": 1.0,
+            "task_name": "Multiplication",
+            "trajectory": {
+                "step_count": 2,
+                "steps": [
+                    {
+                        "action": "calculator",
+                        "latency_ms": 21221,
+                        "result": "221.000000",
+                        "step": 1,
+                        "thought": "```json\n{\n  \"type\": \"tool_call\",\n  \"name\": \"calculator\",\n  \"args\": {\n    \"expression\": \"17 * 13\"\n  }\n}\n```",
+                        "tokens": 0
+                    },
+                    {
+                        "action": "FINAL",
+                        "latency_ms": 3664,
+                        "result": "The answer is 221",
+                        "step": 2,
+                        "thought": "```json\n{\n  \"type\": \"final\",\n  \"content\": \"The answer is 221\"\n}\n```",
+                        "tokens": 0
+                    }
+                ],
+                "task": "Tính 17 nhân 13"
+            }
+        },
+        {
+            "actual": "The answer is 221",
+            "execution_error": false,
+            "expected": "221",
+            "feedback": "All expected keywords were found.",
+            "input": "Tính 17 nhân 13",
+            "latency_ms": 10713,
+            "passed": true,
+            "score": 1.0,
+            "task_name": "Calculator keyword",
+            "trajectory": {
+                "step_count": 2,
+                "steps": [
+                    {
+                        "action": "calculator",
+                        "latency_ms": 7109,
+                        "result": "221.000000",
+                        "step": 1,
+                        "thought": "```json\n{\n  \"type\": \"tool_call\",\n  \"name\": \"calculator\",\n  \"args\": {\n    \"expression\": \"17 * 13\"\n  }\n}\n```",
+                        "tokens": 0
+                    },
+                    {
+                        "action": "FINAL",
+                        "latency_ms": 3604,
+                        "result": "The answer is 221",
+                        "step": 2,
+                        "thought": "```json\n{\n  \"type\": \"final\",\n  \"content\": \"The answer is 221\"\n}\n```",
+                        "tokens": 0
+                    }
+                ],
+                "task": "Tính 17 nhân 13"
+            }
+        }
+    ],
+    "success_rate": 1.0,
+    "total_tasks": 2
+}
