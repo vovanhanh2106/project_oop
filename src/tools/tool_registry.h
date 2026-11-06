@@ -6,7 +6,7 @@
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
-
+#include <vector>
 class ToolRegistry {
 private:
     std::unordered_map<std::string, std::unique_ptr<Tool>> tools;
@@ -17,7 +17,7 @@ private:
 public:
     // Đăng ký tool
     void registerTool(std::unique_ptr<Tool> tool);
-
+    std::vector<const Tool*> getAllTools() const;
     // Tìm tool theo tên
     Tool* getTool(const std::string& name);
 

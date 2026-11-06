@@ -55,7 +55,7 @@ public:
 
     // Lấy tổng số bước.
     std::size_t getStepCount() const;
-
+    int getTotalTokens() const;
     // Chuyển dữ liệu sang JSON.
     std::string toJson() const;
 

@@ -69,6 +69,7 @@ std::string TrajectoryRecorder::toJson() const {
     json trajectory = {
         {"task", task},
         {"step_count", steps.size()},
+        {"total_tokens", getTotalTokens()},
         {"steps", json::array()}
     };
 
@@ -110,4 +111,13 @@ bool TrajectoryRecorder::saveToJson(
 void TrajectoryRecorder::clear() {
     task.clear();
     steps.clear();
+}
+int TrajectoryRecorder::getTotalTokens() const {
+    int total = 0;
+
+    for (const auto& step : steps) {
+        total += step.tokens;
+    }
+
+    return total;
 }

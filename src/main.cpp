@@ -1,10 +1,16 @@
 
 #include <iostream>
 #include <string>
+#include <memory>
+#include <cstdlib>
+#include <stdexcept>
 
 #include <windows.h>
 
+#include "client/llm_client.h"
 #include "client/ollama_client.h"
+#include "client/remote_llm_client.h"
+
 #include "agent/agent_loop.h"
 #include "agent/skill_loader.h"
 #include "agent/loop_detector.h"
@@ -21,13 +27,47 @@ int main() {
     SetConsoleOutputCP(CP_UTF8);
 
     try {
-        // 1. Khởi tạo LLM
-        OllamaClient llm(
-            "http://localhost:11434",
-            "gemma3",
-            0.2,
-            512
-        );
+        // 1. Chọn LLM Client
+        std::unique_ptr<LLMClient> llm;
+
+        const char* modeEnv = std::getenv("AGENT_MODE");
+        std::string mode = modeEnv ? modeEnv : "local";
+
+        if (mode == "remote") {
+            const char* url = std::getenv("AGENT_REMOTE_URL");
+            const char* token = std::getenv("AGENT_API_TOKEN");
+
+            if (!url || !token) {
+                throw std::runtime_error(
+                    "Missing AGENT_REMOTE_URL or AGENT_API_TOKEN"
+                );
+            }
+
+            llm = std::make_unique<RemoteLLMClient>(
+                url,
+                "gemma3:4b",
+                token,
+                0.2,
+                512
+            );
+
+            std::cout << "Using Remote LLM (Google Colab)\n";
+        }
+        else if (mode == "local") {
+            llm = std::make_unique<OllamaClient>(
+                "http://localhost:11434",
+                "gemma3",
+                0.2,
+                512
+            );
+
+            std::cout << "Using Local LLM (Ollama)\n";
+        }
+        else {
+            throw std::runtime_error(
+                "Invalid AGENT_MODE. Use local or remote."
+            );
+        }
 
         // 2. Đăng ký các tool
         ToolRegistry toolRegistry;
@@ -58,7 +98,7 @@ int main() {
 
         // 4. Khởi tạo AgentLoop
         AgentLoop agent(
-            llm,
+            *llm,
             toolRegistry,
             skillLoader,
             loopDetector,
@@ -68,7 +108,8 @@ int main() {
         // 5. Vòng lặp nhập câu hỏi
         std::string input;
 
-        std::cout << "AI Agent is ready. Type 'exit' to quit.\n";
+        std::cout
+            << "AI Agent is ready. Type 'exit' to quit.\n";
 
         while (true) {
             std::cout << "\nYou: ";

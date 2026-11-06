@@ -156,10 +156,18 @@ std::string CalculatorTool::getName() const {
     return "calculator";
 }
 
+// std::string CalculatorTool::getDescription() const {
+//     return "Calculate a mathematical expression.";
+// }
 std::string CalculatorTool::getDescription() const {
-    return "Calculate a mathematical expression.";
+    return
+        "Calculate mathematical expressions. "
+        "Input must be a raw mathematical expression string. "
+        "Supported operators: +, -, *, /. "
+        "Parentheses are supported. "
+        "Preserve all parentheses and operator order exactly. "
+        "Example: (25 + 15) * 3 - 12";
 }
-
 std::string CalculatorTool::execute(const std::string& args) {
     try {
         Parser parser(args);

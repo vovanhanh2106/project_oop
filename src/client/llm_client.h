@@ -1,3 +1,4 @@
+
 #pragma once
 
 #include <string>
@@ -8,11 +9,22 @@ struct Message {
     std::string content;
 };
 
+struct LLMResponse {
+    std::string content;
+
+    int promptTokens = 0;
+    int completionTokens = 0;
+
+    int totalTokens() const {
+        return promptTokens + completionTokens;
+    }
+};
+
 class LLMClient {
 public:
     virtual ~LLMClient() = default;
 
-    virtual std::string chat(
+    virtual LLMResponse chat(
         const std::vector<Message>& messages
     ) = 0;
 };

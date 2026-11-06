@@ -23,7 +23,15 @@ Tool* ToolRegistry::getTool(const std::string& name) {
 bool ToolRegistry::hasTool(const std::string& name) const {
     return tools.find(name) != tools.end();
 }
+std::vector<const Tool*> ToolRegistry::getAllTools() const {
+    std::vector<const Tool*> result;
 
+    for (const auto& [name, tool] : tools) {
+        result.push_back(tool.get());
+    }
+
+    return result;
+}
 void ToolRegistry::allowTool(const std::string& name) {
     allowedTools.insert(name);
 

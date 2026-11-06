@@ -4,5 +4,7 @@
 # 
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
+add_test("TrajectoryTest" "C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/TrajectoryTest.exe")
+set_tests_properties("TrajectoryTest" PROPERTIES  _BACKTRACE_TRIPLES "C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/CMakeLists.txt;127;add_test;C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/CMakeLists.txt;0;")
 add_test("LoopDetectorTest" "C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/LoopDetectorTest.exe")
-set_tests_properties("LoopDetectorTest" PROPERTIES  _BACKTRACE_TRIPLES "C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/CMakeLists.txt;85;add_test;C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/CMakeLists.txt;0;")
+set_tests_properties("LoopDetectorTest" PROPERTIES  _BACKTRACE_TRIPLES "C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/CMakeLists.txt;132;add_test;C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/CMakeLists.txt;0;")

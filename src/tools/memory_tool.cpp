@@ -70,11 +70,15 @@ std::string MemoryTool::getName() const {
 std::string MemoryTool::getDescription() const {
     return
         "Save or search persistent memories using SQLite. "
-        "Save: {\"action\":\"save\",\"label\":\"topic\","
+        "Input must be a JSON object. "
+        "To save information, use: "
+        "{\"action\":\"save\",\"label\":\"topic\","
         "\"content\":\"information\"}. "
-        "Search: {\"action\":\"search\",\"query\":\"keyword\"}.";
+        "To search memories, use: "
+        "{\"action\":\"search\",\"query\":\"keyword\"}. "
+        "Only claim information was saved after receiving "
+        "the successful tool result.";
 }
-
 std::string MemoryTool::execute(const std::string& args) {
     try {
         const json input = json::parse(args);

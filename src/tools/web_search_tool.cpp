@@ -70,8 +70,11 @@ std::string WebSearchTool::getName() const {
 std::string WebSearchTool::getDescription() const {
     return
         "Search Wikipedia articles. "
-        "Input JSON: {\"query\":\"C++ programming\"}. "
-        "Returns article titles, snippets, and URLs.";
+        "Input must be a JSON object: "
+        "{\"query\":\"C++ programming\"}. "
+        "Returns article titles, snippets, and URLs. "
+        "Use this tool when the user requests information "
+        "that requires searching Wikipedia.";
 }
 
 std::string WebSearchTool::execute(const std::string& args) {

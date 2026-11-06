@@ -17,11 +17,22 @@ std::string FileTool::getName() const {
     return "file";
 }
 
+// std::string FileTool::getDescription() const {
+//     return "Read or write text files inside the workspace. "
+//            "Arguments are JSON with action, path, and optionally content.";
+// }
 std::string FileTool::getDescription() const {
-    return "Read or write text files inside the workspace. "
-           "Arguments are JSON with action, path, and optionally content.";
+    return
+        "Read or write text files inside the workspace. "
+        "Input must be a JSON object. "
+        "For reading, use: "
+        "{\"action\":\"read\",\"path\":\"filename.txt\"}. "
+        "For writing, use: "
+        "{\"action\":\"write\",\"path\":\"filename.txt\","
+        "\"content\":\"text to write\"}. "
+        "The path must be relative to the workspace. "
+        "Do not use absolute paths or paths containing '..'.";
 }
-
 std::string FileTool::execute(const std::string& args) {
     try {
         const json input = json::parse(args);

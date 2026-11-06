@@ -49,6 +49,46 @@ int main() {
             "Tính 17 nhân 13",
             "221",
             "keyword"
+        },{
+            "Calculator functional",
+            "Tính 17 nhân 13",
+            "221",
+            "functional"
+        }, {
+            "Calculator functional with extra text",
+            "Tính 17 nhân 13 và cộng thêm 5",
+            "226",
+            "numeric"
+        }, {
+            "Calculator functional with complex expression",
+            "Tính (17 nhân 13) cộng (5 chia 2)",
+            "223.5",
+            "numeric"
+        }, {
+            "Calculator functional with parentheses",
+            "Tính (17 nhân (13 cộng 5)) chia 2",
+            "153",
+            "functional"
+        }, {
+            "Calculator functional with negative numbers",
+            "Tính -17 nhân -13 cộng -5",
+            "216",
+            "functional"
+        }, {
+            "Calculator functional with decimals",
+            "Tính 17.5 nhân 13.2 cộng 5.1",
+            "234.6",
+            "functional"
+        }, {
+            "Calculator functional with large numbers",
+            "Tính 123456789 nhân 987654321 cộng 123456789",
+            "1219326311126352690",
+            "functional"
+        }, {
+            "Calculator functional with division by zero",
+            "Tính 17 chia 0",
+            "",
+            "functional"
         }
     };
 

@@ -23,8 +23,9 @@ private:
     std::string buildSystemPrompt(
         const std::string& userInput
     ) const;
-
+    std::string buildToolDescriptions() const;
     std::string extractJson(const std::string& response) const;
+    
 
 public:
     AgentLoop(

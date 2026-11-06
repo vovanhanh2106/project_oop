@@ -1,6 +1,6 @@
 
 #include "agent_loop.h"
-
+#include <iostream>
 #include <chrono>
 #include <stdexcept>
 #include <nlohmann/json.hpp>
@@ -22,38 +22,57 @@ AgentLoop::AgentLoop(
       loopDetector(loopDetector),
       maxSteps(maxSteps) {}
 
-std::string AgentLoop::buildSystemPrompt(
-    const std::string& userInput
-) const {
+std::string AgentLoop::buildSystemPrompt(const std::string& userInput) const {
     std::string prompt = R"(
-You are an AI agent.
-You must respond with exactly one JSON object.
+You are an AI agent that can use tools to complete tasks.
 
-To call a tool:
+You MUST respond with exactly one JSON object.
+
+There are only TWO valid response types.
+
+1. Tool call:
+
 {
-  "type": "tool_call",
-  "name": "calculator",
-  "args": {
-    "expression": "17 * 13"
-  }
+    "type": "tool_call",
+    "name": "EXACT_TOOL_NAME",
+    "args": {}
 }
 
-To finish:
+2. Final answer:
+
 {
-  "type": "final",
-  "content": "The answer is 221"
+    "type": "final",
+    "content": "Your final answer"
 }
 
-Use tools when appropriate.
-Do not include Markdown fences around JSON.
+IMPORTANT RULES:
+
+- Only use tools listed in the AVAILABLE TOOLS section.
+- Never invent or guess tool names.
+- Tool names are case-sensitive.
+- Follow the exact argument format described by each tool.
+- Do not use unsupported action types such as "confirmation".
+- Do not claim that an operation succeeded before receiving its tool result.
+- If a tool returns an error, explain the error or try another valid approach.
+- For mathematical expressions, preserve all parentheses exactly.
+- Do not simplify or modify a mathematical expression before sending it to the calculator.
+- If the user asks to save information, call the appropriate memory tool.
+- If the user asks to retrieve information from memory, call the appropriate memory tool.
+- If the user asks to read or write a file, call the appropriate file tool.
+- If the user asks for web information, call the appropriate web search tool.
+- Do not wrap JSON in Markdown code fences.
+- Do not include any text outside the JSON object.
+
 )";
+
+    prompt += "\n\nAVAILABLE TOOLS:\n";
+    prompt += buildToolDescriptions();
 
     prompt += "\n\n";
     prompt += skillLoader.buildSkillPrompt(userInput);
 
     return prompt;
 }
-
 std::string AgentLoop::extractJson(
     const std::string& response
 ) const {
@@ -68,11 +87,30 @@ std::string AgentLoop::extractJson(
 
     return response.substr(start, end - start + 1);
 }
+std::string AgentLoop::buildToolDescriptions() const {
+    std::string result;
 
+    const auto tools = toolRegistry.getAllTools();
+
+    for (const Tool* tool : tools) {
+        if (tool == nullptr) {
+            continue;
+        }
+
+        result += "\nTool name: " + tool->getName();
+        result += "\nDescription: " + tool->getDescription();
+        result += "\n";
+    }
+
+    return result;
+}
 std::string AgentLoop::run(
     const std::string& userInput,
     StepHook stepHook
 ) {
+    int llmCalls = 0;
+int toolCalls = 0;
+int toolLatency = 0;
     loopDetector.reset();
 
     std::vector<Message> messages;
@@ -88,9 +126,23 @@ std::string AgentLoop::run(
     });
 
     for (std::size_t step = 0; step < maxSteps; ++step) {
-        const auto stepStart = std::chrono::steady_clock::now();
+       const auto stepStart = std::chrono::steady_clock::now();
 
-        std::string response = llm.chat(messages);
+// Đo thời gian riêng của LLM
+const auto llmStart = std::chrono::steady_clock::now();
+++llmCalls;
+LLMResponse llmResponse = llm.chat(messages);
+
+const auto llmEnd = std::chrono::steady_clock::now();
+
+const auto llmLatency =
+    std::chrono::duration_cast<std::chrono::milliseconds>(
+        llmEnd - llmStart
+    ).count();
+
+std::string response = llmResponse.content;
+
+int tokens = llmResponse.totalTokens();
         std::string jsonText = extractJson(response);
 
         // 1. LLM trả về nội dung không có JSON hợp lệ.
@@ -108,7 +160,7 @@ std::string AgentLoop::run(
                     "INVALID_RESPONSE",
                     response,
                     latency,
-                    0
+                    tokens
                 );
             }
 
@@ -137,7 +189,7 @@ std::string AgentLoop::run(
                     "INVALID_JSON",
                     error,
                     latency,
-                    0
+                    tokens
                 );
             }
 
@@ -165,10 +217,13 @@ std::string AgentLoop::run(
                     "FINAL",
                     answer,
                     latency,
-                    0
+                    tokens
                 );
             }
-
+            std::cout << "\n========== AGENT SUMMARY ==========\n";
+std::cout << "LLM calls: " << llmCalls << '\n';
+std::cout << "Tool calls: " << toolCalls << '\n';
+std::cout << "===================================\n";
             return answer;
         }
 
@@ -190,7 +245,7 @@ std::string AgentLoop::run(
                     "INVALID_ACTION",
                     error,
                     latency,
-                    0
+                    tokens
                 );
             }
 
@@ -221,7 +276,7 @@ std::string AgentLoop::run(
                     "INVALID_TOOL_CALL",
                     error,
                     latency,
-                    0
+                    tokens
                 );
             }
 
@@ -246,7 +301,7 @@ std::string AgentLoop::run(
                     toolName,
                     error,
                     latency,
-                    0
+                    tokens
                 );
             }
 
@@ -273,7 +328,7 @@ std::string AgentLoop::run(
                     toolName,
                     error,
                     latency,
-                    0
+                    tokens
                 );
             }
 
@@ -321,14 +376,22 @@ std::string AgentLoop::run(
                     "LOOP_DETECTED",
                     error,
                     latency,
-                    0
+                    tokens
                 );
             }
 
             return error;
         }
 
-            toolResult = tool->execute(toolArgs);
+          const auto toolStart = std::chrono::steady_clock::now();
+++toolCalls;
+toolResult = tool->execute(toolArgs);
+
+const auto toolEnd = std::chrono::steady_clock::now();
+
+const auto toolLatency =std::chrono::duration_cast<std::chrono::milliseconds>(
+        toolEnd - toolStart
+    ).count();
         } catch (const std::exception& e) {
             toolResult =
                 std::string("Tool execution error: ") + e.what();
@@ -340,7 +403,25 @@ std::string AgentLoop::run(
             std::chrono::duration_cast<std::chrono::milliseconds>(
                 stepEnd - stepStart
             ).count();
+        std::cout << "\n========== AGENT PROFILING ==========\n";
 
+std::cout << "Step: " << step + 1 << '\n';
+
+std::cout << "Tool: " << toolName << '\n';
+
+std::cout << "LLM latency: "
+          << llmLatency << " ms\n";
+
+std::cout << "Tool latency: "
+          << toolLatency << " ms\n";
+
+std::cout << "Total step latency: "
+          << latency << " ms\n";
+
+std::cout << "Tokens: "
+          << tokens << '\n';
+
+std::cout << "=====================================\n";
         // 10. Báo cho hook biết bước này đã hoàn tất.
         if (stepHook) {
             stepHook(
@@ -348,7 +429,7 @@ std::string AgentLoop::run(
                 toolName,
                 toolResult,
                 latency,
-                0
+                tokens
             );
         }
 
@@ -363,8 +444,8 @@ std::string AgentLoop::run(
             "Tool result for " + toolName + ": " + toolResult +
             "\nContinue the task. Respond with one JSON object."
         });
+   
     }
-
     // 12. Agent đã đạt giới hạn số bước.
     const std::string error =
         "Agent stopped: maximum number of steps reached.";
@@ -380,4 +461,5 @@ std::string AgentLoop::run(
     }
 
     return error;
+     
 }
