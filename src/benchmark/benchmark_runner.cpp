@@ -11,6 +11,32 @@ using json = nlohmann::json;
 namespace {
 
 // Đọc tổng token từ trajectory JSON của một task.
+// int extractTokens(const HarnessResult& result) {
+//     try {
+//         if (result.trajectoryJson.empty()) {
+//             return 0;
+//         }
+
+//         const json trajectory =
+//             json::parse(result.trajectoryJson);
+
+//         int total = 0;
+
+//         if (!trajectory.contains("steps") ||
+//             !trajectory["steps"].is_array()) {
+//             return 0;
+//         }
+
+//         for (const auto& step : trajectory["steps"]) {
+//             total += step.value("tokens", 0);
+//         }
+
+//         return total;
+//     }
+//     catch (const json::exception&) {
+//         return 0;
+//     }
+// }
 int extractTokens(const HarnessResult& result) {
     try {
         if (result.trajectoryJson.empty()) {
@@ -20,15 +46,29 @@ int extractTokens(const HarnessResult& result) {
         const json trajectory =
             json::parse(result.trajectoryJson);
 
-        int total = 0;
+        // Ưu tiên đọc tổng token ở cấp trajectory.
+        if (trajectory.contains("total_tokens") &&
+            trajectory["total_tokens"].is_number()) {
+            return trajectory["total_tokens"].get<int>();
+        }
 
+        // Fallback cho các JSON cũ chưa có total_tokens.
         if (!trajectory.contains("steps") ||
             !trajectory["steps"].is_array()) {
             return 0;
         }
 
+        int total = 0;
+
         for (const auto& step : trajectory["steps"]) {
-            total += step.value("tokens", 0);
+            if (step.contains("tokens_used") &&
+                step["tokens_used"].is_number()) {
+                total += step["tokens_used"].get<int>();
+            }
+            else {
+                // Hỗ trợ JSON cũ dùng field "tokens".
+                total += step.value("tokens", 0);
+            }
         }
 
         return total;
@@ -37,7 +77,6 @@ int extractTokens(const HarnessResult& result) {
         return 0;
     }
 }
-
 } // namespace
 
 BenchmarkRunner::BenchmarkRunner(HarnessRunner& harness)
@@ -99,7 +138,12 @@ BenchmarkSummary BenchmarkRunner::run(
     harnessTasks.reserve(tasks.size());
 
     for (const auto& task : tasks) {
-        harnessTasks.push_back(task.task);
+        HarnessTask harnessTask = task.task;
+
+// Truyền danh sách tool bắt buộc sang HarnessRunner
+harnessTask.requiredTools = task.requiredTools;
+
+harnessTasks.push_back(std::move(harnessTask));
     }
 
     // Harness thực thi toàn bộ task.

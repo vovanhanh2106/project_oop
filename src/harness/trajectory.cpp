@@ -19,8 +19,21 @@ void TrajectoryRecorder::startRun(
 ) {
     this->task = task;
     steps.clear();
+      totalTimeMs = 0;
+}
+void TrajectoryRecorder::setTotalTimeMs(long long time) {
+    if (time < 0) {
+        throw std::invalid_argument(
+            "total_time_ms cannot be negative."
+        );
+    }
+
+    totalTimeMs = time;
 }
 
+long long TrajectoryRecorder::getTotalTimeMs() const {
+    return totalTimeMs;
+}
 void TrajectoryRecorder::recordStep(
     const std::string& thought,
     const std::string& action,
@@ -70,6 +83,7 @@ std::string TrajectoryRecorder::toJson() const {
         {"task", task},
         {"step_count", steps.size()},
         {"total_tokens", getTotalTokens()},
+        {"total_time_ms", getTotalTimeMs()},
         {"steps", json::array()}
     };
 
@@ -80,7 +94,7 @@ std::string TrajectoryRecorder::toJson() const {
             {"action", step.action},
             {"result", step.result},
             {"latency_ms", step.latency_ms},
-            {"tokens", step.tokens}
+            {"tokens_used", step.tokens}
         });
     }
 
@@ -111,6 +125,7 @@ bool TrajectoryRecorder::saveToJson(
 void TrajectoryRecorder::clear() {
     task.clear();
     steps.clear();
+     totalTimeMs = 0;
 }
 int TrajectoryRecorder::getTotalTokens() const {
     int total = 0;

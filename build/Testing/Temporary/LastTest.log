@@ -1,0 +1,487 @@
+Start testing: Nov 17 16:16 SE Asia Standard Time
+----------------------------------------------------------
+1/7 Testing: TrajectoryTest
+1/7 Test: TrajectoryTest
+Command: "C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/TrajectoryTest.exe"
+Directory: C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build
+"TrajectoryTest" start time: Nov 17 16:16 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+{
+    "step_count": 2,
+    "steps": [
+        {
+            "action": "calculator",
+            "latency_ms": 120,
+            "result": "221",
+            "step": 1,
+            "thought": "{\"type\":\"tool_call\",\"name\":\"calculator\"}",
+            "tokens_used": 0
+        },
+        {
+            "action": "final",
+            "latency_ms": 80,
+            "result": "221",
+            "step": 2,
+            "thought": "{\"type\":\"final\",\"content\":\"221\"}",
+            "tokens_used": 0
+        }
+    ],
+    "task": "Tính 17 nhân 13",
+    "total_time_ms": 0,
+    "total_tokens": 0
+}
+Trajectory saved successfully.
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"TrajectoryTest" end time: Nov 17 16:16 SE Asia Standard Time
+"TrajectoryTest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/7 Testing: HarnessTest
+2/7 Test: HarnessTest
+Command: "C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/HarnessTest.exe"
+Directory: C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build
+"HarnessTest" start time: Nov 17 16:16 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+
+Task: Multiplication
+Expected: 221
+Actual: Execution error: Ollama request failed: Could not connect to server
+Passed: NO
+Score: 0
+Latency: 28 ms
+
+Task: Calculator keyword
+Expected: 221
+Actual: Execution error: Ollama request failed: Could not connect to server
+Passed: NO
+Score: 0
+Latency: 16 ms
+
+Task: Calculator functional
+Expected: 221
+Actual: Execution error: Ollama request failed: Could not connect to server
+Passed: NO
+Score: 0
+Latency: 0 ms
+
+Task: Calculator functional with extra text
+Expected: 226
+Actual: Execution error: Ollama request failed: Could not connect to server
+Passed: NO
+Score: 0
+Latency: 0 ms
+
+Task: Calculator functional with complex expression
+Expected: 223.5
+Actual: Execution error: Ollama request failed: Could not connect to server
+Passed: NO
+Score: 0
+Latency: 0 ms
+
+Task: Calculator functional with parentheses
+Expected: 153
+Actual: Execution error: Ollama request failed: Could not connect to server
+Passed: NO
+Score: 0
+Latency: 0 ms
+
+Task: Calculator functional with negative numbers
+Expected: 216
+Actual: Execution error: Ollama request failed: Could not connect to server
+Passed: NO
+Score: 0
+Latency: 0 ms
+
+Task: Calculator functional with decimals
+Expected: 234.6
+Actual: Execution error: Ollama request failed: Could not connect to server
+Passed: NO
+Score: 0
+Latency: 0 ms
+
+Task: Calculator functional with large numbers
+Expected: 1219326311126352690
+Actual: Execution error: Ollama request failed: Could not connect to server
+Passed: NO
+Score: 0
+Latency: 0 ms
+
+Task: Calculator functional with division by zero
+Expected: 
+Actual: Execution error: Ollama request failed: Could not connect to server
+Passed: NO
+Score: 0
+Latency: 0 ms
+
+Success rate: 0%
+Results saved to harness_results.json
+<end of output>
+Test time =   0.11 sec
+----------------------------------------------------------
+Test Passed.
+"HarnessTest" end time: Nov 17 16:16 SE Asia Standard Time
+"HarnessTest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/7 Testing: ToolRegistryTest
+3/7 Test: ToolRegistryTest
+Command: "C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/ToolRegistryTest.exe"
+Directory: C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build
+"ToolRegistryTest" start time: Nov 17 16:16 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+
+=== Test 1: Register and Get Tool ===
+[PASS] Tool được đăng ký thành công
+[PASS] getTool trả về con trỏ hợp lệ
+[PASS] getTool trả về nullptr khi không tồn tại
+[PASS] hasTool trả về false khi không tồn tại
+
+=== Test 2: Register nullptr ===
+[PASS] Không đăng ký tool khi truyền nullptr
+[PASS] Registry vẫn rỗng sau khi đăng ký nullptr
+
+=== Test 3: Get All Tools ===
+[PASS] getAllTools trả về đủ 3 tool
+[PASS] Số lượng tool không thay đổi khi gọi getAllTools
+
+=== Test 4: Default Permission ===
+[PASS] Tool được phép khi chưa cấu hình allowlist hoặc denylist
+[PASS] Tool không tồn tại luôn bị từ chối
+
+=== Test 5: Deny Tool ===
+[PASS] Tool bị deny không được phép
+[PASS] Deny không xóa tool khỏi registry
+
+=== Test 6: Allowlist ===
+[PASS] Tool nằm trong allowlist được phép
+[PASS] Tool không nằm trong allowlist bị từ chối
+[PASS] Các tool khác cũng bị từ chối
+
+=== Test 7: Allow After Deny ===
+[PASS] Tool bị từ chối sau khi deny
+[PASS] Allow xóa trạng thái deny trước đó
+
+=== Test 8: Deny After Allow ===
+[PASS] Tool được phép sau khi allow
+[PASS] Deny có quyền ưu tiên hơn allow
+
+=== Test 9: Duplicate Registration ===
+[PASS] Đăng ký trùng tên không tạo thêm tool
+[PASS] Tool vẫn tồn tại sau khi đăng ký trùng tên
+
+================================
+Passed: 21/21
+Failed: 0
+================================
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"ToolRegistryTest" end time: Nov 17 16:16 SE Asia Standard Time
+"ToolRegistryTest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/7 Testing: LoopDetectorTest
+4/7 Test: LoopDetectorTest
+Command: "C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/LoopDetectorTest.exe"
+Directory: C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build
+"LoopDetectorTest" start time: Nov 17 16:16 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+[PASS] Initial status is Normal
+[PASS] Initial history is empty
+[PASS] Different actions remain Normal
+[PASS] History contains two actions
+[PASS] Two repeated actions remain Normal
+[LoopDetector] WARNING: repeated actions detected.
+[PASS] Three repeated actions trigger Warning
+[LoopDetector] WARNING: repeated actions detected.
+[LoopDetector] WARNING: repeated actions detected.
+[LoopDetector] CRITICAL: loop detected. Stop the agent.
+[PASS] Five repeated actions trigger Critical
+[LoopDetector] WARNING: repeated actions detected.
+[PASS] A-B-A triggers Warning
+[LoopDetector] WARNING: repeated actions detected.
+[LoopDetector] WARNING: repeated actions detected.
+[LoopDetector] CRITICAL: loop detected. Stop the agent.
+[PASS] A-B-A-B-A triggers Critical
+[PASS] Empty action does not change status
+[PASS] Empty action is not recorded
+[LoopDetector] WARNING: repeated actions detected.
+[PASS] Reset clears history
+[PASS] Reset restores Normal status
+[LoopDetector] WARNING: repeated actions detected.
+[PASS] Custom warning threshold works
+[LoopDetector] WARNING: repeated actions detected.
+[LoopDetector] CRITICAL: loop detected. Stop the agent.
+[PASS] Custom critical threshold works
+[PASS] Two ping-pong steps remain Normal
+[LoopDetector] WARNING: repeated actions detected.
+[PASS] Three ping-pong steps trigger Warning
+[PASS] Different actions interrupt repetition
+[PASS] A-B-C-A does not trigger ping-pong
+[PASS] Zero warning threshold is rejected
+[PASS] Critical threshold <= warning is rejected
+
+========== TEST SUMMARY ==========
+Passed: 21
+Failed: 0
+Total : 21
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"LoopDetectorTest" end time: Nov 17 16:16 SE Asia Standard Time
+"LoopDetectorTest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/7 Testing: BenchmarkTest
+5/7 Test: BenchmarkTest
+Command: "C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/BenchmarkTest.exe"
+Directory: C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build
+"BenchmarkTest" start time: Nov 17 16:16 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+====================================
+       AI AGENT BENCHMARK
+====================================
+Total benchmark tasks: 10
+
+Starting benchmark...
+
+
+====================================
+          BENCHMARK REPORT
+====================================
+
+========== OVERALL ==========
+Total tasks:       10
+Passed:            0
+Failed:            10
+Execution errors:  10
+Success rate:      0.00%
+Average latency:   0.50 ms
+Average tokens:    0.00
+
+========== EASY ==========
+Total tasks:       4
+Passed:            0
+Failed:            4
+Execution errors:  4
+Success rate:      0.00%
+Average latency:   1.25 ms
+Average tokens:    0.00
+
+========== MEDIUM ==========
+Total tasks:       4
+Passed:            0
+Failed:            4
+Execution errors:  4
+Success rate:      0.00%
+Average latency:   0.00 ms
+Average tokens:    0.00
+
+========== HARD ==========
+Total tasks:       2
+Passed:            0
+Failed:            2
+Execution errors:  2
+Success rate:      0.00%
+Average latency:   0.00 ms
+Average tokens:    0.00
+
+========== TASK DETAILS ==========
+
+Task: B01 - Multiplication
+Status: FAILED
+Score: 0.00
+Latency: 5 ms
+Execution error: Execution error: Ollama request failed: Could not connect to server
+
+Task: B02 - Parenthesized expression
+Status: FAILED
+Score: 0.00
+Latency: 0 ms
+Execution error: Execution error: Ollama request failed: Could not connect to server
+
+Task: B03 - Read file
+Status: FAILED
+Score: 0.00
+Latency: 0 ms
+Execution error: Execution error: Ollama request failed: Could not connect to server
+
+Task: B04 - Save and retrieve memory
+Status: FAILED
+Score: 0.00
+Latency: 0 ms
+Execution error: Execution error: Ollama request failed: Could not connect to server
+
+Task: B05 - Calculate and remember
+Status: FAILED
+Score: 0.00
+Latency: 0 ms
+Execution error: Execution error: Ollama request failed: Could not connect to server
+
+Task: B06 - Read and calculate
+Status: FAILED
+Score: 0.00
+Latency: 0 ms
+Execution error: Execution error: Ollama request failed: Could not connect to server
+
+Task: B07 - Memory retrieval
+Status: FAILED
+Score: 0.00
+Latency: 0 ms
+Execution error: Execution error: Ollama request failed: Could not connect to server
+
+Task: B08 - Search and remember C++
+Status: FAILED
+Score: 0.00
+Latency: 0 ms
+Execution error: Execution error: Ollama request failed: Could not connect to server
+
+Task: B09 - File calculation and memory
+Status: FAILED
+Score: 0.00
+Latency: 0 ms
+Execution error: Execution error: Ollama request failed: Could not connect to server
+
+Task: B10 - Web search and memory
+Status: FAILED
+Score: 0.00
+Latency: 0 ms
+Execution error: Execution error: Ollama request failed: Could not connect to server
+
+Saved: benchmark_results.json
+
+Benchmark completed.
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"BenchmarkTest" end time: Nov 17 16:16 SE Asia Standard Time
+"BenchmarkTest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/7 Testing: IntegrationTest
+6/7 Test: IntegrationTest
+Command: "C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/IntegrationTest.exe"
+Directory: C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build
+"IntegrationTest" start time: Nov 17 16:16 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+
+===== TEST 1: PING-PONG WARNING =====
+[LoopDetector] WARNING: repeated actions detected.
+A-B-A produces Warning: PASS
+
+===== TEST 2: INTERRUPTED PING-PONG =====
+[LoopDetector] WARNING: repeated actions detected.
+A-B-A-C returns Normal: PASS
+
+===== TEST 3: REPEATED ACTION =====
+[LoopDetector] WARNING: repeated actions detected.
+Three repeated actions produce Warning: PASS
+
+===== TEST 4: EMPTY ACTION =====
+Empty action is not recorded: PASS
+History still contains A: PASS
+
+===== TEST 5: RESET =====
+History is empty after reset: PASS
+Status is Normal after reset: PASS
+
+===== TEST 6: INVALID WARNING =====
+Warning threshold 0 throws exception: PASS
+
+===== TEST 7: INVALID CRITICAL =====
+Critical <= Warning throws exception: PASS
+
+===== TEST 8: CUSTOM THRESHOLD =====
+[LoopDetector] WARNING: repeated actions detected.
+[LoopDetector] WARNING: repeated actions detected.
+[LoopDetector] CRITICAL: loop detected. Stop the agent.
+First action is Normal: PASS
+Second action is Warning: PASS
+Third action remains Warning: PASS
+Fourth action is Critical: PASS
+
+========== FINAL SUMMARY ==========
+Passed: 13/13
+Failed: 0
+===================================
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"IntegrationTest" end time: Nov 17 16:16 SE Asia Standard Time
+"IntegrationTest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/7 Testing: AgentLoopErrorTest
+7/7 Test: AgentLoopErrorTest
+Command: "C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/AgentLoopErrorTest.exe"
+Directory: C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build
+"AgentLoopErrorTest" start time: Nov 17 16:16 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+
+===== TEST 1: DENIED TOOL =====
+[DEBUG] Prompt tokens: 10
+[DEBUG] Completion tokens: 20
+[DEBUG] Total tokens: 30
+Agent reports permission error: PASS
+Denied tool was not executed: PASS
+Denial was recorded by StepHook: PASS
+
+===== TEST 2: TOOL EXCEPTION =====
+[DEBUG] Prompt tokens: 10
+[DEBUG] Completion tokens: 20
+[DEBUG] Total tokens: 30
+
+========== AGENT PROFILING ==========
+Step: 1
+Tool: throwing_tool
+LLM latency: 0 ms
+Total step latency: 0 ms
+Tokens: 30
+=====================================
+[DEBUG] Prompt tokens: 10
+[DEBUG] Completion tokens: 20
+[DEBUG] Total tokens: 30
+
+========== AGENT SUMMARY ==========
+LLM calls: 2
+Tool calls: 1
+===================================
+Agent continues after tool exception: PASS
+LLM was called twice: PASS
+StepHook recorded tool exception: PASS
+
+===== TEST 3: INVALID JSON =====
+[DEBUG] Prompt tokens: 10
+[DEBUG] Completion tokens: 20
+[DEBUG] Total tokens: 30
+Agent reports invalid JSON: PASS
+Invalid JSON event recorded once: PASS
+LLM called only once: PASS
+
+========== FINAL SUMMARY ==========
+Passed: 9/9
+Failed: 0
+===================================
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"AgentLoopErrorTest" end time: Nov 17 16:16 SE Asia Standard Time
+"AgentLoopErrorTest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Nov 17 16:16 SE Asia Standard Time

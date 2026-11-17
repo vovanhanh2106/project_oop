@@ -47,12 +47,13 @@ std::vector<BenchmarkTask> BenchmarkDataset::createTasks() {
 
         {
             {
-                "B04 - Save memory",
-                "Save this information into your memory: "
-                "The benchmark project code is AI-25120054. "
-                "Confirm when it has been saved.",
-                "saved",
-                "keyword"
+                "B04 - Save and retrieve memory",
+        "Save this information into your memory: "
+        "The benchmark project code is AI-25120054. "
+        "Then search your memory for AI-25120054 "
+        "and report the associated project code.",
+        "AI-25120054",
+        "keyword"
             },
             BenchmarkDifficulty::Easy,
             {"memory"}
@@ -64,55 +65,57 @@ std::vector<BenchmarkTask> BenchmarkDataset::createTasks() {
 
         {
             {
-                "B05 - Complex calculation",
-                "Calculate ((125 * 4) + (250 / 2)) - 75. "
-                "Return the numerical result.",
-                "550",
-                "numeric"
-            },
-            BenchmarkDifficulty::Medium,
-            {"calculator"}
+        "B05 - Calculate and remember",
+        "Calculate ((125 * 4) + (250 / 2)) - 75. "
+        "Save the result in memory with label medium_calculation. "
+        "Then retrieve that information and return the numerical result.",
+        "550",
+        "numeric"
+    },
+    BenchmarkDifficulty::Medium,
+    {"calculator", "memory"}
+        },
+
+        {
+             {
+        "B06 - Read and calculate",
+        "Read benchmark_numbers.txt from your workspace. "
+        "The file contains integers separated by whitespace. "
+        "Calculate the sum of all numbers and return the result.",
+        "60",
+        "numeric"
+    },
+    BenchmarkDifficulty::Medium,
+    {"file", "calculator"}
+        },
+
+        {
+             {
+        "B07 - Memory retrieval",
+        "Save the following information in memory: "
+        "The project uses C++20 and CMake. "
+        "Search your memory for C++20. "
+        "Report the build system associated with it.",
+        "CMake",
+        "keyword"
+    },
+    BenchmarkDifficulty::Medium,
+    {"memory"}
         },
 
         {
             {
-                "B06 - Read and calculate",
-                "Read benchmark_numbers.txt from your "
-                "workspace. Calculate the sum of all "
-                "numbers in the file.",
-                "60",
-                "numeric"
-            },
-            BenchmarkDifficulty::Medium,
-            {"file", "calculator"}
-        },
-
-        {
-            {
-                "B07 - Memory retrieval",
-                "Save the following information in memory: "
-                "The project uses C++20 and CMake. "
-                "Then search your memory for C++20 and "
-                "report the associated build system.",
-                "CMake",
-                "keyword"
-            },
-            BenchmarkDifficulty::Medium,
-            {"memory"}
-        },
-
-        {
-            {
-                "B08 - Wikipedia search",
-                "Search Wikipedia for the C++ programming "
-                "language and summarize what it is. "
-                "Include the phrase programming language "
-                "in your answer.",
-                "programming language",
-                "keyword"
-            },
-            BenchmarkDifficulty::Medium,
-            {"web_search"}
+        "B08 - Search and remember C++",
+        "Search Wikipedia for the C++ programming language. "
+        "Summarize its purpose in one or two sentences. "
+        "Save the summary in memory with label cpp_info. "
+        "Retrieve cpp_info and include the phrase "
+        "programming language in your final answer.",
+        "programming language",
+        "keyword"
+    },
+    BenchmarkDifficulty::Medium,
+    {"web_search", "memory"}
         },
 
         // =========================

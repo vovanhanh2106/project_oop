@@ -15,9 +15,9 @@
             "result": "221",
             "step": 2,
             "thought": "{\"type\":\"final\",\"content\":\"221\"}",
-            "tokens": 0
+            "tokens": 9000
         }
     ],
     "task": "Tính 17 nhân 13",
-    "total_tokens": 0
+    "total_tokens": 9000
 }

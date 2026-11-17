@@ -1,0 +1,216 @@
+{
+    "results": [
+        {
+            "actual": "Execution error: Ollama request failed: Could not connect to server",
+            "execution_error": true,
+            "expected": "221",
+            "feedback": "Agent execution failed.",
+            "input": "Tính 17 nhân 13",
+            "latency_ms": 28,
+            "missing_tools": [],
+            "passed": false,
+            "score": 0.0,
+            "task_name": "Multiplication",
+            "tool_usage_passed": true,
+            "trajectory": {
+                "step_count": 0,
+                "steps": [],
+                "task": "Tính 17 nhân 13",
+                "total_time_ms": 28,
+                "total_tokens": 0
+            },
+            "used_tools": []
+        },
+        {
+            "actual": "Execution error: Ollama request failed: Could not connect to server",
+            "execution_error": true,
+            "expected": "221",
+            "feedback": "Agent execution failed.",
+            "input": "Tính 17 nhân 13",
+            "latency_ms": 16,
+            "missing_tools": [],
+            "passed": false,
+            "score": 0.0,
+            "task_name": "Calculator keyword",
+            "tool_usage_passed": true,
+            "trajectory": {
+                "step_count": 0,
+                "steps": [],
+                "task": "Tính 17 nhân 13",
+                "total_time_ms": 16,
+                "total_tokens": 0
+            },
+            "used_tools": []
+        },
+        {
+            "actual": "Execution error: Ollama request failed: Could not connect to server",
+            "execution_error": true,
+            "expected": "221",
+            "feedback": "Agent execution failed.",
+            "input": "Tính 17 nhân 13",
+            "latency_ms": 0,
+            "missing_tools": [],
+            "passed": false,
+            "score": 0.0,
+            "task_name": "Calculator functional",
+            "tool_usage_passed": true,
+            "trajectory": {
+                "step_count": 0,
+                "steps": [],
+                "task": "Tính 17 nhân 13",
+                "total_time_ms": 0,
+                "total_tokens": 0
+            },
+            "used_tools": []
+        },
+        {
+            "actual": "Execution error: Ollama request failed: Could not connect to server",
+            "execution_error": true,
+            "expected": "226",
+            "feedback": "Agent execution failed.",
+            "input": "Tính 17 nhân 13 và cộng thêm 5",
+            "latency_ms": 0,
+            "missing_tools": [],
+            "passed": false,
+            "score": 0.0,
+            "task_name": "Calculator functional with extra text",
+            "tool_usage_passed": true,
+            "trajectory": {
+                "step_count": 0,
+                "steps": [],
+                "task": "Tính 17 nhân 13 và cộng thêm 5",
+                "total_time_ms": 0,
+                "total_tokens": 0
+            },
+            "used_tools": []
+        },
+        {
+            "actual": "Execution error: Ollama request failed: Could not connect to server",
+            "execution_error": true,
+            "expected": "223.5",
+            "feedback": "Agent execution failed.",
+            "input": "Tính (17 nhân 13) cộng (5 chia 2)",
+            "latency_ms": 0,
+            "missing_tools": [],
+            "passed": false,
+            "score": 0.0,
+            "task_name": "Calculator functional with complex expression",
+            "tool_usage_passed": true,
+            "trajectory": {
+                "step_count": 0,
+                "steps": [],
+                "task": "Tính (17 nhân 13) cộng (5 chia 2)",
+                "total_time_ms": 0,
+                "total_tokens": 0
+            },
+            "used_tools": []
+        },
+        {
+            "actual": "Execution error: Ollama request failed: Could not connect to server",
+            "execution_error": true,
+            "expected": "153",
+            "feedback": "Agent execution failed.",
+            "input": "Tính (17 nhân (13 cộng 5)) chia 2",
+            "latency_ms": 0,
+            "missing_tools": [],
+            "passed": false,
+            "score": 0.0,
+            "task_name": "Calculator functional with parentheses",
+            "tool_usage_passed": true,
+            "trajectory": {
+                "step_count": 0,
+                "steps": [],
+                "task": "Tính (17 nhân (13 cộng 5)) chia 2",
+                "total_time_ms": 0,
+                "total_tokens": 0
+            },
+            "used_tools": []
+        },
+        {
+            "actual": "Execution error: Ollama request failed: Could not connect to server",
+            "execution_error": true,
+            "expected": "216",
+            "feedback": "Agent execution failed.",
+            "input": "Tính -17 nhân -13 cộng -5",
+            "latency_ms": 0,
+            "missing_tools": [],
+            "passed": false,
+            "score": 0.0,
+            "task_name": "Calculator functional with negative numbers",
+            "tool_usage_passed": true,
+            "trajectory": {
+                "step_count": 0,
+                "steps": [],
+                "task": "Tính -17 nhân -13 cộng -5",
+                "total_time_ms": 0,
+                "total_tokens": 0
+            },
+            "used_tools": []
+        },
+        {
+            "actual": "Execution error: Ollama request failed: Could not connect to server",
+            "execution_error": true,
+            "expected": "234.6",
+            "feedback": "Agent execution failed.",
+            "input": "Tính 17.5 nhân 13.2 cộng 5.1",
+            "latency_ms": 0,
+            "missing_tools": [],
+            "passed": false,
+            "score": 0.0,
+            "task_name": "Calculator functional with decimals",
+            "tool_usage_passed": true,
+            "trajectory": {
+                "step_count": 0,
+                "steps": [],
+                "task": "Tính 17.5 nhân 13.2 cộng 5.1",
+                "total_time_ms": 0,
+                "total_tokens": 0
+            },
+            "used_tools": []
+        },
+        {
+            "actual": "Execution error: Ollama request failed: Could not connect to server",
+            "execution_error": true,
+            "expected": "1219326311126352690",
+            "feedback": "Agent execution failed.",
+            "input": "Tính 123456789 nhân 987654321 cộng 123456789",
+            "latency_ms": 0,
+            "missing_tools": [],
+            "passed": false,
+            "score": 0.0,
+            "task_name": "Calculator functional with large numbers",
+            "tool_usage_passed": true,
+            "trajectory": {
+                "step_count": 0,
+                "steps": [],
+                "task": "Tính 123456789 nhân 987654321 cộng 123456789",
+                "total_time_ms": 0,
+                "total_tokens": 0
+            },
+            "used_tools": []
+        },
+        {
+            "actual": "Execution error: Ollama request failed: Could not connect to server",
+            "execution_error": true,
+            "expected": "",
+            "feedback": "Agent execution failed.",
+            "input": "Tính 17 chia 0",
+            "latency_ms": 0,
+            "missing_tools": [],
+            "passed": false,
+            "score": 0.0,
+            "task_name": "Calculator functional with division by zero",
+            "tool_usage_passed": true,
+            "trajectory": {
+                "step_count": 0,
+                "steps": [],
+                "task": "Tính 17 chia 0",
+                "total_time_ms": 0,
+                "total_tokens": 0
+            },
+            "used_tools": []
+        }
+    ],
+    "success_rate": 0.0,
+    "total_tasks": 10
+}

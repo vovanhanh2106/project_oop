@@ -14,7 +14,7 @@
 int main() {
     OllamaClient llm(
         "http://localhost:11434",
-        "gemma3",
+        "gemma3:4b",
         0.2,
         512
     );

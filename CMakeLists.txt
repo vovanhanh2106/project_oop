@@ -94,6 +94,13 @@ target_link_libraries(HarnessTest PRIVATE
     AgentCore
 )
 
+add_executable(ToolRegistryTest
+    src/tests/tool_registry_test.cpp
+)
+
+target_link_libraries(ToolRegistryTest PRIVATE
+    AgentCore
+)
 # ==========================================
 # 6. Loop Detector Test
 # ==========================================
@@ -118,18 +125,33 @@ target_link_libraries(BenchmarkTest PRIVATE
     AgentCore
 )
 
+add_executable(IntegrationTest
+    src/tests/agent_loop_integration_test.cpp
+)
+
+target_link_libraries(IntegrationTest PRIVATE
+    AgentCore
+)
+
+
+
+add_executable(AgentLoopErrorTest
+    src/tests/agent_loop_error_test.cpp
+)
+
+target_link_libraries(AgentLoopErrorTest PRIVATE
+     AgentCore
+)
 # ==========================================
-# 8. CTest
+# CTest
 # ==========================================
 
 enable_testing()
 
-add_test(
-    NAME TrajectoryTest
-    COMMAND TrajectoryTest
-)
-
-add_test(
-    NAME LoopDetectorTest
-    COMMAND LoopDetectorTest
-)
+add_test(NAME TrajectoryTest COMMAND TrajectoryTest)
+add_test(NAME HarnessTest COMMAND HarnessTest)
+add_test(NAME ToolRegistryTest COMMAND ToolRegistryTest)
+add_test(NAME LoopDetectorTest COMMAND LoopDetectorTest)
+add_test(NAME BenchmarkTest COMMAND BenchmarkTest)
+add_test(NAME IntegrationTest COMMAND IntegrationTest)
+add_test(NAME AgentLoopErrorTest COMMAND AgentLoopErrorTest)

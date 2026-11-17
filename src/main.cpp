@@ -56,7 +56,7 @@ int main() {
         else if (mode == "local") {
             llm = std::make_unique<OllamaClient>(
                 "http://localhost:11434",
-                "gemma3",
+                "gemma3:4b",
                 0.2,
                 512
             );
@@ -94,7 +94,10 @@ int main() {
 
         // 3. Khởi tạo skills và loop detector
         SkillLoader skillLoader("skills");
-        LoopDetector loopDetector(3, 5);
+skillLoader.loadSkills();
+
+LoopDetector loopDetector(3, 5);
+        
 
         // 4. Khởi tạo AgentLoop
         AgentLoop agent(

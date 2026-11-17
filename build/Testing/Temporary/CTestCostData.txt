@@ -1,0 +1,8 @@
+TrajectoryTest 3 0.0105884
+HarnessTest 3 0.0358316
+ToolRegistryTest 3 0.00726423
+LoopDetectorTest 3 0.0067198
+BenchmarkTest 3 0.0199736
+IntegrationTest 1 0.0222861
+AgentLoopErrorTest 2 0.0127216
+---

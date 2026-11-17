@@ -310,6 +310,41 @@ build HarnessTest.exe: CXX_EXECUTABLE_LINKER__HarnessTest_ CMakeFiles/HarnessTes
   TARGET_SUPPORT_DIR = CMakeFiles\HarnessTest.dir
 
 # =============================================================================
+# Object build statements for EXECUTABLE target ToolRegistryTest
+
+
+#############################################
+# Order-only phony target for ToolRegistryTest
+
+build cmake_object_order_depends_target_ToolRegistryTest: phony || cmake_object_order_depends_target_AgentCore
+
+build CMakeFiles/ToolRegistryTest.dir/src/tests/tool_registry_test.cpp.obj: CXX_COMPILER__ToolRegistryTest_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/tests/tool_registry_test.cpp || cmake_object_order_depends_target_ToolRegistryTest
+  DEP_FILE = CMakeFiles\ToolRegistryTest.dir\src\tests\tool_registry_test.cpp.obj.d
+  FLAGS = -std=gnu++17
+  INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
+  OBJECT_DIR = CMakeFiles\ToolRegistryTest.dir
+  OBJECT_FILE_DIR = CMakeFiles\ToolRegistryTest.dir\src\tests
+  TARGET_SUPPORT_DIR = CMakeFiles\ToolRegistryTest.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target ToolRegistryTest
+
+
+#############################################
+# Link the executable ToolRegistryTest.exe
+
+build ToolRegistryTest.exe: CXX_EXECUTABLE_LINKER__ToolRegistryTest_ CMakeFiles/ToolRegistryTest.dir/src/tests/tool_registry_test.cpp.obj | libAgentCore.a C$:/msys64/ucrt64/lib/libcurl.dll.a C$:/msys64/ucrt64/lib/libsqlite3.dll.a || libAgentCore.a
+  LINK_LIBRARIES = libAgentCore.a  C:/msys64/ucrt64/lib/libcurl.dll.a  C:/msys64/ucrt64/lib/libsqlite3.dll.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\ToolRegistryTest.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = ToolRegistryTest.exe
+  TARGET_IMPLIB = libToolRegistryTest.dll.a
+  TARGET_PDB = ToolRegistryTest.exe.dbg
+  TARGET_SUPPORT_DIR = CMakeFiles\ToolRegistryTest.dir
+
+# =============================================================================
 # Object build statements for EXECUTABLE target LoopDetectorTest
 
 
@@ -379,6 +414,76 @@ build BenchmarkTest.exe: CXX_EXECUTABLE_LINKER__BenchmarkTest_ CMakeFiles/Benchm
   TARGET_PDB = BenchmarkTest.exe.dbg
   TARGET_SUPPORT_DIR = CMakeFiles\BenchmarkTest.dir
 
+# =============================================================================
+# Object build statements for EXECUTABLE target IntegrationTest
+
+
+#############################################
+# Order-only phony target for IntegrationTest
+
+build cmake_object_order_depends_target_IntegrationTest: phony || cmake_object_order_depends_target_AgentCore
+
+build CMakeFiles/IntegrationTest.dir/src/tests/agent_loop_integration_test.cpp.obj: CXX_COMPILER__IntegrationTest_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/tests/agent_loop_integration_test.cpp || cmake_object_order_depends_target_IntegrationTest
+  DEP_FILE = CMakeFiles\IntegrationTest.dir\src\tests\agent_loop_integration_test.cpp.obj.d
+  FLAGS = -std=gnu++17
+  INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
+  OBJECT_DIR = CMakeFiles\IntegrationTest.dir
+  OBJECT_FILE_DIR = CMakeFiles\IntegrationTest.dir\src\tests
+  TARGET_SUPPORT_DIR = CMakeFiles\IntegrationTest.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target IntegrationTest
+
+
+#############################################
+# Link the executable IntegrationTest.exe
+
+build IntegrationTest.exe: CXX_EXECUTABLE_LINKER__IntegrationTest_ CMakeFiles/IntegrationTest.dir/src/tests/agent_loop_integration_test.cpp.obj | libAgentCore.a C$:/msys64/ucrt64/lib/libcurl.dll.a C$:/msys64/ucrt64/lib/libsqlite3.dll.a || libAgentCore.a
+  LINK_LIBRARIES = libAgentCore.a  C:/msys64/ucrt64/lib/libcurl.dll.a  C:/msys64/ucrt64/lib/libsqlite3.dll.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\IntegrationTest.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = IntegrationTest.exe
+  TARGET_IMPLIB = libIntegrationTest.dll.a
+  TARGET_PDB = IntegrationTest.exe.dbg
+  TARGET_SUPPORT_DIR = CMakeFiles\IntegrationTest.dir
+
+# =============================================================================
+# Object build statements for EXECUTABLE target AgentLoopErrorTest
+
+
+#############################################
+# Order-only phony target for AgentLoopErrorTest
+
+build cmake_object_order_depends_target_AgentLoopErrorTest: phony || cmake_object_order_depends_target_AgentCore
+
+build CMakeFiles/AgentLoopErrorTest.dir/src/tests/agent_loop_error_test.cpp.obj: CXX_COMPILER__AgentLoopErrorTest_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/tests/agent_loop_error_test.cpp || cmake_object_order_depends_target_AgentLoopErrorTest
+  DEP_FILE = CMakeFiles\AgentLoopErrorTest.dir\src\tests\agent_loop_error_test.cpp.obj.d
+  FLAGS = -std=gnu++17
+  INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
+  OBJECT_DIR = CMakeFiles\AgentLoopErrorTest.dir
+  OBJECT_FILE_DIR = CMakeFiles\AgentLoopErrorTest.dir\src\tests
+  TARGET_SUPPORT_DIR = CMakeFiles\AgentLoopErrorTest.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target AgentLoopErrorTest
+
+
+#############################################
+# Link the executable AgentLoopErrorTest.exe
+
+build AgentLoopErrorTest.exe: CXX_EXECUTABLE_LINKER__AgentLoopErrorTest_ CMakeFiles/AgentLoopErrorTest.dir/src/tests/agent_loop_error_test.cpp.obj | libAgentCore.a C$:/msys64/ucrt64/lib/libcurl.dll.a C$:/msys64/ucrt64/lib/libsqlite3.dll.a || libAgentCore.a
+  LINK_LIBRARIES = libAgentCore.a  C:/msys64/ucrt64/lib/libcurl.dll.a  C:/msys64/ucrt64/lib/libsqlite3.dll.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\AgentLoopErrorTest.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = AgentLoopErrorTest.exe
+  TARGET_IMPLIB = libAgentLoopErrorTest.dll.a
+  TARGET_PDB = AgentLoopErrorTest.exe.dbg
+  TARGET_SUPPORT_DIR = CMakeFiles\AgentLoopErrorTest.dir
+
 
 #############################################
 # Utility command for test
@@ -421,11 +526,17 @@ build AIAgent: phony AIAgent.exe
 
 build AgentCore: phony libAgentCore.a
 
+build AgentLoopErrorTest: phony AgentLoopErrorTest.exe
+
 build BenchmarkTest: phony BenchmarkTest.exe
 
 build HarnessTest: phony HarnessTest.exe
 
+build IntegrationTest: phony IntegrationTest.exe
+
 build LoopDetectorTest: phony LoopDetectorTest.exe
+
+build ToolRegistryTest: phony ToolRegistryTest.exe
 
 build TrajectoryTest: phony TrajectoryTest.exe
 
@@ -437,7 +548,7 @@ build TrajectoryTest: phony TrajectoryTest.exe
 #############################################
 # Folder: C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build
 
-build all: phony libAgentCore.a AIAgent.exe TrajectoryTest.exe HarnessTest.exe LoopDetectorTest.exe BenchmarkTest.exe
+build all: phony libAgentCore.a AIAgent.exe TrajectoryTest.exe HarnessTest.exe ToolRegistryTest.exe LoopDetectorTest.exe BenchmarkTest.exe IntegrationTest.exe AgentLoopErrorTest.exe
 
 # =============================================================================
 # Built-in targets

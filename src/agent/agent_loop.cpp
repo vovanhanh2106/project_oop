@@ -110,7 +110,7 @@ std::string AgentLoop::run(
 ) {
     int llmCalls = 0;
 int toolCalls = 0;
-int toolLatency = 0;
+// int toolLatency = 0;
     loopDetector.reset();
 
     std::vector<Message> messages;
@@ -143,6 +143,14 @@ const auto llmLatency =
 std::string response = llmResponse.content;
 
 int tokens = llmResponse.totalTokens();
+std::cout << "[DEBUG] Prompt tokens: "
+          << llmResponse.promptTokens << '\n';
+
+std::cout << "[DEBUG] Completion tokens: "
+          << llmResponse.completionTokens << '\n';
+
+std::cout << "[DEBUG] Total tokens: "
+          << tokens << '\n';
         std::string jsonText = extractJson(response);
 
         // 1. LLM trả về nội dung không có JSON hợp lệ.
@@ -412,8 +420,8 @@ std::cout << "Tool: " << toolName << '\n';
 std::cout << "LLM latency: "
           << llmLatency << " ms\n";
 
-std::cout << "Tool latency: "
-          << toolLatency << " ms\n";
+// std::cout << "Tool latency: "
+//           << toolLatency << " ms\n";
 
 std::cout << "Total step latency: "
           << latency << " ms\n";

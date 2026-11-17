@@ -1,0 +1,242 @@
+{
+    "results": [
+        {
+            "actual": "Execution error: Ollama request failed: Could not connect to server",
+            "execution_error": true,
+            "expected": "221",
+            "feedback": "Agent execution failed.",
+            "input": "Calculate 17 multiplied by 13. Return the numerical result.",
+            "latency_ms": 5,
+            "missing_tools": [
+                "calculator"
+            ],
+            "passed": false,
+            "score": 0.0,
+            "task_name": "B01 - Multiplication",
+            "tool_usage_passed": false,
+            "trajectory": {
+                "step_count": 0,
+                "steps": [],
+                "task": "Calculate 17 multiplied by 13. Return the numerical result.",
+                "total_time_ms": 5,
+                "total_tokens": 0
+            },
+            "used_tools": []
+        },
+        {
+            "actual": "Execution error: Ollama request failed: Could not connect to server",
+            "execution_error": true,
+            "expected": "108",
+            "feedback": "Agent execution failed.",
+            "input": "Calculate (25 + 15) * 3 - 12. Return the numerical result.",
+            "latency_ms": 0,
+            "missing_tools": [
+                "calculator"
+            ],
+            "passed": false,
+            "score": 0.0,
+            "task_name": "B02 - Parenthesized expression",
+            "tool_usage_passed": false,
+            "trajectory": {
+                "step_count": 0,
+                "steps": [],
+                "task": "Calculate (25 + 15) * 3 - 12. Return the numerical result.",
+                "total_time_ms": 0,
+                "total_tokens": 0
+            },
+            "used_tools": []
+        },
+        {
+            "actual": "Execution error: Ollama request failed: Could not connect to server",
+            "execution_error": true,
+            "expected": "AGENT-BENCHMARK-2026",
+            "feedback": "Agent execution failed.",
+            "input": "Read the file benchmark_info.txt inside your workspace and tell me the exact code written in it.",
+            "latency_ms": 0,
+            "missing_tools": [
+                "file"
+            ],
+            "passed": false,
+            "score": 0.0,
+            "task_name": "B03 - Read file",
+            "tool_usage_passed": false,
+            "trajectory": {
+                "step_count": 0,
+                "steps": [],
+                "task": "Read the file benchmark_info.txt inside your workspace and tell me the exact code written in it.",
+                "total_time_ms": 0,
+                "total_tokens": 0
+            },
+            "used_tools": []
+        },
+        {
+            "actual": "Execution error: Ollama request failed: Could not connect to server",
+            "execution_error": true,
+            "expected": "AI-25120054",
+            "feedback": "Agent execution failed.",
+            "input": "Save this information into your memory: The benchmark project code is AI-25120054. Then search your memory for AI-25120054 and report the associated project code.",
+            "latency_ms": 0,
+            "missing_tools": [
+                "memory"
+            ],
+            "passed": false,
+            "score": 0.0,
+            "task_name": "B04 - Save and retrieve memory",
+            "tool_usage_passed": false,
+            "trajectory": {
+                "step_count": 0,
+                "steps": [],
+                "task": "Save this information into your memory: The benchmark project code is AI-25120054. Then search your memory for AI-25120054 and report the associated project code.",
+                "total_time_ms": 0,
+                "total_tokens": 0
+            },
+            "used_tools": []
+        },
+        {
+            "actual": "Execution error: Ollama request failed: Could not connect to server",
+            "execution_error": true,
+            "expected": "550",
+            "feedback": "Agent execution failed.",
+            "input": "Calculate ((125 * 4) + (250 / 2)) - 75. Save the result in memory with label medium_calculation. Then retrieve that information and return the numerical result.",
+            "latency_ms": 0,
+            "missing_tools": [
+                "calculator",
+                "memory"
+            ],
+            "passed": false,
+            "score": 0.0,
+            "task_name": "B05 - Calculate and remember",
+            "tool_usage_passed": false,
+            "trajectory": {
+                "step_count": 0,
+                "steps": [],
+                "task": "Calculate ((125 * 4) + (250 / 2)) - 75. Save the result in memory with label medium_calculation. Then retrieve that information and return the numerical result.",
+                "total_time_ms": 0,
+                "total_tokens": 0
+            },
+            "used_tools": []
+        },
+        {
+            "actual": "Execution error: Ollama request failed: Could not connect to server",
+            "execution_error": true,
+            "expected": "60",
+            "feedback": "Agent execution failed.",
+            "input": "Read benchmark_numbers.txt from your workspace. The file contains integers separated by whitespace. Calculate the sum of all numbers and return the result.",
+            "latency_ms": 0,
+            "missing_tools": [
+                "file",
+                "calculator"
+            ],
+            "passed": false,
+            "score": 0.0,
+            "task_name": "B06 - Read and calculate",
+            "tool_usage_passed": false,
+            "trajectory": {
+                "step_count": 0,
+                "steps": [],
+                "task": "Read benchmark_numbers.txt from your workspace. The file contains integers separated by whitespace. Calculate the sum of all numbers and return the result.",
+                "total_time_ms": 0,
+                "total_tokens": 0
+            },
+            "used_tools": []
+        },
+        {
+            "actual": "Execution error: Ollama request failed: Could not connect to server",
+            "execution_error": true,
+            "expected": "CMake",
+            "feedback": "Agent execution failed.",
+            "input": "Save the following information in memory: The project uses C++20 and CMake. Search your memory for C++20. Report the build system associated with it.",
+            "latency_ms": 0,
+            "missing_tools": [
+                "memory"
+            ],
+            "passed": false,
+            "score": 0.0,
+            "task_name": "B07 - Memory retrieval",
+            "tool_usage_passed": false,
+            "trajectory": {
+                "step_count": 0,
+                "steps": [],
+                "task": "Save the following information in memory: The project uses C++20 and CMake. Search your memory for C++20. Report the build system associated with it.",
+                "total_time_ms": 0,
+                "total_tokens": 0
+            },
+            "used_tools": []
+        },
+        {
+            "actual": "Execution error: Ollama request failed: Could not connect to server",
+            "execution_error": true,
+            "expected": "programming language",
+            "feedback": "Agent execution failed.",
+            "input": "Search Wikipedia for the C++ programming language. Summarize its purpose in one or two sentences. Save the summary in memory with label cpp_info. Retrieve cpp_info and include the phrase programming language in your final answer.",
+            "latency_ms": 0,
+            "missing_tools": [
+                "web_search",
+                "memory"
+            ],
+            "passed": false,
+            "score": 0.0,
+            "task_name": "B08 - Search and remember C++",
+            "tool_usage_passed": false,
+            "trajectory": {
+                "step_count": 0,
+                "steps": [],
+                "task": "Search Wikipedia for the C++ programming language. Summarize its purpose in one or two sentences. Save the summary in memory with label cpp_info. Retrieve cpp_info and include the phrase programming language in your final answer.",
+                "total_time_ms": 0,
+                "total_tokens": 0
+            },
+            "used_tools": []
+        },
+        {
+            "actual": "Execution error: Ollama request failed: Could not connect to server",
+            "execution_error": true,
+            "expected": "60",
+            "feedback": "Agent execution failed.",
+            "input": "Read benchmark_numbers.txt from your workspace. Calculate the sum of all numbers. Save the result in memory with label benchmark_sum. Finally, confirm the saved result.",
+            "latency_ms": 0,
+            "missing_tools": [
+                "file",
+                "calculator",
+                "memory"
+            ],
+            "passed": false,
+            "score": 0.0,
+            "task_name": "B09 - File calculation and memory",
+            "tool_usage_passed": false,
+            "trajectory": {
+                "step_count": 0,
+                "steps": [],
+                "task": "Read benchmark_numbers.txt from your workspace. Calculate the sum of all numbers. Save the result in memory with label benchmark_sum. Finally, confirm the saved result.",
+                "total_time_ms": 0,
+                "total_tokens": 0
+            },
+            "used_tools": []
+        },
+        {
+            "actual": "Execution error: Ollama request failed: Could not connect to server",
+            "execution_error": true,
+            "expected": "SQLite",
+            "feedback": "Agent execution failed.",
+            "input": "Search Wikipedia for SQLite. Find out what SQLite is, save a short description in memory with label sqlite_info, then search your memory for sqlite_info and summarize the saved information.",
+            "latency_ms": 0,
+            "missing_tools": [
+                "web_search",
+                "memory"
+            ],
+            "passed": false,
+            "score": 0.0,
+            "task_name": "B10 - Web search and memory",
+            "tool_usage_passed": false,
+            "trajectory": {
+                "step_count": 0,
+                "steps": [],
+                "task": "Search Wikipedia for SQLite. Find out what SQLite is, save a short description in memory with label sqlite_info, then search your memory for sqlite_info and summarize the saved information.",
+                "total_time_ms": 0,
+                "total_tokens": 0
+            },
+            "used_tools": []
+        }
+    ],
+    "success_rate": 0.0,
+    "total_tasks": 10
+}

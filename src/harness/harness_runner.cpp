@@ -13,7 +13,77 @@
 
 using json = nlohmann::json;
 
+static bool isToolExecutionFailed(const std::string& result) {
+    const std::vector<std::string> errorPrefixes = {
+        "Tool execution error:",
+        "Tool is not allowed:",
+        "Tool not found:"
+    };
 
+    for (const auto& prefix : errorPrefixes) {
+        if (result.rfind(prefix, 0) == 0) {
+            return true;
+        }
+    }
+
+    return false;
+}
+static void evaluateToolUsage(
+    const HarnessTask& task,
+    const TrajectoryRecorder& recorder,
+    HarnessResult& result
+) {
+    // Lấy các bước thực thi của Agent
+    const auto& steps = recorder.getSteps();
+
+    // Tìm những tool đã được sử dụng thành công
+    for (const auto& step : steps) {
+        // Bỏ qua action không phải tool
+        if (step.action == "FINAL" ||
+            step.action == "INVALID_RESPONSE" ||
+            step.action == "INVALID_JSON" ||
+            step.action == "INVALID_ACTION" ||
+            step.action == "INVALID_TOOL_CALL" ||
+            step.action == "LOOP_DETECTED" ||
+            step.action == "MAX_STEPS") {
+            continue;
+        }
+
+        if (isToolExecutionFailed(step.result)) {
+            continue;
+        }
+
+        // Không thêm tool trùng lặp
+        bool alreadyUsed = false;
+
+        for (const auto& tool : result.usedTools) {
+            if (tool == step.action) {
+                alreadyUsed = true;
+                break;
+            }
+        }
+
+        if (!alreadyUsed) {
+            result.usedTools.push_back(step.action);
+        }
+    }
+
+    // Kiểm tra các tool bắt buộc
+    for (const auto& required : task.requiredTools) {
+        bool found = false;
+
+        for (const auto& used : result.usedTools) {
+            if (required == used) {
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            result.missingTools.push_back(required);
+        }
+    }
+}
 HarnessRunner::HarnessRunner(AgentLoop& agent)
     : agent(agent),
       keywordEvaluator(std::make_unique<KeywordEvaluator>()),
@@ -65,7 +135,7 @@ HarnessResult HarnessRunner::runTask(
     }
 
     // 3. Lưu trajectory kể cả khi Agent gặp exception
-    result.trajectoryJson = trajectoryRecorder.toJson();
+    // result.trajectoryJson = trajectoryRecorder.toJson();
 
     const auto end = std::chrono::steady_clock::now();
 
@@ -73,7 +143,16 @@ HarnessResult HarnessRunner::runTask(
         std::chrono::duration_cast<std::chrono::milliseconds>(
             end - start
         ).count();
+        trajectoryRecorder.setTotalTimeMs(result.latency_ms);
 
+// 5. Xuất trajectory sau khi đã cập nhật thời gian.
+result.trajectoryJson = trajectoryRecorder.toJson();
+// Đánh giá việc sử dụng tool
+evaluateToolUsage(
+    task,
+    trajectoryRecorder,
+    result
+);
     // 4. Đánh giá kết quả
     if (result.executionError) {
         result.evaluation = {
@@ -98,6 +177,26 @@ if (task.evaluatorType == "keyword") {
     );
 }
 
+
+// Kết hợp kết quả Answer Evaluation và Tool Usage Evaluation
+if (!result.missingTools.empty()) {
+    result.evaluation.passed = false;
+
+    result.evaluation.feedback +=
+        " Missing required tools: ";
+
+    for (std::size_t i = 0;
+         i < result.missingTools.size();
+         ++i) {
+
+        if (i > 0) {
+            result.evaluation.feedback += ", ";
+        }
+
+        result.evaluation.feedback +=
+            result.missingTools[i];
+    }
+}
 
         result.evaluation = evaluator->evaluate(
             task.expected,
@@ -148,6 +247,7 @@ double HarnessRunner::getSuccessRate() const {
            static_cast<double>(results.size());
 }
 
+
 bool HarnessRunner::saveResultsToJson(
     const std::string& filePath
 ) const {
@@ -157,7 +257,6 @@ bool HarnessRunner::saveResultsToJson(
         {"results", json::array()}
     };
 
-    
     for (const auto& result : results) {
         // Chuyển chuỗi JSON trajectory thành JSON object
         json trajectory = json::parse(
@@ -171,20 +270,31 @@ bool HarnessRunner::saveResultsToJson(
             trajectory = json::object();
         }
 
+        // Chuyển danh sách tool thành JSON array
+        json usedTools = result.usedTools;
+        json missingTools = result.missingTools;
+
         output["results"].push_back({
             {"task_name", result.taskName},
             {"input", result.input},
             {"expected", result.expected},
             {"actual", result.actual},
+
             {"passed", result.evaluation.passed},
             {"score", result.evaluation.score},
             {"feedback", result.evaluation.feedback},
+
             {"execution_error", result.executionError},
             {"latency_ms", result.latency_ms},
+
+            // Tool Usage Evaluation
+            {"used_tools", usedTools},
+            {"missing_tools", missingTools},
+            {"tool_usage_passed", missingTools.empty()},
+
             {"trajectory", trajectory}
         });
     }
-
 
     std::ofstream file(filePath, std::ios::binary);
 

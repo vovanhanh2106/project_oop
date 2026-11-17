@@ -2,8 +2,8 @@
 #include "../agent/loop_detector.h"
 
 #include <iostream>
+#include <stdexcept>
 #include <string>
-#include <vector>
 
 int passed = 0;
 int failed = 0;
@@ -22,7 +22,8 @@ void check(
 }
 
 int main() {
-    // TEST 1: Lịch sử ban đầu phải rỗng
+
+    // TEST 1: Initial state
     {
         LoopDetector detector;
 
@@ -37,7 +38,7 @@ int main() {
         );
     }
 
-    // TEST 2: Hai hành động khác nhau không tạo cảnh báo
+    // TEST 2: Different actions
     {
         LoopDetector detector;
 
@@ -56,13 +57,12 @@ int main() {
         );
     }
 
-    // TEST 3: Hai hành động giống nhau chưa đạt ngưỡng cảnh báo
+    // TEST 3: Repeated action below threshold
     {
         LoopDetector detector;
 
-        detector.recordAction("calculator:1+2");
-        LoopStatus status =
-            detector.recordAction("calculator:1+2");
+        detector.recordAction("A");
+        LoopStatus status = detector.recordAction("A");
 
         check(
             "Two repeated actions remain Normal",
@@ -70,14 +70,14 @@ int main() {
         );
     }
 
-    // TEST 4: Lặp liên tiếp 3 lần phải Warning
+    // TEST 4: Repeated action reaches Warning
     {
         LoopDetector detector;
 
-        detector.recordAction("calculator:1+2");
-        detector.recordAction("calculator:1+2");
-        LoopStatus status =
-            detector.recordAction("calculator:1+2");
+        detector.recordAction("A");
+        detector.recordAction("A");
+
+        LoopStatus status = detector.recordAction("A");
 
         check(
             "Three repeated actions trigger Warning",
@@ -85,14 +85,14 @@ int main() {
         );
     }
 
-    // TEST 5: Lặp liên tiếp 5 lần phải Critical
+    // TEST 5: Repeated action reaches Critical
     {
         LoopDetector detector;
 
         LoopStatus status = LoopStatus::Normal;
 
         for (int i = 0; i < 5; ++i) {
-            status = detector.recordAction("calculator:1+2");
+            status = detector.recordAction("A");
         }
 
         check(
@@ -101,12 +101,13 @@ int main() {
         );
     }
 
-    // TEST 6: Chuỗi A -> B -> A phải Warning
+    // TEST 6: Ping-pong Warning
     {
         LoopDetector detector;
 
         detector.recordAction("A");
         detector.recordAction("B");
+
         LoopStatus status = detector.recordAction("A");
 
         check(
@@ -115,7 +116,7 @@ int main() {
         );
     }
 
-    // TEST 7: Chuỗi A -> B -> A -> B -> A phải Critical
+    // TEST 7: Ping-pong Critical
     {
         LoopDetector detector;
 
@@ -123,6 +124,7 @@ int main() {
         detector.recordAction("B");
         detector.recordAction("A");
         detector.recordAction("B");
+
         LoopStatus status = detector.recordAction("A");
 
         check(
@@ -131,12 +133,13 @@ int main() {
         );
     }
 
-    // TEST 8: Hành động rỗng không được thêm vào lịch sử
+    // TEST 8: Empty action
     {
         LoopDetector detector;
 
         detector.recordAction("A");
-        const std::size_t sizeBefore =
+
+        std::size_t before =
             detector.getHistory().size();
 
         LoopStatus status = detector.recordAction("");
@@ -147,12 +150,12 @@ int main() {
         );
 
         check(
-            "Empty action is not added to history",
-            detector.getHistory().size() == sizeBefore
+            "Empty action is not recorded",
+            detector.getHistory().size() == before
         );
     }
 
-    // TEST 9: Reset phải xóa lịch sử và đưa trạng thái về Normal
+    // TEST 9: Reset
     {
         LoopDetector detector;
 
@@ -173,11 +176,12 @@ int main() {
         );
     }
 
-    // TEST 10: Kiểm tra ngưỡng tùy chỉnh
+    // TEST 10: Custom thresholds
     {
         LoopDetector detector(2, 4);
 
         detector.recordAction("A");
+
         LoopStatus status = detector.recordAction("A");
 
         check(
@@ -194,7 +198,88 @@ int main() {
         );
     }
 
-    // Tổng kết
+    // TEST 11: Custom threshold with ping-pong
+    {
+        LoopDetector detector(2, 4);
+
+        detector.recordAction("A");
+        LoopStatus status = detector.recordAction("B");
+
+        check(
+            "Two ping-pong steps remain Normal",
+            status == LoopStatus::Normal
+        );
+
+        status = detector.recordAction("A");
+
+        check(
+            "Three ping-pong steps trigger Warning",
+            status == LoopStatus::Warning
+        );
+    }
+
+    // TEST 12: Different actions interrupt repetition
+{
+    LoopDetector detector;
+
+    detector.recordAction("A");
+    detector.recordAction("A");
+    detector.recordAction("B");
+
+    LoopStatus status = detector.recordAction("C");
+
+    check(
+        "Different actions interrupt repetition",
+        status == LoopStatus::Normal
+    );
+}
+
+    // TEST 13: Non-alternating sequence
+    {
+        LoopDetector detector;
+
+        detector.recordAction("A");
+        detector.recordAction("B");
+        detector.recordAction("C");
+        detector.recordAction("A");
+
+        check(
+            "A-B-C-A does not trigger ping-pong",
+            detector.getStatus() == LoopStatus::Normal
+        );
+    }
+
+    // TEST 14: Invalid constructor thresholds
+    {
+        bool caughtZeroWarning = false;
+        bool caughtInvalidCritical = false;
+
+        try {
+            LoopDetector detector(0, 5);
+        }
+        catch (const std::invalid_argument&) {
+            caughtZeroWarning = true;
+        }
+
+        try {
+            LoopDetector detector(3, 3);
+        }
+        catch (const std::invalid_argument&) {
+            caughtInvalidCritical = true;
+        }
+
+        check(
+            "Zero warning threshold is rejected",
+            caughtZeroWarning
+        );
+
+        check(
+            "Critical threshold <= warning is rejected",
+            caughtInvalidCritical
+        );
+    }
+
+    // Summary
     std::cout << "\n========== TEST SUMMARY ==========\n";
     std::cout << "Passed: " << passed << '\n';
     std::cout << "Failed: " << failed << '\n';
