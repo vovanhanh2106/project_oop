@@ -1,6 +1,6 @@
 
 #include "../agent/loop_detector.h"
-
+#include <windows.h>
 #include <iostream>
 #include <stdexcept>
 #include <string>
@@ -22,6 +22,8 @@ void check(const string& testName, bool condition) {
 
 
 int main() {
+     SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
     // =========================================
     // TEST 1: PING-PONG CHƯA ĐỦ CRITICAL
     // A -> B -> A

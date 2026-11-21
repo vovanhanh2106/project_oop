@@ -46,7 +46,7 @@ build cmake_object_order_depends_target_AgentCore: phony || .
 
 build CMakeFiles/AgentCore.dir/src/client/ollama_client.cpp.obj: CXX_COMPILER__AgentCore_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/client/ollama_client.cpp || cmake_object_order_depends_target_AgentCore
   DEP_FILE = CMakeFiles\AgentCore.dir\src\client\ollama_client.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
   INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
   OBJECT_DIR = CMakeFiles\AgentCore.dir
   OBJECT_FILE_DIR = CMakeFiles\AgentCore.dir\src\client
@@ -54,7 +54,7 @@ build CMakeFiles/AgentCore.dir/src/client/ollama_client.cpp.obj: CXX_COMPILER__A
 
 build CMakeFiles/AgentCore.dir/src/client/remote_llm_client.cpp.obj: CXX_COMPILER__AgentCore_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/client/remote_llm_client.cpp || cmake_object_order_depends_target_AgentCore
   DEP_FILE = CMakeFiles\AgentCore.dir\src\client\remote_llm_client.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
   INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
   OBJECT_DIR = CMakeFiles\AgentCore.dir
   OBJECT_FILE_DIR = CMakeFiles\AgentCore.dir\src\client
@@ -62,7 +62,7 @@ build CMakeFiles/AgentCore.dir/src/client/remote_llm_client.cpp.obj: CXX_COMPILE
 
 build CMakeFiles/AgentCore.dir/src/tools/tool_registry.cpp.obj: CXX_COMPILER__AgentCore_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/tools/tool_registry.cpp || cmake_object_order_depends_target_AgentCore
   DEP_FILE = CMakeFiles\AgentCore.dir\src\tools\tool_registry.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
   INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
   OBJECT_DIR = CMakeFiles\AgentCore.dir
   OBJECT_FILE_DIR = CMakeFiles\AgentCore.dir\src\tools
@@ -70,7 +70,7 @@ build CMakeFiles/AgentCore.dir/src/tools/tool_registry.cpp.obj: CXX_COMPILER__Ag
 
 build CMakeFiles/AgentCore.dir/src/tools/calculator_tool.cpp.obj: CXX_COMPILER__AgentCore_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/tools/calculator_tool.cpp || cmake_object_order_depends_target_AgentCore
   DEP_FILE = CMakeFiles\AgentCore.dir\src\tools\calculator_tool.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
   INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
   OBJECT_DIR = CMakeFiles\AgentCore.dir
   OBJECT_FILE_DIR = CMakeFiles\AgentCore.dir\src\tools
@@ -78,7 +78,7 @@ build CMakeFiles/AgentCore.dir/src/tools/calculator_tool.cpp.obj: CXX_COMPILER__
 
 build CMakeFiles/AgentCore.dir/src/tools/file_tool.cpp.obj: CXX_COMPILER__AgentCore_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/tools/file_tool.cpp || cmake_object_order_depends_target_AgentCore
   DEP_FILE = CMakeFiles\AgentCore.dir\src\tools\file_tool.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
   INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
   OBJECT_DIR = CMakeFiles\AgentCore.dir
   OBJECT_FILE_DIR = CMakeFiles\AgentCore.dir\src\tools
@@ -86,7 +86,7 @@ build CMakeFiles/AgentCore.dir/src/tools/file_tool.cpp.obj: CXX_COMPILER__AgentC
 
 build CMakeFiles/AgentCore.dir/src/tools/exec_tool.cpp.obj: CXX_COMPILER__AgentCore_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/tools/exec_tool.cpp || cmake_object_order_depends_target_AgentCore
   DEP_FILE = CMakeFiles\AgentCore.dir\src\tools\exec_tool.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
   INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
   OBJECT_DIR = CMakeFiles\AgentCore.dir
   OBJECT_FILE_DIR = CMakeFiles\AgentCore.dir\src\tools
@@ -94,7 +94,7 @@ build CMakeFiles/AgentCore.dir/src/tools/exec_tool.cpp.obj: CXX_COMPILER__AgentC
 
 build CMakeFiles/AgentCore.dir/src/tools/web_search_tool.cpp.obj: CXX_COMPILER__AgentCore_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/tools/web_search_tool.cpp || cmake_object_order_depends_target_AgentCore
   DEP_FILE = CMakeFiles\AgentCore.dir\src\tools\web_search_tool.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
   INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
   OBJECT_DIR = CMakeFiles\AgentCore.dir
   OBJECT_FILE_DIR = CMakeFiles\AgentCore.dir\src\tools
@@ -102,7 +102,7 @@ build CMakeFiles/AgentCore.dir/src/tools/web_search_tool.cpp.obj: CXX_COMPILER__
 
 build CMakeFiles/AgentCore.dir/src/tools/memory_tool.cpp.obj: CXX_COMPILER__AgentCore_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/tools/memory_tool.cpp || cmake_object_order_depends_target_AgentCore
   DEP_FILE = CMakeFiles\AgentCore.dir\src\tools\memory_tool.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
   INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
   OBJECT_DIR = CMakeFiles\AgentCore.dir
   OBJECT_FILE_DIR = CMakeFiles\AgentCore.dir\src\tools
@@ -110,7 +110,7 @@ build CMakeFiles/AgentCore.dir/src/tools/memory_tool.cpp.obj: CXX_COMPILER__Agen
 
 build CMakeFiles/AgentCore.dir/src/agent/skill_loader.cpp.obj: CXX_COMPILER__AgentCore_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/agent/skill_loader.cpp || cmake_object_order_depends_target_AgentCore
   DEP_FILE = CMakeFiles\AgentCore.dir\src\agent\skill_loader.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
   INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
   OBJECT_DIR = CMakeFiles\AgentCore.dir
   OBJECT_FILE_DIR = CMakeFiles\AgentCore.dir\src\agent
@@ -118,7 +118,7 @@ build CMakeFiles/AgentCore.dir/src/agent/skill_loader.cpp.obj: CXX_COMPILER__Age
 
 build CMakeFiles/AgentCore.dir/src/agent/loop_detector.cpp.obj: CXX_COMPILER__AgentCore_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/agent/loop_detector.cpp || cmake_object_order_depends_target_AgentCore
   DEP_FILE = CMakeFiles\AgentCore.dir\src\agent\loop_detector.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
   INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
   OBJECT_DIR = CMakeFiles\AgentCore.dir
   OBJECT_FILE_DIR = CMakeFiles\AgentCore.dir\src\agent
@@ -126,7 +126,7 @@ build CMakeFiles/AgentCore.dir/src/agent/loop_detector.cpp.obj: CXX_COMPILER__Ag
 
 build CMakeFiles/AgentCore.dir/src/agent/agent_loop.cpp.obj: CXX_COMPILER__AgentCore_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/agent/agent_loop.cpp || cmake_object_order_depends_target_AgentCore
   DEP_FILE = CMakeFiles\AgentCore.dir\src\agent\agent_loop.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
   INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
   OBJECT_DIR = CMakeFiles\AgentCore.dir
   OBJECT_FILE_DIR = CMakeFiles\AgentCore.dir\src\agent
@@ -134,7 +134,7 @@ build CMakeFiles/AgentCore.dir/src/agent/agent_loop.cpp.obj: CXX_COMPILER__Agent
 
 build CMakeFiles/AgentCore.dir/src/harness/keyword_evaluator.cpp.obj: CXX_COMPILER__AgentCore_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/harness/keyword_evaluator.cpp || cmake_object_order_depends_target_AgentCore
   DEP_FILE = CMakeFiles\AgentCore.dir\src\harness\keyword_evaluator.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
   INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
   OBJECT_DIR = CMakeFiles\AgentCore.dir
   OBJECT_FILE_DIR = CMakeFiles\AgentCore.dir\src\harness
@@ -142,7 +142,7 @@ build CMakeFiles/AgentCore.dir/src/harness/keyword_evaluator.cpp.obj: CXX_COMPIL
 
 build CMakeFiles/AgentCore.dir/src/harness/functional_evaluator.cpp.obj: CXX_COMPILER__AgentCore_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/harness/functional_evaluator.cpp || cmake_object_order_depends_target_AgentCore
   DEP_FILE = CMakeFiles\AgentCore.dir\src\harness\functional_evaluator.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
   INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
   OBJECT_DIR = CMakeFiles\AgentCore.dir
   OBJECT_FILE_DIR = CMakeFiles\AgentCore.dir\src\harness
@@ -150,7 +150,7 @@ build CMakeFiles/AgentCore.dir/src/harness/functional_evaluator.cpp.obj: CXX_COM
 
 build CMakeFiles/AgentCore.dir/src/harness/trajectory.cpp.obj: CXX_COMPILER__AgentCore_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/harness/trajectory.cpp || cmake_object_order_depends_target_AgentCore
   DEP_FILE = CMakeFiles\AgentCore.dir\src\harness\trajectory.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
   INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
   OBJECT_DIR = CMakeFiles\AgentCore.dir
   OBJECT_FILE_DIR = CMakeFiles\AgentCore.dir\src\harness
@@ -158,7 +158,7 @@ build CMakeFiles/AgentCore.dir/src/harness/trajectory.cpp.obj: CXX_COMPILER__Age
 
 build CMakeFiles/AgentCore.dir/src/harness/harness_runner.cpp.obj: CXX_COMPILER__AgentCore_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/harness/harness_runner.cpp || cmake_object_order_depends_target_AgentCore
   DEP_FILE = CMakeFiles\AgentCore.dir\src\harness\harness_runner.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
   INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
   OBJECT_DIR = CMakeFiles\AgentCore.dir
   OBJECT_FILE_DIR = CMakeFiles\AgentCore.dir\src\harness
@@ -166,7 +166,7 @@ build CMakeFiles/AgentCore.dir/src/harness/harness_runner.cpp.obj: CXX_COMPILER_
 
 build CMakeFiles/AgentCore.dir/src/harness/numeric_evaluator.cpp.obj: CXX_COMPILER__AgentCore_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/harness/numeric_evaluator.cpp || cmake_object_order_depends_target_AgentCore
   DEP_FILE = CMakeFiles\AgentCore.dir\src\harness\numeric_evaluator.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
   INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
   OBJECT_DIR = CMakeFiles\AgentCore.dir
   OBJECT_FILE_DIR = CMakeFiles\AgentCore.dir\src\harness
@@ -174,7 +174,7 @@ build CMakeFiles/AgentCore.dir/src/harness/numeric_evaluator.cpp.obj: CXX_COMPIL
 
 build CMakeFiles/AgentCore.dir/src/benchmark/benchmark_dataset.cpp.obj: CXX_COMPILER__AgentCore_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/benchmark/benchmark_dataset.cpp || cmake_object_order_depends_target_AgentCore
   DEP_FILE = CMakeFiles\AgentCore.dir\src\benchmark\benchmark_dataset.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
   INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
   OBJECT_DIR = CMakeFiles\AgentCore.dir
   OBJECT_FILE_DIR = CMakeFiles\AgentCore.dir\src\benchmark
@@ -182,7 +182,7 @@ build CMakeFiles/AgentCore.dir/src/benchmark/benchmark_dataset.cpp.obj: CXX_COMP
 
 build CMakeFiles/AgentCore.dir/src/benchmark/benchmark_runner.cpp.obj: CXX_COMPILER__AgentCore_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/benchmark/benchmark_runner.cpp || cmake_object_order_depends_target_AgentCore
   DEP_FILE = CMakeFiles\AgentCore.dir\src\benchmark\benchmark_runner.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
   INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
   OBJECT_DIR = CMakeFiles\AgentCore.dir
   OBJECT_FILE_DIR = CMakeFiles\AgentCore.dir\src\benchmark
@@ -215,7 +215,7 @@ build cmake_object_order_depends_target_AIAgent: phony || cmake_object_order_dep
 
 build CMakeFiles/AIAgent.dir/src/main.cpp.obj: CXX_COMPILER__AIAgent_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/main.cpp || cmake_object_order_depends_target_AIAgent
   DEP_FILE = CMakeFiles\AIAgent.dir\src\main.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
   INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
   OBJECT_DIR = CMakeFiles\AIAgent.dir
   OBJECT_FILE_DIR = CMakeFiles\AIAgent.dir\src
@@ -250,7 +250,7 @@ build cmake_object_order_depends_target_TrajectoryTest: phony || cmake_object_or
 
 build CMakeFiles/TrajectoryTest.dir/src/tests/trajectory_test.cpp.obj: CXX_COMPILER__TrajectoryTest_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/tests/trajectory_test.cpp || cmake_object_order_depends_target_TrajectoryTest
   DEP_FILE = CMakeFiles\TrajectoryTest.dir\src\tests\trajectory_test.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
   INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
   OBJECT_DIR = CMakeFiles\TrajectoryTest.dir
   OBJECT_FILE_DIR = CMakeFiles\TrajectoryTest.dir\src\tests
@@ -285,7 +285,7 @@ build cmake_object_order_depends_target_HarnessTest: phony || cmake_object_order
 
 build CMakeFiles/HarnessTest.dir/src/tests/harness_test.cpp.obj: CXX_COMPILER__HarnessTest_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/tests/harness_test.cpp || cmake_object_order_depends_target_HarnessTest
   DEP_FILE = CMakeFiles\HarnessTest.dir\src\tests\harness_test.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
   INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
   OBJECT_DIR = CMakeFiles\HarnessTest.dir
   OBJECT_FILE_DIR = CMakeFiles\HarnessTest.dir\src\tests
@@ -320,7 +320,7 @@ build cmake_object_order_depends_target_ToolRegistryTest: phony || cmake_object_
 
 build CMakeFiles/ToolRegistryTest.dir/src/tests/tool_registry_test.cpp.obj: CXX_COMPILER__ToolRegistryTest_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/tests/tool_registry_test.cpp || cmake_object_order_depends_target_ToolRegistryTest
   DEP_FILE = CMakeFiles\ToolRegistryTest.dir\src\tests\tool_registry_test.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
   INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
   OBJECT_DIR = CMakeFiles\ToolRegistryTest.dir
   OBJECT_FILE_DIR = CMakeFiles\ToolRegistryTest.dir\src\tests
@@ -355,7 +355,7 @@ build cmake_object_order_depends_target_LoopDetectorTest: phony || cmake_object_
 
 build CMakeFiles/LoopDetectorTest.dir/src/tests/loop_detector_test.cpp.obj: CXX_COMPILER__LoopDetectorTest_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/tests/loop_detector_test.cpp || cmake_object_order_depends_target_LoopDetectorTest
   DEP_FILE = CMakeFiles\LoopDetectorTest.dir\src\tests\loop_detector_test.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
   INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
   OBJECT_DIR = CMakeFiles\LoopDetectorTest.dir
   OBJECT_FILE_DIR = CMakeFiles\LoopDetectorTest.dir\src\tests
@@ -390,7 +390,7 @@ build cmake_object_order_depends_target_BenchmarkTest: phony || cmake_object_ord
 
 build CMakeFiles/BenchmarkTest.dir/src/tests/benchmark_test.cpp.obj: CXX_COMPILER__BenchmarkTest_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/tests/benchmark_test.cpp || cmake_object_order_depends_target_BenchmarkTest
   DEP_FILE = CMakeFiles\BenchmarkTest.dir\src\tests\benchmark_test.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
   INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
   OBJECT_DIR = CMakeFiles\BenchmarkTest.dir
   OBJECT_FILE_DIR = CMakeFiles\BenchmarkTest.dir\src\tests
@@ -425,7 +425,7 @@ build cmake_object_order_depends_target_IntegrationTest: phony || cmake_object_o
 
 build CMakeFiles/IntegrationTest.dir/src/tests/agent_loop_integration_test.cpp.obj: CXX_COMPILER__IntegrationTest_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/tests/agent_loop_integration_test.cpp || cmake_object_order_depends_target_IntegrationTest
   DEP_FILE = CMakeFiles\IntegrationTest.dir\src\tests\agent_loop_integration_test.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
   INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
   OBJECT_DIR = CMakeFiles\IntegrationTest.dir
   OBJECT_FILE_DIR = CMakeFiles\IntegrationTest.dir\src\tests
@@ -460,7 +460,7 @@ build cmake_object_order_depends_target_AgentLoopErrorTest: phony || cmake_objec
 
 build CMakeFiles/AgentLoopErrorTest.dir/src/tests/agent_loop_error_test.cpp.obj: CXX_COMPILER__AgentLoopErrorTest_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/tests/agent_loop_error_test.cpp || cmake_object_order_depends_target_AgentLoopErrorTest
   DEP_FILE = CMakeFiles\AgentLoopErrorTest.dir\src\tests\agent_loop_error_test.cpp.obj.d
-  FLAGS = -std=gnu++17
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
   INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
   OBJECT_DIR = CMakeFiles\AgentLoopErrorTest.dir
   OBJECT_FILE_DIR = CMakeFiles\AgentLoopErrorTest.dir\src\tests

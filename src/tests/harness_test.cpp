@@ -6,12 +6,14 @@
 #include "../tools/tool_registry.h"
 #include "../tools/calculator_tool.h"
 #include "../harness/harness_runner.h"
-
+#include <windows.h>
 #include <iostream>
 #include <memory>
 #include <vector>
 
 int main() {
+     SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
     OllamaClient llm(
         "http://localhost:11434",
         "gemma3:4b",

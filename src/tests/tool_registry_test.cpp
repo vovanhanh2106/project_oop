@@ -1,4 +1,5 @@
 #include "../tools/tool_registry.h"
+#include <windows.h>
 
 #include <iostream>
 #include <memory>
@@ -206,6 +207,8 @@ void testDuplicateRegistration() {
 }
 
 int main() {
+      SetConsoleOutputCP(CP_UTF8);
+SetConsoleCP(CP_UTF8);
     testRegisterAndGetTool();
     testRegisterNullptr();
     testGetAllTools();

@@ -5,6 +5,9 @@
 #include <cstdlib>
 #include <stdexcept>
 
+#include <vector>
+
+#include <limits>
 #include <windows.h>
 
 #include "client/llm_client.h"
@@ -21,6 +24,86 @@
 #include "tools/exec_tool.h"
 #include "tools/web_search_tool.h"
 #include "tools/memory_tool.h"
+
+void configureToolPermissions(ToolRegistry& registry) {
+    const std::vector<std::string> toolNames = {
+        "calculator",
+        "file",
+        "web_search",
+        "memory",
+        "exec"
+    };
+
+    const std::vector<std::string> displayNames = {
+        "Calculator",
+        "File",
+        "Web Search",
+        "Memory",
+        "Exec"
+    };
+
+    // Ban đầu cho phép tất cả tool.
+    for (const auto& name : toolNames) {
+        registry.allowTool(name);
+    }
+
+    while (true) {
+        std::cout << "\n========================================\n";
+        std::cout << "       AI AGENT - TOOL PERMISSIONS\n";
+        std::cout << "========================================\n\n";
+
+        for (size_t i = 0; i < toolNames.size(); ++i) {
+            std::cout << "[" << i + 1 << "] "
+                      << displayNames[i] << "\t["
+                      << (registry.isAllowed(toolNames[i])
+                              ? "ENABLED"
+                              : "DISABLED")
+                      << "]\n";
+        }
+
+        std::cout << "\nEnter tool number to toggle.\n";
+        std::cout << "Enter 0 to finish configuration.\n";
+        std::cout << "\nYour choice: ";
+
+        int choice;
+
+        if (!(std::cin >> choice)) {
+            std::cin.clear();
+            std::cin.ignore(
+                std::numeric_limits<std::streamsize>::max(),
+                '\n'
+            );
+
+            std::cout << "Invalid input. Please enter a number.\n";
+            continue;
+        }
+
+        if (choice == 0) {
+            break;
+        }
+
+        if (choice < 1 ||
+            choice > static_cast<int>(toolNames.size())) {
+            std::cout << "Invalid tool number.\n";
+            continue;
+        }
+
+        const std::string& selected =
+            toolNames[choice - 1];
+
+        if (registry.isAllowed(selected)) {
+            registry.denyTool(selected);
+            std::cout << displayNames[choice - 1]
+                      << " is now DISABLED.\n";
+        } else {
+            registry.allowTool(selected);
+            std::cout << displayNames[choice - 1]
+                      << " is now ENABLED.\n";
+        }
+    }
+
+    std::cout << "\nPermission configuration completed.\n";
+}
 
 int main() {
     SetConsoleCP(CP_UTF8);
@@ -91,7 +174,7 @@ int main() {
         toolRegistry.registerTool(
             std::make_unique<MemoryTool>()
         );
-
+configureToolPermissions(toolRegistry);
         // 3. Khởi tạo skills và loop detector
         SkillLoader skillLoader("skills");
 skillLoader.loadSkills();

@@ -1,9 +1,11 @@
 
 #include "../harness/trajectory.h"
-
+#include <windows.h>
 #include <iostream>
 
 int main() {
+     SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
     TrajectoryRecorder recorder("Tính 17 nhân 13");
 
     // Giả lập bước 1: Agent gọi Calculator.

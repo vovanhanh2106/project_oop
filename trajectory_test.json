@@ -7,7 +7,7 @@
             "result": "221",
             "step": 1,
             "thought": "{\"type\":\"tool_call\",\"name\":\"calculator\"}",
-            "tokens": 0
+            "tokens_used": 0
         },
         {
             "action": "final",
@@ -15,9 +15,10 @@
             "result": "221",
             "step": 2,
             "thought": "{\"type\":\"final\",\"content\":\"221\"}",
-            "tokens": 9000
+            "tokens_used": 0
         }
     ],
     "task": "Tính 17 nhân 13",
-    "total_tokens": 9000
+    "total_time_ms": 0,
+    "total_tokens": 0
 }

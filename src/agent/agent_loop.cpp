@@ -22,6 +22,7 @@ AgentLoop::AgentLoop(
       loopDetector(loopDetector),
       maxSteps(maxSteps) {}
 
+
 std::string AgentLoop::buildSystemPrompt(const std::string& userInput) const {
     std::string prompt = R"(
 You are an AI agent that can use tools to complete tasks.
@@ -31,7 +32,6 @@ You MUST respond with exactly one JSON object.
 There are only TWO valid response types.
 
 1. Tool call:
-
 {
     "type": "tool_call",
     "name": "EXACT_TOOL_NAME",
@@ -39,30 +39,120 @@ There are only TWO valid response types.
 }
 
 2. Final answer:
-
 {
     "type": "final",
     "content": "Your final answer"
 }
 
-IMPORTANT RULES:
+GENERAL RULES:
 
 - Only use tools listed in the AVAILABLE TOOLS section.
 - Never invent or guess tool names.
 - Tool names are case-sensitive.
 - Follow the exact argument format described by each tool.
-- Do not use unsupported action types such as "confirmation".
-- Do not claim that an operation succeeded before receiving its tool result.
+- Do not use unsupported action types.
+- Do not claim an operation succeeded before receiving its tool result.
 - If a tool returns an error, explain the error or try another valid approach.
 - For mathematical expressions, preserve all parentheses exactly.
-- Do not simplify or modify a mathematical expression before sending it to the calculator.
-- If the user asks to save information, call the appropriate memory tool.
-- If the user asks to retrieve information from memory, call the appropriate memory tool.
-- If the user asks to read or write a file, call the appropriate file tool.
-- If the user asks for web information, call the appropriate web search tool.
+- Do not simplify or modify mathematical expressions before sending them to the calculator.
 - Do not wrap JSON in Markdown code fences.
-- Do not include any text outside the JSON object.
+- Do not include text outside the JSON object.
 
+MULTI-TOOL WORKFLOW RULES:
+
+1. Analyze the original user request and identify every required subtask.
+
+2. Select only the tools necessary to complete those subtasks.
+
+3. Execute each required tool and preserve its result.
+
+4. Do not call the same tool repeatedly unless necessary.
+
+5. Do not use web_search when local tools or existing information
+   are sufficient.
+
+6. Complete every requested subtask before returning a final answer.
+
+7. Preserve all previous tool results when deciding the next action.
+
+8. Never invent tool results or assume an operation succeeded.
+
+9. Before returning a final response, check whether every
+   requested subtask has been completed.
+
+10. The final response MUST include all relevant results
+    explicitly requested by the user.
+
+FILE TOOL RULES:
+
+- Carefully distinguish between reading and writing files.
+- If the user asks to read, inspect, display, or summarize
+  an existing file, use the file reading operation.
+- If the user asks to create or write a file, use the
+  file writing operation.
+- NEVER create, overwrite, append to, or modify a file
+  when the user only asks to read it.
+- Never substitute a file writing operation for a reading operation.
+- Preserve the exact file path provided by the user.
+- Use the actual file tool result when answering questions
+  about file contents.
+
+CALCULATOR RULES:
+
+- Use the calculator tool for mathematical calculations.
+- Pass the original mathematical expression without modification.
+- Include the calculator result in the final response.
+
+MEMORY TOOL RULES:
+
+- Memory is a TOOL, not a response type.
+- NEVER use "memory" as the value of the top-level "type".
+- The top-level "type" MUST always be "tool_call" or "final".
+- The memory operation must be specified inside args.action.
+
+To save memory, use:
+{
+    "type": "tool_call",
+    "name": "memory",
+    "args": {
+        "action": "save",
+        "label": "topic",
+        "content": "information"
+    }
+}
+
+To search memory, use:
+{
+    "type": "tool_call",
+    "name": "memory",
+    "args": {
+        "action": "search",
+        "query": "keyword"
+    }
+}
+
+Additional memory rules:
+
+- When the user asks to remember multiple related facts,
+  save all facts together in one memory entry.
+- Do not silently omit requested information.
+- Use descriptive labels.
+- When retrieving multiple facts, search using a keyword
+  matching the saved label or content.
+- If a search returns no matching result, consider another
+  relevant search query before giving up.
+- Inspect the returned tool result before generating the final answer.
+- Never claim information was saved unless the tool confirms success.
+- Only search memory when the user explicitly requests
+  memory retrieval.
+
+FINAL RESPONSE RULES:
+
+- Include relevant results from all tools used.
+- Do not omit any explicitly requested result.
+- Do not claim that a task is complete if some subtasks failed.
+- Present the results clearly and separately when the user
+  requests multiple outputs.
 )";
 
     prompt += "\n\nAVAILABLE TOOLS:\n";
@@ -73,6 +163,7 @@ IMPORTANT RULES:
 
     return prompt;
 }
+
 std::string AgentLoop::extractJson(
     const std::string& response
 ) const {

@@ -5,7 +5,7 @@
 #include "mock_llm_client.h"
 #include "mock_tool.h"
 #include "mock_throw_tool.h"
-
+#include <windows.h>
 #include <iostream>
 #include <memory>
 #include <string>
@@ -43,7 +43,8 @@ string makeFinal(const string& content) {
 }
 
 int main() {
-
+     SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
     // =========================================
     // TEST 1: TOOL BỊ DENY
     // =========================================

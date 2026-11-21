@@ -10,33 +10,7 @@ using json = nlohmann::json;
 
 namespace {
 
-// Đọc tổng token từ trajectory JSON của một task.
-// int extractTokens(const HarnessResult& result) {
-//     try {
-//         if (result.trajectoryJson.empty()) {
-//             return 0;
-//         }
 
-//         const json trajectory =
-//             json::parse(result.trajectoryJson);
-
-//         int total = 0;
-
-//         if (!trajectory.contains("steps") ||
-//             !trajectory["steps"].is_array()) {
-//             return 0;
-//         }
-
-//         for (const auto& step : trajectory["steps"]) {
-//             total += step.value("tokens", 0);
-//         }
-
-//         return total;
-//     }
-//     catch (const json::exception&) {
-//         return 0;
-//     }
-// }
 int extractTokens(const HarnessResult& result) {
     try {
         if (result.trajectoryJson.empty()) {

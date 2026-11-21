@@ -17,22 +17,35 @@ std::string FileTool::getName() const {
     return "file";
 }
 
-// std::string FileTool::getDescription() const {
-//     return "Read or write text files inside the workspace. "
-//            "Arguments are JSON with action, path, and optionally content.";
-// }
 std::string FileTool::getDescription() const {
     return
         "Read or write text files inside the workspace. "
-        "Input must be a JSON object. "
+
+        "IMPORTANT: Choose the action based on the user's request. "
+
+        "READ RULES: "
+        "- If the user asks to read, inspect, open, display, "
+        "summarize, or analyze an existing file, use action='read'. "
+        "- Reading must NEVER create, modify, or overwrite files. "
+        "- Use the exact path provided by the user. "
+        "- Do not invent a new filename when reading. "
+
+        "WRITE RULES: "
+        "- Use action='write' only when the user explicitly asks "
+        "to create, save, or modify a file. "
+        "- The content field is required for writing. "
+
         "For reading, use: "
         "{\"action\":\"read\",\"path\":\"filename.txt\"}. "
+
         "For writing, use: "
         "{\"action\":\"write\",\"path\":\"filename.txt\","
         "\"content\":\"text to write\"}. "
+
         "The path must be relative to the workspace. "
         "Do not use absolute paths or paths containing '..'.";
 }
+
 std::string FileTool::execute(const std::string& args) {
     try {
         const json input = json::parse(args);

@@ -1,8 +1,8 @@
-
 #pragma once
 
 #include <string>
 #include <vector>
+#include <span>
 
 struct Message {
     std::string role;
@@ -25,6 +25,6 @@ public:
     virtual ~LLMClient() = default;
 
     virtual LLMResponse chat(
-        const std::vector<Message>& messages
+        std::span<const Message> messages
     ) = 0;
 };
