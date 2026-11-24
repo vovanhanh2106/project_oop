@@ -1,7 +1,7 @@
-
 #pragma once
 
 #include "../client/llm_client.h"
+
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -18,7 +18,7 @@ public:
     ) : responses(responses) {}
 
     LLMResponse chat(
-        const std::vector<Message>& messages
+        std::span<const Message> messages
     ) override {
         ++callCount;
 

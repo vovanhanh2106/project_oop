@@ -54,11 +54,18 @@ void testRegisterAndGetTool() {
     check(registry.hasTool("tool_A"),
           "Tool được đăng ký thành công");
 
-    check(registry.getTool("tool_A") != nullptr,
-          "getTool trả về con trỏ hợp lệ");
+  auto tool = registry.getTool("tool_A");
 
-    check(registry.getTool("unknown") == nullptr,
-          "getTool trả về nullptr khi không tồn tại");
+check(tool.has_value(),
+      "getTool trả về optional có giá trị khi tìm thấy");
+
+check(tool->get().getName() == "tool_A",
+      "getTool trả về đúng tool");
+
+  auto unknown = registry.getTool("unknown");
+
+check(!unknown.has_value(),
+      "getTool trả về nullopt khi không tồn tại");
 
     check(!registry.hasTool("unknown"),
           "hasTool trả về false khi không tồn tại");
@@ -202,8 +209,8 @@ void testDuplicateRegistration() {
     check(registry.getAllTools().size() == 1,
           "Đăng ký trùng tên không tạo thêm tool");
 
-    check(registry.getTool("tool_A") != nullptr,
-          "Tool vẫn tồn tại sau khi đăng ký trùng tên");
+  check(registry.getTool("tool_A").has_value(),
+      "Tool vẫn tồn tại sau khi đăng ký trùng tên");
 }
 
 int main() {

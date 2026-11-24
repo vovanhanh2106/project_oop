@@ -179,6 +179,10 @@ if (task.evaluatorType == "keyword") {
 
 
 // Kết hợp kết quả Answer Evaluation và Tool Usage Evaluation
+ result.evaluation = evaluator->evaluate(
+            task.expected,
+            result.actual
+        );
 if (!result.missingTools.empty()) {
     result.evaluation.passed = false;
 
@@ -198,10 +202,10 @@ if (!result.missingTools.empty()) {
     }
 }
 
-        result.evaluation = evaluator->evaluate(
-            task.expected,
-            result.actual
-        );
+        // result.evaluation = evaluator->evaluate(
+        //     task.expected,
+        //     result.actual
+        // );
     }
 
     // 5. Lưu kết quả task vào danh sách

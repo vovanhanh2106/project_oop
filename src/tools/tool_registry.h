@@ -2,13 +2,15 @@
 #pragma once
 
 #include "tool.h"
-
+#include <functional>
 #include <concepts>
 #include <memory>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
+#include <optional>
+#include <string_view>
 #include <utility>
 
 class ToolRegistry {
@@ -32,7 +34,8 @@ public:
 
     std::vector<const Tool*> getAllTools() const;
 
-    Tool* getTool(const std::string& name);
+  std::optional<std::reference_wrapper<Tool>>
+getTool(std::string_view name);
 
     bool hasTool(const std::string& name) const;
 

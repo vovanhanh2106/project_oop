@@ -40,7 +40,7 @@ OllamaClient::OllamaClient(
 }
 
 LLMResponse OllamaClient::chat(
-    const std::vector<Message>& messages
+   std::span<const Message> messages
 ) {
     CURL* curl = curl_easy_init();
 

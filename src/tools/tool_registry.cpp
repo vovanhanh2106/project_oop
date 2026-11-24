@@ -1,5 +1,5 @@
 #include "tool_registry.h"
-
+#include <ranges> //c++23
 void ToolRegistry::registerTool(std::unique_ptr<Tool> tool) {
     if (!tool) {
         return;
@@ -9,28 +9,30 @@ void ToolRegistry::registerTool(std::unique_ptr<Tool> tool) {
 
     tools[name] = std::move(tool);
 }
-
-Tool* ToolRegistry::getTool(const std::string& name) {
-    auto it = tools.find(name);
+//c++17
+std::optional<std::reference_wrapper<Tool>>
+ToolRegistry::getTool(std::string_view name) {
+    auto it = tools.find(std::string(name));
 
     if (it == tools.end()) {
-        return nullptr;
+        return std::nullopt;
     }
 
-    return it->second.get();
+    return std::ref(*it->second);
 }
 
 bool ToolRegistry::hasTool(const std::string& name) const {
     return tools.find(name) != tools.end();
 }
 std::vector<const Tool*> ToolRegistry::getAllTools() const {
-    std::vector<const Tool*> result;
+    auto toolPointers =
+        tools
+        | std::views::values
+        | std::views::transform([](const auto& tool) -> const Tool* {
+              return tool.get();
+          });
 
-    for (const auto& [name, tool] : tools) {
-        result.push_back(tool.get());
-    }
-
-    return result;
+    return std::ranges::to<std::vector<const Tool*>>(toolPointers);
 }
 void ToolRegistry::allowTool(const std::string& name) {
     allowedTools.insert(name);

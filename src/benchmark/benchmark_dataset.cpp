@@ -138,19 +138,23 @@ std::vector<BenchmarkTask> BenchmarkDataset::createTasks() {
         },
 
         {
-            {
-                "B10 - Web search and memory",
-                "Search Wikipedia for SQLite. Find out "
-                "what SQLite is, save a short description "
-                "in memory with label sqlite_info, "
-                "then search your memory for sqlite_info "
-                "and summarize the saved information.",
-                "SQLite",
-                "keyword"
-            },
-            BenchmarkDifficulty::Hard,
-            {"web_search", "memory"}
-        }
+            
+    {
+        "B10 - Research, remember and save SQLite",
+        "Search for SQLite and find out what it is. "
+        "Write a short description into a file named "
+        "sqlite_summary.txt inside your workspace. "
+        "Save the same description in memory with "
+        "label sqlite_info. Then read the file and "
+        "retrieve sqlite_info from memory. "
+        "Summarize the information in your final answer.",
+        "SQLite",
+        "keyword"
+    },
+    BenchmarkDifficulty::Hard,
+    {"web_search", "file", "memory"}
+}
+        
     };
 
     return tasks;

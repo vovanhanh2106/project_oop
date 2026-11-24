@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "llm_client.h"
@@ -24,6 +23,6 @@ public:
     );
 
     LLMResponse chat(
-        const std::vector<Message>& messages
+        std::span<const Message> messages
     ) override;
 };

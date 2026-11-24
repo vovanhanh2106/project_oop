@@ -1,6 +1,8 @@
-#include "calculator_tool.h"
 
+#include "calculator_tool.h"
+#include <charconv>  // C++17: std::from_chars
 #include <cctype>
+#include <expected>
 #include <stdexcept>
 #include <string>
 
@@ -12,51 +14,88 @@ private:
     size_t pos = 0;
 
     void skipSpaces() {
-        while (pos < expression.size() &&
-               std::isspace(static_cast<unsigned char>(expression[pos]))) {
+        while (
+            pos < expression.size() &&
+            std::isspace(
+                static_cast<unsigned char>(expression[pos])
+            )
+        ) {
             ++pos;
         }
     }
 
     double parseNumber() {
-        skipSpaces();
+    skipSpaces();
 
-        size_t start = pos;
+    size_t start = pos;
 
-        while (pos < expression.size() &&
-               (std::isdigit(static_cast<unsigned char>(expression[pos])) ||
-                expression[pos] == '.')) {
-            ++pos;
-        }
-
-        if (start == pos) {
-            throw std::runtime_error("Expected number");
-        }
-
-        return std::stod(expression.substr(start, pos - start));
+    while (
+        pos < expression.size() &&
+        (
+            std::isdigit(
+                static_cast<unsigned char>(expression[pos])
+            ) ||
+            expression[pos] == '.'
+        )
+    ) {
+        ++pos;
     }
 
+    if (start == pos) {
+        throw std::runtime_error("Expected number");
+    }
+
+    double value;
+
+    // C++17: Chuyển chuỗi thành double bằng std::from_chars
+    const char* first = expression.data() + start;
+    const char* last = expression.data() + pos;
+
+    auto [ptr, error] = std::from_chars(
+        first,
+        last,
+        value,
+        std::chars_format::general
+    );
+
+    if (
+        error != std::errc{} ||
+        ptr != last
+    ) {
+        throw std::runtime_error("Invalid number");
+    }
+
+    return value;
+}
     double parseFactor() {
         skipSpaces();
 
-        // Xử lý ngoặc
-        if (pos < expression.size() && expression[pos] == '(') {
-            ++pos; // bỏ '('
+        if (
+            pos < expression.size() &&
+            expression[pos] == '('
+        ) {
+            ++pos;
 
-           double result = parseExpressionInternal();
+            double result = parseExpressionInternal();
+
             skipSpaces();
 
-            if (pos >= expression.size() || expression[pos] != ')') {
+            if (
+                pos >= expression.size() ||
+                expression[pos] != ')'
+            ) {
                 throw std::runtime_error("Missing ')'");
             }
 
-            ++pos; // bỏ ')'
+            ++pos;
 
             return result;
         }
 
-        // Xử lý số âm
-        if (pos < expression.size() && expression[pos] == '-') {
+        if (
+            pos < expression.size() &&
+            expression[pos] == '-'
+        ) {
             ++pos;
             return -parseFactor();
         }
@@ -86,10 +125,11 @@ private:
 
             if (op == '*') {
                 result *= value;
-            }
-            else {
+            } else {
                 if (value == 0) {
-                    throw std::runtime_error("Division by zero");
+                    throw std::runtime_error(
+                        "Division by zero"
+                    );
                 }
 
                 result /= value;
@@ -99,8 +139,6 @@ private:
         return result;
     }
 
-    // Hàm này chỉ parse biểu thức,
-    // KHÔNG kiểm tra đã đi hết chuỗi hay chưa.
     double parseExpressionInternal() {
         double result = parseTerm();
 
@@ -123,8 +161,7 @@ private:
 
             if (op == '+') {
                 result += value;
-            }
-            else {
+            } else {
                 result -= value;
             }
         }
@@ -133,7 +170,7 @@ private:
     }
 
 public:
-    Parser(const std::string& expr)
+    explicit Parser(const std::string& expr)
         : expression(expr) {}
 
     double parseExpression() {
@@ -141,24 +178,38 @@ public:
 
         skipSpaces();
 
-        // Chỉ kiểm tra hết chuỗi ở đây
         if (pos != expression.size()) {
-            throw std::runtime_error("Invalid expression");
+            throw std::runtime_error(
+                "Invalid expression"
+            );
         }
 
         return result;
     }
 };
 
+// C++23: std::expected
+std::expected<double, std::string> calculateExpression(
+    const std::string& expression
+) {
+    try {
+        Parser parser(expression);
+
+        return parser.parseExpression();
+    }
+    catch (const std::exception& e) {
+        return std::unexpected(
+            std::string(e.what())
+        );
+    }
 }
+
+} // namespace
 
 std::string CalculatorTool::getName() const {
     return "calculator";
 }
 
-// std::string CalculatorTool::getDescription() const {
-//     return "Calculate a mathematical expression.";
-// }
 std::string CalculatorTool::getDescription() const {
     return
         "Calculate mathematical expressions. "
@@ -168,15 +219,15 @@ std::string CalculatorTool::getDescription() const {
         "Preserve all parentheses and operator order exactly. "
         "Example: (25 + 15) * 3 - 12";
 }
-std::string CalculatorTool::execute(const std::string& args) {
-    try {
-        Parser parser(args);
 
-        double result = parser.parseExpression();
+std::string CalculatorTool::execute(
+    const std::string& args
+) {
+    auto result = calculateExpression(args);
 
-        return std::to_string(result);
+    if (!result) {
+        return "Calculator error: " + result.error();
     }
-    catch (const std::exception& e) {
-        return std::string("Calculator error: ") + e.what();
-    }
+
+    return std::to_string(result.value());
 }

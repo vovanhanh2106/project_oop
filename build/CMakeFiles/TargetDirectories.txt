@@ -6,6 +6,8 @@ C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/CMakeFiles/Tool
 C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/CMakeFiles/LoopDetectorTest.dir
 C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/CMakeFiles/BenchmarkTest.dir
 C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/CMakeFiles/IntegrationTest.dir
+C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/CMakeFiles/JsonToolTest.dir
+C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/CMakeFiles/GitToolManualTest.dir
 C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/CMakeFiles/AgentLoopErrorTest.dir
 C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/CMakeFiles/test.dir
 C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/CMakeFiles/edit_cache.dir

@@ -3,7 +3,7 @@
 
 #include <cstddef>
 #include <string>
-#include <vector>
+#include <inplace_vector>
 
 struct TrajectoryStep {
     std::size_t step = 0;
@@ -16,8 +16,10 @@ struct TrajectoryStep {
 
 class TrajectoryRecorder {
 private:
+    // C++26: Lưu tối đa 64 bước ngay bên trong object.
+    std::inplace_vector<TrajectoryStep, 64> steps;
+
     std::string task;
-    std::vector<TrajectoryStep> steps;
 
     // Tổng thời gian thực thi task.
     long long totalTimeMs = 0;
@@ -38,14 +40,13 @@ public:
     );
 
     const std::string& getTask() const;
-    const std::vector<TrajectoryStep>& getSteps() const;
+
+    const std::inplace_vector<TrajectoryStep, 64>& getSteps() const;
 
     std::size_t getStepCount() const;
     int getTotalTokens() const;
 
-    // Cập nhật tổng thời gian chạy.
     void setTotalTimeMs(long long time);
-
     long long getTotalTimeMs() const;
 
     std::string toJson() const;

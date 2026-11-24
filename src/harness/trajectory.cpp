@@ -3,6 +3,7 @@
 
 #include <fstream>
 #include <stdexcept>
+#include <utility>
 
 #include <nlohmann/json.hpp>
 
@@ -19,8 +20,9 @@ void TrajectoryRecorder::startRun(
 ) {
     this->task = task;
     steps.clear();
-      totalTimeMs = 0;
+    totalTimeMs = 0;
 }
+
 void TrajectoryRecorder::setTotalTimeMs(long long time) {
     if (time < 0) {
         throw std::invalid_argument(
@@ -34,6 +36,7 @@ void TrajectoryRecorder::setTotalTimeMs(long long time) {
 long long TrajectoryRecorder::getTotalTimeMs() const {
     return totalTimeMs;
 }
+
 void TrajectoryRecorder::recordStep(
     const std::string& thought,
     const std::string& action,
@@ -53,6 +56,13 @@ void TrajectoryRecorder::recordStep(
         );
     }
 
+    // Không cho phép vượt quá sức chứa 64 bước.
+    if (steps.size() >= steps.capacity()) {
+        throw std::length_error(
+            "TrajectoryRecorder has reached its maximum capacity of 64 steps."
+        );
+    }
+
     TrajectoryStep step;
 
     step.step = steps.size() + 1;
@@ -62,14 +72,14 @@ void TrajectoryRecorder::recordStep(
     step.latency_ms = latency_ms;
     step.tokens = tokens;
 
-    steps.push_back(step);
+    steps.push_back(std::move(step));
 }
 
 const std::string& TrajectoryRecorder::getTask() const {
     return task;
 }
 
-const std::vector<TrajectoryStep>&
+const std::inplace_vector<TrajectoryStep, 64>&
 TrajectoryRecorder::getSteps() const {
     return steps;
 }
@@ -125,8 +135,9 @@ bool TrajectoryRecorder::saveToJson(
 void TrajectoryRecorder::clear() {
     task.clear();
     steps.clear();
-     totalTimeMs = 0;
+    totalTimeMs = 0;
 }
+
 int TrajectoryRecorder::getTotalTokens() const {
     int total = 0;
 

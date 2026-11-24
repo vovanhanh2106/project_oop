@@ -20,7 +20,7 @@ public:
         int max_tokens = 512
     );
 
-     LLMResponse chat(
-        const std::vector<Message>& messages
+    LLMResponse chat(
+        std::span<const Message> messages
     ) override;
 };

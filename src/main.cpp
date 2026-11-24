@@ -17,13 +17,15 @@
 #include "agent/agent_loop.h"
 #include "agent/skill_loader.h"
 #include "agent/loop_detector.h"
-
+#include "tools/datetime_tool.h"
 #include "tools/tool_registry.h"
 #include "tools/calculator_tool.h"
 #include "tools/file_tool.h"
 #include "tools/exec_tool.h"
 #include "tools/web_search_tool.h"
 #include "tools/memory_tool.h"
+#include "tools/git_tool.h"
+#include "tools/json_tool.h"
 
 void configureToolPermissions(ToolRegistry& registry) {
     const std::vector<std::string> toolNames = {
@@ -31,7 +33,10 @@ void configureToolPermissions(ToolRegistry& registry) {
         "file",
         "web_search",
         "memory",
-        "exec"
+        "exec",
+        "datetime",
+        "git",
+        "json"
     };
 
     const std::vector<std::string> displayNames = {
@@ -39,7 +44,10 @@ void configureToolPermissions(ToolRegistry& registry) {
         "File",
         "Web Search",
         "Memory",
-        "Exec"
+        "Exec",
+        "Date & Time",
+        "Git",
+        "JSON"
     };
 
     // Ban đầu cho phép tất cả tool.
@@ -174,6 +182,12 @@ int main() {
         toolRegistry.registerTool(
             std::make_unique<MemoryTool>()
         );
+        toolRegistry.registerTool(
+            std::make_unique<DateTimeTool>()
+        );
+        toolRegistry.registerTool(std::make_unique<GitTool>());
+        toolRegistry.registerTool(std::make_unique<JsonTool>());
+
 configureToolPermissions(toolRegistry);
         // 3. Khởi tạo skills và loop detector
         SkillLoader skillLoader("skills");

@@ -34,6 +34,9 @@ add_library(AgentCore STATIC
     src/tools/exec_tool.cpp
     src/tools/web_search_tool.cpp
     src/tools/memory_tool.cpp
+    src/tools/datetime_tool.cpp
+    src/tools/git_tool.cpp
+    src/tools/json_tool.cpp
 
     # Agent
     src/agent/skill_loader.cpp
@@ -137,7 +140,24 @@ target_link_libraries(IntegrationTest PRIVATE
     AgentCore
 )
 
+add_executable(JsonToolTest
+    src/tests/json_tool_test.cpp
+)
 
+target_link_libraries(JsonToolTest PRIVATE AgentCore)
+
+add_executable(GitToolManualTest
+    src/tests/git_tool_test.cpp
+    src/tools/git_tool.cpp
+)
+
+target_include_directories(GitToolManualTest PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
+
+target_link_libraries(GitToolManualTest PRIVATE
+    nlohmann_json::nlohmann_json
+)
 
 add_executable(AgentLoopErrorTest
     src/tests/agent_loop_error_test.cpp
@@ -159,3 +179,7 @@ add_test(NAME LoopDetectorTest COMMAND LoopDetectorTest)
 add_test(NAME BenchmarkTest COMMAND BenchmarkTest)
 add_test(NAME IntegrationTest COMMAND IntegrationTest)
 add_test(NAME AgentLoopErrorTest COMMAND AgentLoopErrorTest)
+add_test(
+    NAME JsonToolTest
+    COMMAND JsonToolTest
+)

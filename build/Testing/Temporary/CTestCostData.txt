@@ -1,8 +1,9 @@
-TrajectoryTest 4 0.0130721
-HarnessTest 4 49.6634
-ToolRegistryTest 4 0.0184774
+TrajectoryTest 5 0.00735124
+HarnessTest 5 29.6759
+ToolRegistryTest 6 0.00804558
 LoopDetectorTest 4 0.00776818
-BenchmarkTest 4 90.0313
-IntegrationTest 2 0.0573541
-AgentLoopErrorTest 3 0.0167059
+BenchmarkTest 6 72.3235
+IntegrationTest 3 0.0161602
+AgentLoopErrorTest 4 0.0074073
+JsonToolTest 1 0.024729
 ---

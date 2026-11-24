@@ -1,5 +1,6 @@
 
 #include "numeric_evaluator.h"
+#include <vector>
 #include <algorithm>
 #include <cmath>
 #include <regex>
@@ -7,47 +8,63 @@
 
 namespace {
 
-bool extractSingleNumber(
+
+bool extractNumber(
     const std::string& text,
     long double& number
 ) {
-    // Nhận số nguyên, số âm và số thập phân.
-    // Ví dụ: 221, -5, 3.14, .5
     static const std::regex numberPattern(
         R"([-+]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][-+]?[0-9]+)?)"
     );
 
-    std::sregex_iterator it(
-        text.begin(),
-        text.end(),
-        numberPattern
+    std::vector<long double> numbers;
+
+    for (
+        std::sregex_iterator it(
+            text.begin(),
+            text.end(),
+            numberPattern
+        );
+        it != std::sregex_iterator();
+        ++it
+    ) {
+        try {
+            numbers.push_back(std::stold(it->str()));
+        }
+        catch (...) {
+            return false;
+        }
+    }
+
+    if (numbers.empty()) {
+        return false;
+    }
+
+    // Chỉ có một số trong câu trả lời.
+    if (numbers.size() == 1) {
+        number = numbers.front();
+        return std::isfinite(number);
+    }
+
+    // Tìm kết quả sau từ "is" ở cuối câu.
+    static const std::regex finalAnswerPattern(
+        R"(\bis\s+([-+]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][-+]?[0-9]+)?)\s*[.!]?\s*$)",
+        std::regex_constants::icase
     );
 
-    const std::sregex_iterator end;
+    std::smatch match;
 
-    // Không tìm thấy số
-    if (it == end) {
-        return false;
+    if (std::regex_search(text, match, finalAnswerPattern)) {
+        try {
+            number = std::stold(match[1].str());
+            return std::isfinite(number);
+        }
+        catch (...) {
+            return false;
+        }
     }
 
-    const std::string firstNumber = it->str();
-    ++it;
-
-    // Có nhiều số thì không đoán số nào là đáp án
-    if (it != end) {
-        return false;
-    }
-
-    try {
-        std::size_t parsedLength = 0;
-        number = std::stold(firstNumber, &parsedLength);
-
-        return parsedLength == firstNumber.size()
-            && std::isfinite(number);
-    }
-    catch (...) {
-        return false;
-    }
+    return false;
 }
 
 } // namespace
@@ -59,36 +76,32 @@ EvaluationResult NumericEvaluator::evaluate(
     long double expectedNumber = 0.0L;
     long double actualNumber = 0.0L;
 
-    if (!extractSingleNumber(expected, expectedNumber)) {
+    if (!extractNumber(expected, expectedNumber)) {
         return {
             false,
             0.0,
-            "Expected result must contain exactly one valid number."
+            "Expected result must contain a valid number."
         };
     }
 
-    if (!extractSingleNumber(actual, actualNumber)) {
+    if (!extractNumber(actual, actualNumber)) {
         return {
             false,
             0.0,
-            "Actual result must contain exactly one valid number."
+            "Actual result must contain a clear numerical answer."
         };
     }
 
-    // Dung sai tương đối và tuyệt đối cho số thập phân
     constexpr long double tolerance = 1e-9L;
 
     const long double difference =
         std::fabs(expectedNumber - actualNumber);
 
-    const long double scale =
-        std::max(
-            1.0L,
-            std::max(
-                std::fabs(expectedNumber),
-                std::fabs(actualNumber)
-            )
-        );
+    const long double scale = std::max({
+        1.0L,
+        std::fabs(expectedNumber),
+        std::fabs(actualNumber)
+    });
 
     if (difference <= tolerance * scale) {
         return {
