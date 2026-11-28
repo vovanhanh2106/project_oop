@@ -89,12 +89,97 @@ AgentLoop::AgentLoop(
     LoopDetector& loopDetector,
     std::size_t maxSteps
 )
-    : llm(llm),
+    : BaseAgent(maxSteps),
+      llm(llm),
       toolRegistry(toolRegistry),
       skillLoader(skillLoader),
-      loopDetector(loopDetector),
-      maxSteps(maxSteps) {}
+      loopDetector(loopDetector) {
+}
+void AgentLoop::initialize(
+    const std::string& userInput
+) {
+    // Reset trạng thái của lần chạy trước
+    loopDetector.reset();
 
+    messages.clear();
+
+    llmCalls = 0;
+    toolCalls = 0;
+    currentStep = 0;
+
+    llmLatencyMs = 0;
+
+    // Thêm system prompt
+    messages.push_back({
+        "system",
+        buildSystemPrompt(userInput)
+    });
+
+    // Thêm yêu cầu của người dùng
+    messages.push_back({
+        "user",
+        userInput
+    });
+}
+std::string AgentLoop::observe() {
+    // Bắt đầu tính thời gian của vòng lặp
+    stepStart = std::chrono::steady_clock::now();
+
+    // Bắt đầu gọi LLM
+    const auto llmStart =
+        std::chrono::steady_clock::now();
+
+    ++llmCalls;
+    ++currentStep;
+
+    // Gửi lịch sử hội thoại cho LLM
+    lastLLMResponse = llm.chat(messages);
+
+    // Kết thúc gọi LLM
+    const auto llmEnd =
+        std::chrono::steady_clock::now();
+
+    llmLatencyMs =
+        std::chrono::duration_cast<std::chrono::milliseconds>(
+            llmEnd - llmStart
+        ).count();
+
+    // Lấy số token
+    const int tokens = lastLLMResponse.totalTokens();
+
+    std::cout << "[DEBUG] Prompt tokens: "
+              << lastLLMResponse.promptTokens << '\n';
+
+    std::cout << "[DEBUG] Completion tokens: "
+              << lastLLMResponse.completionTokens << '\n';
+
+    std::cout << "[DEBUG] Total tokens: "
+              << tokens << '\n';
+
+    // Trả về nội dung phản hồi của LLM
+    return lastLLMResponse.content;
+}
+
+AgentDecision AgentLoop::think(
+    const std::string& observation
+) {
+    // Tạo kết quả quyết định
+    AgentDecision decision;
+
+    // Lưu phản hồi gốc từ LLM
+    decision.rawResponse = observation;
+
+    // Tách các JSON object từ phản hồi
+    decision.jsonObjects = extractJsonObjects(observation);
+
+    // Không tìm thấy JSON object nào
+    if (decision.jsonObjects.empty()) {
+        decision.valid = false;
+        decision.error = "INVALID_RESPONSE";
+    }
+
+    return decision;
+}
 
 std::string AgentLoop::buildSystemPrompt(
     const std::string& userInput
@@ -328,424 +413,10 @@ std::string AgentLoop::buildToolDescriptions() const {
     return result;
 }
 
-
-std::string AgentLoop::run(
-    const std::string& userInput,
-    StepHook stepHook
+AgentStepResult AgentLoop::onMaxStepsReached(
+    StepHook& stepHook
 ) {
-
-    int llmCalls = 0;
-    int toolCalls = 0;
-
-    loopDetector.reset();
-
-    std::vector<Message> messages;
-
-    messages.push_back({
-        "system",
-        buildSystemPrompt(userInput)
-    });
-
-    messages.push_back({
-        "user",
-        userInput
-    });
-
-    for (std::size_t step = 0; step < maxSteps; ++step) {
-
-        const auto stepStart = std::chrono::steady_clock::now();
-
-        // 1. Gọi LLM.
-        const auto llmStart = std::chrono::steady_clock::now();
-
-        ++llmCalls;
-
-        LLMResponse llmResponse = llm.chat(messages);
-
-        const auto llmEnd = std::chrono::steady_clock::now();
-
-        const auto llmLatency =
-            std::chrono::duration_cast<std::chrono::milliseconds>(
-                llmEnd - llmStart
-            ).count();
-
-        const std::string response = llmResponse.content;
-        const int tokens = llmResponse.totalTokens();
-
-        std::cout << "[DEBUG] Prompt tokens: "
-                  << llmResponse.promptTokens << '\n';
-
-        std::cout << "[DEBUG] Completion tokens: "
-                  << llmResponse.completionTokens << '\n';
-
-        std::cout << "[DEBUG] Total tokens: "
-                  << tokens << '\n';
-
-
-        // 2. Tách tất cả JSON object trong response.
-        const std::vector<std::string> jsonObjects =
-            extractJsonObjects(response);
-
-        if (jsonObjects.empty()) {
-
-            const auto stepEnd = std::chrono::steady_clock::now();
-
-            const auto latency =
-                std::chrono::duration_cast<std::chrono::milliseconds>(
-                    stepEnd - stepStart
-                ).count();
-
-            if (stepHook) {
-                stepHook(
-                    response,
-                    "INVALID_RESPONSE",
-                    response,
-                    latency,
-                    tokens
-                );
-            }
-
-            return response;
-        }
-
-
-        // 3. Parse và thực thi từng JSON object.
-        std::string allToolResults;
-        bool executedAnyTool = false;
-
-        for (const std::string& jsonText : jsonObjects) {
-
-            json action;
-
-            try {
-                action = json::parse(jsonText);
-            }
-            catch (const json::exception& e) {
-
-                const std::string error =
-                    std::string("Invalid JSON response: ") + e.what();
-
-                const auto stepEnd =
-                    std::chrono::steady_clock::now();
-
-                const auto latency =
-                    std::chrono::duration_cast<std::chrono::milliseconds>(
-                        stepEnd - stepStart
-                    ).count();
-
-                if (stepHook) {
-                    stepHook(
-                        response,
-                        "INVALID_JSON",
-                        error,
-                        latency,
-                        executedAnyTool ? 0 : tokens
-                    );
-                }
-
-                return error;
-            }
-
-
-            // Kiểm tra JSON phải là object.
-            if (!action.is_object()) {
-                return "Invalid action: JSON must be an object.";
-            }
-
-
-            // 4. Xác định loại action.
-            std::string type =
-                action.value("type", std::string{});
-
-            // Tương thích với model quên trường type.
-            if (type.empty() &&
-                action.contains("name") &&
-                action["name"].is_string() &&
-                action.contains("args")) {
-
-                type = "tool_call";
-
-                std::cout
-                    << "[DEBUG] Missing type field. "
-                    << "Inferred type = tool_call\n";
-            }
-
-
-            // 5. Final answer.
-            if (type == "final") {
-
-                const std::string answer =
-                    action.value("content", std::string{});
-
-                const auto stepEnd =
-                    std::chrono::steady_clock::now();
-
-                const auto latency =
-                    std::chrono::duration_cast<std::chrono::milliseconds>(
-                        stepEnd - stepStart
-                    ).count();
-
-                if (stepHook) {
-                    stepHook(
-                        response,
-                        "FINAL",
-                        answer,
-                        latency,
-                        executedAnyTool ? 0 : tokens
-                    );
-                }
-
-                std::cout
-                    << "\n========== AGENT SUMMARY ==========\n";
-
-                std::cout << "LLM calls: " << llmCalls << '\n';
-                std::cout << "Tool calls: " << toolCalls << '\n';
-
-                std::cout
-                    << "===================================\n";
-
-                return answer;
-            }
-
-
-            // 6. Kiểm tra action type.
-            if (type != "tool_call") {
-
-                const std::string error =
-                    "Unknown action type: " + type;
-
-                const auto stepEnd =
-                    std::chrono::steady_clock::now();
-
-                const auto latency =
-                    std::chrono::duration_cast<std::chrono::milliseconds>(
-                        stepEnd - stepStart
-                    ).count();
-
-                if (stepHook) {
-                    stepHook(
-                        response,
-                        "INVALID_ACTION",
-                        error,
-                        latency,
-                        executedAnyTool ? 0 : tokens
-                    );
-                }
-
-                return error;
-            }
-
-
-            // 7. Lấy tên tool và arguments.
-            const std::string toolName =
-                action.value("name", std::string{});
-
-            const json args =
-                action.value("args", json::object());
-
-
-            if (toolName.empty() || !args.is_object()) {
-
-                const std::string error =
-                    "Tool call error: missing tool name or invalid args.";
-
-                if (stepHook) {
-                    stepHook(
-                        response,
-                        "INVALID_TOOL_CALL",
-                        error,
-                        0,
-                        executedAnyTool ? 0 : tokens
-                    );
-                }
-
-                return error;
-            }
-
-
-            // 8. Kiểm tra quyền sử dụng tool.
-            if (!toolRegistry.isAllowed(toolName)) {
-
-                const std::string error =
-                    "Tool is not allowed: " + toolName;
-
-                if (stepHook) {
-                    stepHook(
-                        response,
-                        toolName,
-                        error,
-                        0,
-                        executedAnyTool ? 0 : tokens
-                    );
-                }
-
-                return error;
-            }
-
-
-            // 9. Lấy tool từ registry.
-            auto toolOptional =
-                toolRegistry.getTool(toolName);
-
-            if (!toolOptional.has_value()) {
-
-                const std::string error =
-                    "Tool not found: " + toolName;
-
-                if (stepHook) {
-                    stepHook(
-                        response,
-                        toolName,
-                        error,
-                        0,
-                        executedAnyTool ? 0 : tokens
-                    );
-                }
-
-                return error;
-            }
-
-            Tool& tool = toolOptional->get();
-
-
-            // 10. Chuyển arguments thành chuỗi.
-            std::string toolArgs;
-
-            if (toolName == "calculator") {
-                toolArgs =
-                    args.value("expression", std::string{});
-            }
-            else {
-                toolArgs = args.dump();
-            }
-
-
-            // 11. Kiểm tra loop.
-            const std::string actionSignature =
-                toolName + ":" + args.dump();
-
-            const LoopStatus loopStatus =
-                loopDetector.recordAction(actionSignature);
-
-            if (loopStatus == LoopStatus::Critical) {
-
-                const std::string error =
-                    "Agent stopped: critical loop detected.";
-
-                if (stepHook) {
-                    stepHook(
-                        response,
-                        "LOOP_DETECTED",
-                        error,
-                        0,
-                        executedAnyTool ? 0 : tokens
-                    );
-                }
-
-                return error;
-            }
-
-
-            // 12. Thực thi tool.
-            const auto toolStart =
-                std::chrono::steady_clock::now();
-
-            std::string toolResult;
-
-            ++toolCalls;
-
-            try {
-                toolResult = tool.execute(toolArgs);
-            }
-            catch (const std::exception& e) {
-                toolResult =
-                    std::string("Tool execution error: ") + e.what();
-            }
-
-            const auto toolEnd =
-                std::chrono::steady_clock::now();
-
-            const auto toolLatency =
-                std::chrono::duration_cast<std::chrono::milliseconds>(
-                    toolEnd - toolStart
-                ).count();
-
-
-            // 13. Tổng latency:
-            // Tool đầu tiên tính cả thời gian gọi LLM.
-            // Các tool tiếp theo tính thời gian thực thi riêng.
-            const auto stepEnd =
-                std::chrono::steady_clock::now();
-
-            const auto totalStepLatency =
-                executedAnyTool
-                    ? toolLatency
-                    : std::chrono::duration_cast<
-                        std::chrono::milliseconds
-                      >(stepEnd - stepStart).count();
-
-
-            std::cout
-                << "\n========== AGENT PROFILING ==========\n";
-
-            std::cout << "Step: " << step + 1 << '\n';
-            std::cout << "Tool: " << toolName << '\n';
-            std::cout << "LLM latency: "
-                      << llmLatency << " ms\n";
-
-            std::cout << "Tool latency: "
-                      << toolLatency << " ms\n";
-
-            std::cout << "Total step latency: "
-                      << totalStepLatency << " ms\n";
-
-            std::cout << "Tokens: "
-                      << (executedAnyTool ? 0 : tokens) << '\n';
-
-            std::cout
-                << "=====================================\n";
-
-
-            // 14. Ghi trajectory.
-            if (stepHook) {
-                stepHook(
-                    response,
-                    toolName,
-                    toolResult,
-                    totalStepLatency,
-                    executedAnyTool ? 0 : tokens
-                );
-            }
-
-
-            // 15. Lưu kết quả tool.
-            executedAnyTool = true;
-
-            allToolResults +=
-                "\nTool result for " + toolName + ":\n";
-
-            allToolResults += toolResult;
-            allToolResults += "\n";
-        }
-
-
-        // 16. Đưa response và toàn bộ kết quả tool vào history.
-        messages.push_back({
-            "assistant",
-            response
-        });
-
-        messages.push_back({
-            "user",
-            allToolResults +
-            "\nContinue the task. Use the tool results above. "
-            "Respond with one or more valid JSON objects."
-        });
-    }
-
-
-    // 17. Agent đạt giới hạn số bước.
-    const std::string error =
+    std::string error =
         "Agent stopped: maximum number of steps reached.";
 
     if (stepHook) {
@@ -758,5 +429,327 @@ std::string AgentLoop::run(
         );
     }
 
-    return error;
+    return {
+        true,
+        error
+    };
+}
+AgentStepResult AgentLoop::act(
+    const AgentDecision& decision,
+    StepHook& stepHook
+) {
+    using json = nlohmann::json;
+
+    // 1. Xử lý khi LLM không trả về JSON
+    if (!decision.valid) {
+        if (stepHook) {
+            stepHook(
+                decision.rawResponse,
+                "INVALID_RESPONSE",
+                decision.rawResponse,
+                llmLatencyMs,
+                lastLLMResponse.totalTokens()
+            );
+        }
+
+        return {
+            true,
+            decision.rawResponse
+        };
+    }
+
+    std::string allToolResults;
+    bool firstToolInStep = true;
+    // 2. Xử lý từng JSON object
+    for (const std::string& jsonObject : decision.jsonObjects) {
+
+        json action;
+
+        // 3. Parse JSON
+        try {
+            action = json::parse(jsonObject);
+        }
+        catch (const std::exception& e) {
+            std::string error =
+                "Invalid JSON response: " + std::string(e.what());
+
+            if (stepHook) {
+                stepHook(
+                    decision.rawResponse,
+                    "INVALID_JSON",
+                    error,
+                    llmLatencyMs,
+                    lastLLMResponse.totalTokens()
+                );
+            }
+
+            return {
+                true,
+                error
+            };
+        }
+
+        // 4. JSON phải là object
+        if (!action.is_object()) {
+            return {
+                true,
+                "Invalid action: JSON must be an object."
+            };
+        }
+
+        // 5. Xác định loại action
+        std::string type = action.value("type", "");
+
+        // Tự suy luận type nếu LLM quên khai báo
+        if (type.empty() &&
+            action.contains("name") &&
+            action["name"].is_string() &&
+            action.contains("args")) {
+
+            type = "tool_call";
+        }
+
+        // 6. Nếu là final thì kết thúc Agent
+        if (type == "final") {
+            std::string answer =
+                action.value("content", "");
+
+            if (stepHook) {
+                stepHook(
+                    decision.rawResponse,
+                    "FINAL",
+                    answer,
+                    llmLatencyMs,
+                    lastLLMResponse.totalTokens()
+                );
+            }
+
+            std::cout
+                << "\n[SUMMARY] LLM calls: "
+                << llmCalls
+                << ", Tool calls: "
+                << toolCalls
+                << '\n';
+
+            return {
+                true,
+                answer
+            };
+        }
+
+        // 7. Chỉ chấp nhận tool_call
+        if (type != "tool_call") {
+            std::string error =
+                "Invalid action type: " + type;
+
+            if (stepHook) {
+                stepHook(
+                    decision.rawResponse,
+                    "INVALID_ACTION",
+                    error,
+                    llmLatencyMs,
+                    lastLLMResponse.totalTokens()
+                );
+            }
+
+            return {
+                true,
+                error
+            };
+        }
+
+        // 8. Lấy tên Tool và arguments
+        std::string toolName =
+            action.value("name", "");
+
+        json args = action.value("args", json::object());
+
+        if (toolName.empty() || !args.is_object()) {
+            std::string error =
+                "Invalid tool call: missing name or invalid args.";
+
+            if (stepHook) {
+                stepHook(
+                    decision.rawResponse,
+                    "INVALID_TOOL_CALL",
+                    error,
+                    llmLatencyMs,
+                    lastLLMResponse.totalTokens()
+                );
+            }
+
+            return {
+                true,
+                error
+            };
+        }
+
+        // 9. Kiểm tra Tool có được phép sử dụng không
+        if (!toolRegistry.isAllowed(toolName)) {
+            std::string error =
+                "Tool is not allowed: " + toolName;
+
+            if (stepHook) {
+                stepHook(
+                    decision.rawResponse,
+                    toolName,
+                    error,
+                    llmLatencyMs,
+                    lastLLMResponse.totalTokens()
+                );
+            }
+
+            return {
+                true,
+                error
+            };
+        }
+
+        // 10. Tìm Tool trong registry
+        auto tool = toolRegistry.getTool(toolName);
+
+        if (!tool) {
+            std::string error =
+                "Tool not found: " + toolName;
+
+            if (stepHook) {
+                stepHook(
+                    decision.rawResponse,
+                    toolName,
+                    error,
+                    llmLatencyMs,
+                    lastLLMResponse.totalTokens()
+                );
+            }
+
+            return {
+                true,
+                error
+            };
+        }
+
+        // 11. Chuẩn bị arguments cho Tool
+        std::string toolArgs;
+
+        if (toolName == "calculator") {
+            toolArgs = args.value("expression", "");
+        }
+        else {
+            toolArgs = args.dump();
+        }
+
+        // 12. Phát hiện Agent gọi lặp cùng một hành động
+        std::string actionSignature =
+            toolName + ":" + args.dump();
+
+        auto loopStatus =
+            loopDetector.recordAction(actionSignature);
+
+        if (loopStatus == LoopStatus::Critical) {
+            std::string error =
+                "Agent stopped: repeated tool calls detected.";
+
+            if (stepHook) {
+                stepHook(
+                    decision.rawResponse,
+                    "LOOP_DETECTED",
+                    error,
+                    llmLatencyMs,
+                    lastLLMResponse.totalTokens()
+                );
+            }
+
+            return {
+                true,
+                error
+            };
+        }
+
+        // 13. Thực thi Tool và đo thời gian
+        auto toolStart =
+            std::chrono::steady_clock::now();
+
+        std::string toolResult;
+
+        try {
+            toolResult = tool->get().execute(toolArgs);
+        }
+        catch (const std::exception& e) {
+            toolResult =
+                "Tool execution error: " + std::string(e.what());
+        }
+
+        auto toolEnd =
+            std::chrono::steady_clock::now();
+
+        long long toolLatencyMs =
+            std::chrono::duration_cast<std::chrono::milliseconds>(
+                toolEnd - toolStart
+            ).count();
+
+        ++toolCalls;
+
+        // 14. Tính latency và token cho StepHook
+        long long totalLatencyMs = toolLatencyMs;
+
+        int tokens = 0;
+
+        // Tool đầu tiên bao gồm cả thời gian gọi LLM
+     
+
+
+if (firstToolInStep) {
+    totalLatencyMs += llmLatencyMs;
+    tokens = lastLLMResponse.totalTokens();
+
+    firstToolInStep = false;
+}
+
+        // 15. Ghi log profiling
+        std::cout
+            << "[PROFILE] Step: " << currentStep
+            << ", Tool: " << toolName
+            << ", Tool latency: " << toolLatencyMs << " ms"
+            << ", Total latency: " << totalLatencyMs << " ms"
+            << ", Tokens: " << tokens
+            << '\n';
+
+        // 16. Gọi callback cho Harness
+        if (stepHook) {
+            stepHook(
+                decision.rawResponse,
+                toolName,
+                toolResult,
+                totalLatencyMs,
+                tokens
+            );
+        }
+
+        // 17. Lưu kết quả Tool
+        allToolResults +=
+            "\nTool: " + toolName +
+            "\nResult: " + toolResult + "\n";
+    }
+
+    // 18. Đưa phản hồi và kết quả Tool vào lịch sử hội thoại
+    messages.push_back({
+        "assistant",
+        decision.rawResponse
+    });
+
+    messages.push_back({
+        "user",
+        "Tool execution results:\n" +
+        allToolResults +
+        "\nContinue your task. If finished, return a final action."
+    });
+
+    // Chưa kết thúc, cần gọi LLM tiếp
+    return {
+        false,
+        ""
+    };
+}
+const std::string& AgentLoop::getModelName() const {
+    return llm.getModelName();
 }

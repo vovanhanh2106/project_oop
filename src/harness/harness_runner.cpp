@@ -104,7 +104,12 @@ HarnessResult HarnessRunner::runTask(
 
     // 1. Khởi tạo recorder cho task hiện tại
     trajectoryRecorder.clear();
-    trajectoryRecorder.startRun(task.input);
+
+trajectoryRecorder.startRun(
+    task.input,
+    task.taskId,
+    agent.getModelName()
+);
 
     const auto start = std::chrono::steady_clock::now();
 
@@ -146,7 +151,7 @@ HarnessResult HarnessRunner::runTask(
         trajectoryRecorder.setTotalTimeMs(result.latency_ms);
 
 // 5. Xuất trajectory sau khi đã cập nhật thời gian.
-result.trajectoryJson = trajectoryRecorder.toJson();
+// result.trajectoryJson = trajectoryRecorder.toJson();
 // Đánh giá việc sử dụng tool
 evaluateToolUsage(
     task,
@@ -202,13 +207,16 @@ if (!result.missingTools.empty()) {
     }
 }
 
-        // result.evaluation = evaluator->evaluate(
-        //     task.expected,
-        //     result.actual
-        // );
     }
 
     // 5. Lưu kết quả task vào danh sách
+    // Cập nhật trạng thái cuối cùng sau toàn bộ đánh giá.
+trajectoryRecorder.setSuccess(
+    result.evaluation.passed
+);
+
+// Xuất trajectory sau khi đã có kết quả đánh giá.
+result.trajectoryJson = trajectoryRecorder.toJson();
     results.push_back(result);
 
     return result;

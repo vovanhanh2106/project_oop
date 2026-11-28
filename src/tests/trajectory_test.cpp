@@ -6,8 +6,15 @@
 int main() {
      SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
-    TrajectoryRecorder recorder("Tính 17 nhân 13");
+    TrajectoryRecorder recorder;
 
+recorder.startRun(
+    "Tính 17 nhân 13",
+    "TEST_01",
+    "gemma3:4b"
+);
+recorder.setSuccess(true);
+recorder.setTotalTimeMs(200);
     // Giả lập bước 1: Agent gọi Calculator.
     recorder.recordStep(
         R"({"type":"tool_call","name":"calculator"})",

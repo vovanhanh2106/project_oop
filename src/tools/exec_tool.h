@@ -1,17 +1,19 @@
-
 #pragma once
 
 #include "tool.h"
+#include "../environment/environment.h"
 
+#include <memory>
 #include <string>
-#include <vector>
 
 class ExecTool : public Tool {
 private:
-    std::vector<std::string> allowedCommands;
+    std::unique_ptr<Environment> ownedEnvironment;
+    Environment* environment;
 
 public:
-    ExecTool();
+    explicit ExecTool();
+    explicit ExecTool(Environment& environment);
 
     std::string getName() const override;
 

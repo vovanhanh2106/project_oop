@@ -14,7 +14,9 @@ std::vector<BenchmarkTask> BenchmarkDataset::createTasks() {
                 "Calculate 17 multiplied by 13. "
                 "Return the numerical result.",
                 "221",
-                "numeric"
+                "numeric",
+                {},
+                "B01"
             },
             BenchmarkDifficulty::Easy,
             {"calculator"}
@@ -26,7 +28,9 @@ std::vector<BenchmarkTask> BenchmarkDataset::createTasks() {
                 "Calculate (25 + 15) * 3 - 12. "
                 "Return the numerical result.",
                 "108",
-                "numeric"
+                "numeric",
+                {},
+                "B02"
             },
             BenchmarkDifficulty::Easy,
             {"calculator"}
@@ -39,7 +43,9 @@ std::vector<BenchmarkTask> BenchmarkDataset::createTasks() {
                 "inside your workspace and tell me "
                 "the exact code written in it.",
                 "AGENT-BENCHMARK-2026",
-                "keyword"
+                "keyword",
+                {},
+                "B03"
             },
             BenchmarkDifficulty::Easy,
             {"file"}
@@ -53,7 +59,9 @@ std::vector<BenchmarkTask> BenchmarkDataset::createTasks() {
         "Then search your memory for AI-25120054 "
         "and report the associated project code.",
         "AI-25120054",
-        "keyword"
+        "keyword",
+        {},
+        "B04"
             },
             BenchmarkDifficulty::Easy,
             {"memory"}
@@ -70,7 +78,9 @@ std::vector<BenchmarkTask> BenchmarkDataset::createTasks() {
         "Save the result in memory with label medium_calculation. "
         "Then retrieve that information and return the numerical result.",
         "550",
-        "numeric"
+        "numeric",
+        {},
+        "B05"
     },
     BenchmarkDifficulty::Medium,
     {"calculator", "memory"}
@@ -83,7 +93,9 @@ std::vector<BenchmarkTask> BenchmarkDataset::createTasks() {
         "The file contains integers separated by whitespace. "
         "Calculate the sum of all numbers and return the result.",
         "60",
-        "numeric"
+        "numeric",
+        {},
+        "B06"
     },
     BenchmarkDifficulty::Medium,
     {"file", "calculator"}
@@ -97,7 +109,9 @@ std::vector<BenchmarkTask> BenchmarkDataset::createTasks() {
         "Search your memory for C++20. "
         "Report the build system associated with it.",
         "CMake",
-        "keyword"
+        "keyword",
+        {},
+        "B07"
     },
     BenchmarkDifficulty::Medium,
     {"memory"}
@@ -112,7 +126,9 @@ std::vector<BenchmarkTask> BenchmarkDataset::createTasks() {
         "Retrieve cpp_info and include the phrase "
         "programming language in your final answer.",
         "programming language",
-        "keyword"
+        "keyword",
+        {},
+        "B08"
     },
     BenchmarkDifficulty::Medium,
     {"web_search", "memory"}
@@ -131,7 +147,9 @@ std::vector<BenchmarkTask> BenchmarkDataset::createTasks() {
                 "with label benchmark_sum. Finally, "
                 "confirm the saved result.",
                 "60",
-                "keyword"
+                "keyword",
+                {},
+                "B09"
             },
             BenchmarkDifficulty::Hard,
             {"file", "calculator", "memory"}
@@ -149,7 +167,9 @@ std::vector<BenchmarkTask> BenchmarkDataset::createTasks() {
         "retrieve sqlite_info from memory. "
         "Summarize the information in your final answer.",
         "SQLite",
-        "keyword"
+        "keyword",
+        {},
+        "B10"
     },
     BenchmarkDifficulty::Hard,
     {"web_search", "file", "memory"}

@@ -19,9 +19,12 @@ private:
     // C++26: Lưu tối đa 64 bước ngay bên trong object.
     std::inplace_vector<TrajectoryStep, 64> steps;
 
+      std::string taskId;
     std::string task;
+    std::string model;
 
-    // Tổng thời gian thực thi task.
+    bool success = false;
+
     long long totalTimeMs = 0;
 
 public:
@@ -29,7 +32,10 @@ public:
 
     explicit TrajectoryRecorder(const std::string& task);
 
-    void startRun(const std::string& task);
+    void startRun(const std::string& task,
+        const std::string& taskId = "",
+        const std::string& model = ""
+    );
 
     void recordStep(
         const std::string& thought,
@@ -38,6 +44,11 @@ public:
         long long latency_ms,
         int tokens = 0
     );
+     void setSuccess(bool value);
+    bool getSuccess() const;
+
+    const std::string& getTaskId() const;
+    const std::string& getModel() const;
 
     const std::string& getTask() const;
 

@@ -1,29 +1,39 @@
-Start testing: Nov 23 21:33 SE Asia Standard Time
+Start testing: Nov 27 21:42 SE Asia Standard Time
 ----------------------------------------------------------
-8/8 Testing: JsonToolTest
-8/8 Test: JsonToolTest
-Command: "C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/JsonToolTest.exe"
+2/11 Testing: RegisterDefaultToolsTest
+2/11 Test: RegisterDefaultToolsTest
+Command: "C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/RegisterDefaultToolsTest.exe"
 Directory: C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build
-"JsonToolTest" start time: Nov 23 21:33 SE Asia Standard Time
+"RegisterDefaultToolsTest" start time: Nov 27 21:42 SE Asia Standard Time
 Output:
 ----------------------------------------------------------
-[PASS] Pretty print
-[PASS] Minify
-[PASS] Validate valid JSON
-[PASS] Validate invalid JSON
-[PASS] Get existing field
-[PASS] Get missing field
-[PASS] Missing data
-[DEBUG] Actual result: [Error: Unsupported command. Use validate, pretty, minify, or get.]
-[PASS] Unsupported command
+[PASS] Register all 8 tool creators
+[PASS] Creator registered: calculator
+[PASS] Create tool: calculator
+[PASS] Creator registered: file
+[PASS] Create tool: file
+[PASS] Creator registered: exec
+[PASS] Create tool: exec
+[PASS] Creator registered: web_search
+[PASS] Create tool: web_search
+[PASS] Creator registered: memory
+[PASS] Create tool: memory
+[PASS] Creator registered: datetime
+[PASS] Create tool: datetime
+[PASS] Creator registered: git
+[PASS] Create tool: git
+[PASS] Creator registered: json
+[PASS] Create tool: json
 
-All JsonTool tests passed!
+========== TEST SUMMARY ==========
+Passed: 17
+Failed: 0
 <end of output>
-Test time =   0.02 sec
+Test time =   0.12 sec
 ----------------------------------------------------------
 Test Passed.
-"JsonToolTest" end time: Nov 23 21:33 SE Asia Standard Time
-"JsonToolTest" time elapsed: 00:00:00
+"RegisterDefaultToolsTest" end time: Nov 27 21:42 SE Asia Standard Time
+"RegisterDefaultToolsTest" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Nov 23 21:33 SE Asia Standard Time
+End testing: Nov 27 21:42 SE Asia Standard Time

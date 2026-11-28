@@ -4,7 +4,6 @@
 #include <curl/curl.h>
 #include <nlohmann/json.hpp>
 
-#include <cctype>
 #include <sstream>
 #include <stdexcept>
 #include <string>
@@ -25,23 +24,6 @@ size_t writeCallback(
     response->append(data, bytes);
 
     return bytes;
-}
-
-std::string htmlToText(const std::string& html) {
-    std::string result;
-    bool insideTag = false;
-
-    for (char c : html) {
-        if (c == '<') {
-            insideTag = true;
-        } else if (c == '>') {
-            insideTag = false;
-        } else if (!insideTag) {
-            result += c;
-        }
-    }
-
-    return result;
 }
 
 std::string urlEncode(CURL* curl, const std::string& value) {
@@ -69,16 +51,17 @@ std::string WebSearchTool::getName() const {
 
 std::string WebSearchTool::getDescription() const {
     return
-        "Search Wikipedia articles. "
+        "Search the web using SearXNG. "
         "Input must be a JSON object: "
         "{\"query\":\"C++ programming\"}. "
-        "Returns article titles, snippets, and URLs. "
+        "Returns web result titles, summaries, URLs, and search engines. "
         "Use this tool when the user requests information "
-        "that requires searching Wikipedia.";
+        "that requires searching the web.";
 }
 
 std::string WebSearchTool::execute(const std::string& args) {
     try {
+        // 1. Parse input JSON
         const json input = json::parse(args);
 
         if (!input.is_object() ||
@@ -94,6 +77,7 @@ std::string WebSearchTool::execute(const std::string& args) {
             return "Error: query must contain 1-500 characters.";
         }
 
+        // 2. Initialize CURL
         CURL* curl = curl_easy_init();
 
         if (curl == nullptr) {
@@ -102,15 +86,13 @@ std::string WebSearchTool::execute(const std::string& args) {
 
         std::string response;
 
+        // 3. Build SearXNG API URL
         const std::string url =
-            "https://en.wikipedia.org/w/api.php"
-            "?action=query"
-            "&list=search"
-            "&format=json"
-            "&utf8=1"
-            "&srlimit=5"
-            "&srsearch=" + urlEncode(curl, query);
+            "http://127.0.0.1:8080/search?q=" +
+            urlEncode(curl, query) +
+            "&format=json";
 
+        // 4. Configure HTTP request
         curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeCallback);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
@@ -122,9 +104,11 @@ std::string WebSearchTool::execute(const std::string& args) {
             "AIAgentStudentProject/1.0"
         );
 
+        // 5. Send request
         const CURLcode result = curl_easy_perform(curl);
 
         long statusCode = 0;
+
         curl_easy_getinfo(
             curl,
             CURLINFO_RESPONSE_CODE,
@@ -133,51 +117,60 @@ std::string WebSearchTool::execute(const std::string& args) {
 
         curl_easy_cleanup(curl);
 
+        // 6. Handle HTTP errors
         if (result != CURLE_OK) {
             return std::string("HTTP request failed: ") +
                    curl_easy_strerror(result);
         }
 
         if (statusCode != 200) {
-            return "Search API returned HTTP " +
+            return "SearXNG returned HTTP " +
                    std::to_string(statusCode);
         }
 
+        // 7. Parse SearXNG JSON response
         const json data = json::parse(response);
 
-        if (!data.contains("query") ||
-            !data["query"].contains("search") ||
-            !data["query"]["search"].is_array()) {
-            return "Error: unexpected search API response.";
+        if (!data.contains("results") ||
+            !data["results"].is_array()) {
+            return "Error: unexpected SearXNG response.";
         }
 
-        const auto& results = data["query"]["search"];
+        const auto& results = data["results"];
 
         if (results.empty()) {
-            return "No Wikipedia articles found for: " + query;
+            return "No web results found for: " + query;
         }
 
+        // 8. Format search results
         std::ostringstream output;
-        output << "Wikipedia search results for: "
+
+        output << "Web search results for: "
                << query << "\n\n";
 
-        int index = 1;
+        std::size_t count = 0;
 
         for (const auto& item : results) {
+            if (count >= 5) {
+                break;
+            }
+
             const std::string title =
                 item.value("title", std::string("Untitled"));
 
-            const std::string snippet =
-                htmlToText(
-                    item.value("snippet", std::string(""))
-                );
+            const std::string content =
+                item.value("content", std::string(""));
 
-            const auto pageId = item.value("pageid", 0);
+            const std::string url =
+                item.value("url", std::string(""));
 
-            output << index++ << ". " << title << "\n"
-                   << "   Summary: " << snippet << "\n"
-                   << "   URL: https://en.wikipedia.org/?curid="
-                   << pageId << "\n\n";
+            const std::string engine =
+                item.value("engine", std::string("Unknown"));
+
+            output << ++count << ". " << title << "\n"
+                   << "   Summary: " << content << "\n"
+                   << "   URL: " << url << "\n"
+                   << "   Source: " << engine << "\n\n";
         }
 
         return output.str();

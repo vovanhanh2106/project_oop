@@ -1,20 +1,22 @@
 
 #include "exec_tool.h"
-
-#include <cstdlib>
-#include <cstdio>
-#include <filesystem>
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <vector>
+#include "../environment/native_environment.h"
 
 #include <nlohmann/json.hpp>
+
+#include <vector>
+#include <string>
 
 using json = nlohmann::json;
 
 ExecTool::ExecTool()
-    : allowedCommands{"whoami", "hostname"} {}
+    : ownedEnvironment(std::make_unique<NativeEnvironment>()),
+      environment(ownedEnvironment.get()) {
+}
+
+ExecTool::ExecTool(Environment& environment)
+    : environment(&environment) {
+}
 
 std::string ExecTool::getName() const {
     return "exec";
@@ -22,13 +24,16 @@ std::string ExecTool::getName() const {
 
 std::string ExecTool::getDescription() const {
     return
-        "Run an allowlisted system information command. "
-        "Input JSON: {\"command\":\"whoami\"} "
-        "or {\"command\":\"hostname\"}.";
+        "Execute an allowed Windows command with arguments. "
+        "Input JSON format: "
+        "{\"command\":\"ipconfig\",\"args\":[\"/all\"]}. "
+        "Allowed commands depend on the current environment. "
+        "Arguments are validated separately for each command.";
 }
 
 std::string ExecTool::execute(const std::string& args) {
     try {
+        // 1. Parse JSON.
         const json input = json::parse(args);
 
         if (!input.is_object() ||
@@ -37,64 +42,49 @@ std::string ExecTool::execute(const std::string& args) {
             return "Error: expected JSON with a string command.";
         }
 
+        // 2. Read command.
         const std::string command =
             input["command"].get<std::string>();
 
-        // Chỉ cho phép các lệnh trong allowlist.
-        bool allowed = false;
+        if (command.empty() || command.size() > 100) {
+            return "Error: invalid command length.";
+        }
 
-        for (const auto& item : allowedCommands) {
-            if (item == command) {
-                allowed = true;
-                break;
+        // 3. Read optional arguments.
+        std::vector<std::string> commandArgs;
+
+        if (input.contains("args")) {
+            if (!input["args"].is_array()) {
+                return "Error: args must be an array.";
+            }
+
+            const auto& argsArray = input["args"];
+
+            if (argsArray.size() > 10) {
+                return "Error: maximum 10 arguments allowed.";
+            }
+
+            for (const auto& arg : argsArray) {
+                if (!arg.is_string()) {
+                    return "Error: every argument must be a string.";
+                }
+
+                const std::string value =
+                    arg.get<std::string>();
+
+                if (value.size() > 500) {
+                    return "Error: argument is too long.";
+                }
+
+                commandArgs.push_back(value);
             }
         }
 
-        if (!allowed) {
-            return "Error: command is not allowed.";
-        }
-
-        // Chỉ ánh xạ sang executable cố định, không ghép
-        // dữ liệu do người dùng cung cấp vào shell command.
-        std::string executable;
-
-        if (command == "whoami") {
-            executable = "whoami";
-        } else if (command == "hostname") {
-            executable = "hostname";
-        } else {
-            return "Error: unsupported command.";
-        }
-
-        // Chuyển output về file tạm để đọc kết quả.
-        // Tên file tạm cố định chỉ phù hợp cho bản demo đơn luồng.
-        const std::filesystem::path outputFile =
-            std::filesystem::temp_directory_path()
-            / "ai_agent_exec_output.txt";
-
-        const std::string fullCommand =
-            "\"" + executable + "\" > \"" +
-            outputFile.string() + "\" 2>&1";
-
-        const int exitCode = std::system(fullCommand.c_str());
-
-        std::ifstream file(outputFile, std::ios::binary);
-        std::ostringstream buffer;
-
-        if (file) {
-            buffer << file.rdbuf();
-        }
-
-        std::error_code ec;
-        std::filesystem::remove(outputFile, ec);
-
-        const std::string output = buffer.str();
-
-        if (exitCode != 0) {
-            return "Command failed. Output: " + output;
-        }
-
-        return output.empty() ? "(no output)" : output;
+        // 4. Delegate execution to Environment.
+        return environment->executeCommand(
+            command,
+            commandArgs
+        );
     }
     catch (const json::exception& e) {
         return std::string("JSON error: ") + e.what();

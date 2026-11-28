@@ -1,19 +1,24 @@
-
 #pragma once
 
 #include "tool.h"
+#include "../environment/environment.h"
 
 #include <filesystem>
+#include <memory>
 #include <string>
 
 class FileTool : public Tool {
 private:
+    std::unique_ptr<Environment> ownedEnvironment;
     std::filesystem::path workspace;
 
+    bool isPathInsideWorkspace(
+        const std::filesystem::path& path
+    ) const;
+
 public:
-    explicit FileTool(
-        const std::filesystem::path& workspace = "workspace"
-    );
+    explicit FileTool();
+    explicit FileTool(const Environment& environment);
 
     std::string getName() const override;
 

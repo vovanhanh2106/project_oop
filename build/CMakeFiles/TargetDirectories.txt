@@ -8,7 +8,12 @@ C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/CMakeFiles/Benc
 C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/CMakeFiles/IntegrationTest.dir
 C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/CMakeFiles/JsonToolTest.dir
 C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/CMakeFiles/GitToolManualTest.dir
+C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/CMakeFiles/WebSearchToolManualTest.dir
 C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/CMakeFiles/AgentLoopErrorTest.dir
+C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/CMakeFiles/CaculatorTest.dir
+C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/CMakeFiles/ExecToolManualTest.dir
+C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/CMakeFiles/ToolFactoryTest.dir
+C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/CMakeFiles/RegisterDefaultToolsTest.dir
 C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/CMakeFiles/test.dir
 C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/CMakeFiles/edit_cache.dir
 C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build/CMakeFiles/rebuild_cache.dir

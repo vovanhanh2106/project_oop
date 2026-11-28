@@ -16,13 +16,34 @@ TrajectoryRecorder::TrajectoryRecorder(
 }
 
 void TrajectoryRecorder::startRun(
-    const std::string& task
+    const std::string& task,
+    const std::string& taskId,
+    const std::string& model
 ) {
     this->task = task;
+    this->taskId = taskId;
+    this->model = model;
+
+    success = false;
+
     steps.clear();
     totalTimeMs = 0;
 }
+void TrajectoryRecorder::setSuccess(bool value) {
+    success = value;
+}
 
+bool TrajectoryRecorder::getSuccess() const {
+    return success;
+}
+
+const std::string& TrajectoryRecorder::getTaskId() const {
+    return taskId;
+}
+
+const std::string& TrajectoryRecorder::getModel() const {
+    return model;
+}
 void TrajectoryRecorder::setTotalTimeMs(long long time) {
     if (time < 0) {
         throw std::invalid_argument(
@@ -90,12 +111,15 @@ std::size_t TrajectoryRecorder::getStepCount() const {
 
 std::string TrajectoryRecorder::toJson() const {
     json trajectory = {
-        {"task", task},
-        {"step_count", steps.size()},
-        {"total_tokens", getTotalTokens()},
-        {"total_time_ms", getTotalTimeMs()},
-        {"steps", json::array()}
-    };
+    {"task_id", taskId},
+    {"task", task},
+    {"model", model},
+    {"success", success},
+    {"step_count", steps.size()},
+    {"total_tokens", getTotalTokens()},
+    {"total_time_ms", getTotalTimeMs()},
+    {"steps", json::array()}
+};
 
     for (const auto& step : steps) {
         trajectory["steps"].push_back({
@@ -133,7 +157,12 @@ bool TrajectoryRecorder::saveToJson(
 }
 
 void TrajectoryRecorder::clear() {
+    taskId.clear();
     task.clear();
+    model.clear();
+
+    success = false;
+
     steps.clear();
     totalTimeMs = 0;
 }

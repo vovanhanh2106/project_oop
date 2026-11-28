@@ -1,9 +1,12 @@
-TrajectoryTest 5 0.00735124
-HarnessTest 5 29.6759
-ToolRegistryTest 6 0.00804558
-LoopDetectorTest 4 0.00776818
-BenchmarkTest 6 72.3235
-IntegrationTest 3 0.0161602
-AgentLoopErrorTest 4 0.0074073
-JsonToolTest 1 0.024729
+TrajectoryTest 8 0.00531504
+HarnessTest 8 23.4214
+ToolRegistryTest 9 0.00703163
+LoopDetectorTest 7 0.00416387
+BenchmarkTest 9 46.9158
+IntegrationTest 6 0.0137243
+AgentLoopErrorTest 7 0.00666007
+JsonToolTest 4 0.0151078
+ExecToolTest 1 0.264668
+ToolFactoryTest 1 0.0348162
+RegisterDefaultToolsTest 1 0.12496
 ---

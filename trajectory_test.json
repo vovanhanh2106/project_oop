@@ -1,4 +1,5 @@
 {
+    "model": "gemma3:4b",
     "step_count": 2,
     "steps": [
         {
@@ -18,7 +19,9 @@
             "tokens_used": 0
         }
     ],
+    "success": true,
     "task": "Tính 17 nhân 13",
-    "total_time_ms": 0,
+    "task_id": "TEST_01",
+    "total_time_ms": 200,
     "total_tokens": 0
 }

@@ -1,11 +1,12 @@
 
 #include "calculator_tool.h"
+#include <iostream>
 #include <charconv>  // C++17: std::from_chars
 #include <cctype>
 #include <expected>
 #include <stdexcept>
 #include <string>
-
+#include <cmath>
 namespace {
 
 class Parser {
@@ -23,31 +24,87 @@ private:
             ++pos;
         }
     }
-
-    double parseNumber() {
+    void checkResult(double value) {
+    if (!std::isfinite(value)) {
+        throw std::runtime_error(
+            "Calculation result is out of range"
+        );
+    }
+}
+    
+double parseNumber() {
     skipSpaces();
 
     size_t start = pos;
 
+    bool hasDigit = false;
+
+    // Đọc phần nguyên.
     while (
         pos < expression.size() &&
-        (
-            std::isdigit(
-                static_cast<unsigned char>(expression[pos])
-            ) ||
-            expression[pos] == '.'
+        std::isdigit(
+            static_cast<unsigned char>(expression[pos])
         )
     ) {
+        hasDigit = true;
         ++pos;
     }
 
-    if (start == pos) {
-        throw std::runtime_error("Expected number");
+    // Đọc phần thập phân.
+    if (
+        pos < expression.size() &&
+        expression[pos] == '.'
+    ) {
+        ++pos;
+
+        while (
+            pos < expression.size() &&
+            std::isdigit(
+                static_cast<unsigned char>(expression[pos])
+            )
+        ) {
+            hasDigit = true;
+            ++pos;
+        }
+    }
+
+    if (!hasDigit) {
+        throw std::runtime_error("Invalid number");
+    }
+
+    // Đọc phần số mũ: e hoặc E.
+    if (
+        pos < expression.size() &&
+        (expression[pos] == 'e' || expression[pos] == 'E')
+    ) {
+        ++pos;
+
+        // Số mũ có thể có dấu + hoặc -.
+        if (
+            pos < expression.size() &&
+            (expression[pos] == '+' || expression[pos] == '-')
+        ) {
+            ++pos;
+        }
+
+        size_t exponentStart = pos;
+
+        while (
+            pos < expression.size() &&
+            std::isdigit(
+                static_cast<unsigned char>(expression[pos])
+            )
+        ) {
+            ++pos;
+        }
+
+        if (exponentStart == pos) {
+            throw std::runtime_error("Invalid exponent");
+        }
     }
 
     double value;
 
-    // C++17: Chuyển chuỗi thành double bằng std::from_chars
     const char* first = expression.data() + start;
     const char* last = expression.data() + pos;
 
@@ -60,13 +117,15 @@ private:
 
     if (
         error != std::errc{} ||
-        ptr != last
+        ptr != last ||
+        !std::isfinite(value)
     ) {
-        throw std::runtime_error("Invalid number");
+        throw std::runtime_error("Invalid or out-of-range number");
     }
 
     return value;
 }
+
     double parseFactor() {
         skipSpaces();
 
@@ -104,71 +163,75 @@ private:
     }
 
     double parseTerm() {
-        double result = parseFactor();
+    double result = parseFactor();
 
-        while (true) {
-            skipSpaces();
+    while (true) {
+        skipSpaces();
 
-            if (pos >= expression.size()) {
-                break;
-            }
-
-            char op = expression[pos];
-
-            if (op != '*' && op != '/') {
-                break;
-            }
-
-            ++pos;
-
-            double value = parseFactor();
-
-            if (op == '*') {
-                result *= value;
-            } else {
-                if (value == 0) {
-                    throw std::runtime_error(
-                        "Division by zero"
-                    );
-                }
-
-                result /= value;
-            }
+        if (pos >= expression.size()) {
+            break;
         }
 
-        return result;
-    }
+        char op = expression[pos];
 
-    double parseExpressionInternal() {
-        double result = parseTerm();
-
-        while (true) {
-            skipSpaces();
-
-            if (pos >= expression.size()) {
-                break;
-            }
-
-            char op = expression[pos];
-
-            if (op != '+' && op != '-') {
-                break;
-            }
-
-            ++pos;
-
-            double value = parseTerm();
-
-            if (op == '+') {
-                result += value;
-            } else {
-                result -= value;
-            }
+        if (op != '*' && op != '/') {
+            break;
         }
 
-        return result;
+        ++pos;
+
+        double value = parseFactor();
+
+        if (op == '*') {
+            result *= value;
+        }
+        else {
+            if (value == 0) {
+                throw std::runtime_error("Division by zero");
+            }
+
+            result /= value;
+        }
+
+        checkResult(result);
     }
 
+    return result;
+}
+     
+
+   double parseExpressionInternal() {
+    double result = parseTerm();
+
+    while (true) {
+        skipSpaces();
+
+        if (pos >= expression.size()) {
+            break;
+        }
+
+        char op = expression[pos];
+
+        if (op != '+' && op != '-') {
+            break;
+        }
+
+        ++pos;
+
+        double value = parseTerm();
+
+        if (op == '+') {
+            result += value;
+        }
+        else {
+            result -= value;
+        }
+
+        checkResult(result);
+    }
+
+    return result;
+}
 public:
     explicit Parser(const std::string& expr)
         : expression(expr) {}
@@ -223,6 +286,7 @@ std::string CalculatorTool::getDescription() const {
 std::string CalculatorTool::execute(
     const std::string& args
 ) {
+   
     auto result = calculateExpression(args);
 
     if (!result) {

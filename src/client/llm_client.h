@@ -27,4 +27,8 @@ public:
     virtual LLMResponse chat(
         std::span<const Message> messages
     ) = 0;
+    virtual const std::string& getModelName() const {
+    static const std::string unknown = "unknown";
+    return unknown;
+    }
 };

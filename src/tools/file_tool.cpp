@@ -1,6 +1,6 @@
 
 #include "file_tool.h"
-
+#include "../environment/native_environment.h"
 #include <fstream>
 #include <sstream>
 #include <stdexcept>
@@ -8,13 +8,60 @@
 
 using json = nlohmann::json;
 
-FileTool::FileTool(const std::filesystem::path& workspace)
-    : workspace(std::filesystem::absolute(workspace).lexically_normal()) {
-    std::filesystem::create_directories(this->workspace);
+// Constructor mặc định dành cho benchmark hoặc code cũ.
+FileTool::FileTool()
+    : ownedEnvironment(std::make_unique<NativeEnvironment>()),
+      workspace(ownedEnvironment->getWorkspace()) {
+
+    std::filesystem::create_directories(workspace);
 }
 
+// Constructor sử dụng Environment được truyền từ bên ngoài.
+FileTool::FileTool(const Environment& environment)
+    : workspace(environment.getWorkspace()) {
+
+    std::filesystem::create_directories(workspace);
+}
 std::string FileTool::getName() const {
     return "file";
+}
+
+bool FileTool::isPathInsideWorkspace(
+    const std::filesystem::path& path
+) const {
+    std::error_code ec;
+
+    // Phân giải đường dẫn thực tế của workspace.
+    const auto canonicalWorkspace =
+        std::filesystem::weakly_canonical(workspace, ec);
+
+    if (ec) {
+        return false;
+    }
+
+    // Phân giải đường dẫn thực tế của file đích.
+    const auto canonicalTarget =
+        std::filesystem::weakly_canonical(path, ec);
+
+    if (ec) {
+        return false;
+    }
+
+    // Kiểm tra từng thành phần đường dẫn:
+    // canonicalTarget phải bắt đầu bằng toàn bộ canonicalWorkspace.
+    auto workspaceIt = canonicalWorkspace.begin();
+    auto targetIt = canonicalTarget.begin();
+
+    for (; workspaceIt != canonicalWorkspace.end();
+         ++workspaceIt, ++targetIt) {
+
+        if (targetIt == canonicalTarget.end() ||
+            *workspaceIt != *targetIt) {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 std::string FileTool::getDescription() const {
@@ -81,13 +128,15 @@ std::string FileTool::execute(const std::string& args) {
         // Kiểm tra đường dẫn vẫn nằm bên trong workspace.
         const auto relativeTarget =
             target.lexically_relative(workspace);
-
+       
         if (relativeTarget.empty() ||
             relativeTarget.is_absolute() ||
             *relativeTarget.begin() == "..") {
             return "Error: path is outside the workspace.";
         }
-
+ if (!isPathInsideWorkspace(target)) {
+    return "Error: path is outside the workspace (symlink detected).";
+}
         if (action == "read") {
             if (!std::filesystem::exists(target) ||
                 !std::filesystem::is_regular_file(target)) {
@@ -118,7 +167,9 @@ std::string FileTool::execute(const std::string& args) {
 
             // Tạo thư mục cha nếu chưa có.
             std::filesystem::create_directories(target.parent_path());
-
+            if (!isPathInsideWorkspace(target)) {
+    return "Error: path is outside the workspace (symlink detected).";
+}
             std::ofstream file(
                 target,
                 std::ios::binary | std::ios::trunc

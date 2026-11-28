@@ -19,6 +19,7 @@ struct HarnessTask {
 
     // Các tool bắt buộc phải sử dụng trong task
     std::vector<std::string> requiredTools;
+    std::string taskId;
 };
 
 struct HarnessResult {

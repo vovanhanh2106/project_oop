@@ -208,3 +208,6 @@ LLMResponse RemoteLLMClient::chat(
         );
     }
 }
+const std::string& RemoteLLMClient::getModelName() const {
+    return model;
+}

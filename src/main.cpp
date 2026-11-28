@@ -4,12 +4,14 @@
 #include <memory>
 #include <cstdlib>
 #include <stdexcept>
-
+#include "tools/tool_factory.h"
+#include "tools/register_default_tools.h"
 #include <vector>
 
 #include <limits>
 #include <windows.h>
-
+#include "environment/native_environment.h"
+#include "environment/sandbox_environment.h"
 #include "client/llm_client.h"
 #include "client/ollama_client.h"
 #include "client/remote_llm_client.h"
@@ -159,35 +161,61 @@ int main() {
                 "Invalid AGENT_MODE. Use local or remote."
             );
         }
+        // 2. Khởi tạo Environment
+std::unique_ptr<Environment> environment;
 
+const char* envMode = std::getenv("AGENT_ENV");
+std::string environmentMode = envMode ? envMode : "native";
+
+if (environmentMode == "native") {
+    environment = std::make_unique<NativeEnvironment>("workspace");
+
+    std::cout << "Using Native Environment\n";
+}
+else if (environmentMode == "sandbox") {
+    environment = std::make_unique<SandboxEnvironment>("sandbox_workspace");
+
+    std::cout << "Using Sandbox Environment\n";
+}
+else {
+    throw std::runtime_error(
+        "Invalid AGENT_ENV. Use native or sandbox."
+    );
+}
         // 2. Đăng ký các tool
-        ToolRegistry toolRegistry;
+        // 1. Tạo Factory
+ToolFactory toolFactory;
 
-        toolRegistry.registerTool(
-            std::make_unique<CalculatorTool>()
-        );
+// 2. Đăng ký cách tạo 8 loại Tool
+registerDefaultTools(
+    toolFactory,
+    *environment,
+    "agent_memory.db"
+);
 
-        toolRegistry.registerTool(
-            std::make_unique<FileTool>()
-        );
+// 3. Tạo Registry để quản lý các Tool
+ToolRegistry toolRegistry;
 
-        toolRegistry.registerTool(
-            std::make_unique<ExecTool>()
-        );
+// 4. Danh sách Tool cần khởi tạo
+const std::vector<std::string> toolNames = {
+    "calculator",
+    "file",
+    "web_search",
+    "memory",
+    "exec",
+    "datetime",
+    "git",
+    "json"
+};
 
-        toolRegistry.registerTool(
-            std::make_unique<WebSearchTool>()
-        );
+// 5. Factory tạo Tool, Registry tiếp nhận và quản lý
+for (const auto& name : toolNames) {
+    toolRegistry.registerTool(
+        toolFactory.createTool(name)
+    );
+}
 
-        toolRegistry.registerTool(
-            std::make_unique<MemoryTool>()
-        );
-        toolRegistry.registerTool(
-            std::make_unique<DateTimeTool>()
-        );
-        toolRegistry.registerTool(std::make_unique<GitTool>());
-        toolRegistry.registerTool(std::make_unique<JsonTool>());
-
+// 6. Cấu hình quyền sử dụng Tool
 configureToolPermissions(toolRegistry);
         // 3. Khởi tạo skills và loop detector
         SkillLoader skillLoader("skills");

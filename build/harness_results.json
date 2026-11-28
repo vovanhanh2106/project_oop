@@ -1,120 +1,129 @@
 {
     "results": [
         {
-            "actual": "17 nhân 13 bằng 221",
+            "actual": "221",
             "execution_error": false,
             "expected": "221",
-            "feedback": "Actual result must contain exactly one valid number.",
+            "feedback": "Numeric result matches the expected value.",
             "input": "Tính 17 nhân 13",
-            "latency_ms": 30358,
+            "latency_ms": 36401,
             "missing_tools": [],
-            "passed": false,
-            "score": 0.0,
+            "passed": true,
+            "score": 1.0,
             "task_name": "Multiplication",
             "tool_usage_passed": true,
             "trajectory": {
+                "model": "gemma3:4b",
                 "step_count": 2,
                 "steps": [
                     {
                         "action": "calculator",
-                        "latency_ms": 24950,
+                        "latency_ms": 29232,
                         "result": "221",
                         "step": 1,
                         "thought": "```json\n{\n    \"type\": \"tool_call\",\n    \"name\": \"calculator\",\n    \"args\": {\n        \"expression\": \"17 * 13\"\n    }\n}\n```",
-                        "tokens_used": 1071
+                        "tokens_used": 1683
                     },
                     {
                         "action": "FINAL",
-                        "latency_ms": 5407,
-                        "result": "17 nhân 13 bằng 221",
+                        "latency_ms": 7161,
+                        "result": "221",
                         "step": 2,
-                        "thought": "```json\n{\n    \"type\": \"final\",\n    \"content\": \"17 nhân 13 bằng 221\"\n}\n```",
-                        "tokens_used": 1137
+                        "thought": "```json\n{\n    \"type\": \"final\",\n    \"content\": \"221\"\n}\n```",
+                        "tokens_used": 1749
                     }
                 ],
+                "success": true,
                 "task": "Tính 17 nhân 13",
-                "total_time_ms": 30358,
-                "total_tokens": 2208
+                "task_id": "",
+                "total_time_ms": 36401,
+                "total_tokens": 3432
             },
             "used_tools": [
                 "calculator"
             ]
         },
         {
-            "actual": "17 nhân 13 bằng 221",
+            "actual": "221",
             "execution_error": false,
             "expected": "221",
             "feedback": "All expected keywords were found.",
             "input": "Tính 17 nhân 13",
-            "latency_ms": 11067,
+            "latency_ms": 12501,
             "missing_tools": [],
             "passed": true,
             "score": 1.0,
             "task_name": "Calculator keyword",
             "tool_usage_passed": true,
             "trajectory": {
+                "model": "gemma3:4b",
                 "step_count": 2,
                 "steps": [
                     {
                         "action": "calculator",
-                        "latency_ms": 6262,
+                        "latency_ms": 6794,
                         "result": "221",
                         "step": 1,
                         "thought": "```json\n{\n    \"type\": \"tool_call\",\n    \"name\": \"calculator\",\n    \"args\": {\n        \"expression\": \"17 * 13\"\n    }\n}\n```",
-                        "tokens_used": 1071
+                        "tokens_used": 1683
                     },
                     {
                         "action": "FINAL",
-                        "latency_ms": 4804,
-                        "result": "17 nhân 13 bằng 221",
+                        "latency_ms": 5706,
+                        "result": "221",
                         "step": 2,
-                        "thought": "```json\n{\n    \"type\": \"final\",\n    \"content\": \"17 nhân 13 bằng 221\"\n}\n```",
-                        "tokens_used": 1137
+                        "thought": "```json\n{\n    \"type\": \"final\",\n    \"content\": \"221\"\n}\n```",
+                        "tokens_used": 1749
                     }
                 ],
+                "success": true,
                 "task": "Tính 17 nhân 13",
-                "total_time_ms": 11067,
-                "total_tokens": 2208
+                "task_id": "",
+                "total_time_ms": 12501,
+                "total_tokens": 3432
             },
             "used_tools": [
                 "calculator"
             ]
         },
         {
-            "actual": "17 nhân 13 bằng 221",
+            "actual": "221",
             "execution_error": false,
             "expected": "221",
-            "feedback": "Actual result does not match the expected result.",
+            "feedback": "Actual result matches the expected result.",
             "input": "Tính 17 nhân 13",
-            "latency_ms": 12300,
+            "latency_ms": 13384,
             "missing_tools": [],
-            "passed": false,
-            "score": 0.0,
+            "passed": true,
+            "score": 1.0,
             "task_name": "Calculator functional",
             "tool_usage_passed": true,
             "trajectory": {
+                "model": "gemma3:4b",
                 "step_count": 2,
                 "steps": [
                     {
                         "action": "calculator",
-                        "latency_ms": 7048,
+                        "latency_ms": 8081,
                         "result": "221",
                         "step": 1,
                         "thought": "```json\n{\n    \"type\": \"tool_call\",\n    \"name\": \"calculator\",\n    \"args\": {\n        \"expression\": \"17 * 13\"\n    }\n}\n```",
-                        "tokens_used": 1071
+                        "tokens_used": 1683
                     },
                     {
                         "action": "FINAL",
-                        "latency_ms": 5252,
-                        "result": "17 nhân 13 bằng 221",
+                        "latency_ms": 5303,
+                        "result": "221",
                         "step": 2,
-                        "thought": "```json\n{\n    \"type\": \"final\",\n    \"content\": \"17 nhân 13 bằng 221\"\n}\n```",
-                        "tokens_used": 1137
+                        "thought": "```json\n{\n    \"type\": \"final\",\n    \"content\": \"221\"\n}\n```",
+                        "tokens_used": 1749
                     }
                 ],
+                "success": true,
                 "task": "Tính 17 nhân 13",
-                "total_time_ms": 12300,
-                "total_tokens": 2208
+                "task_id": "",
+                "total_time_ms": 13384,
+                "total_tokens": 3432
             },
             "used_tools": [
                 "calculator"
@@ -124,37 +133,40 @@
             "actual": "The result of 17 multiplied by 13 and added to 5 is 226.",
             "execution_error": false,
             "expected": "226",
-            "feedback": "Actual result must contain exactly one valid number.",
+            "feedback": "Numeric result matches the expected value.",
             "input": "Tính 17 nhân 13 và cộng thêm 5",
-            "latency_ms": 12405,
+            "latency_ms": 19688,
             "missing_tools": [],
-            "passed": false,
-            "score": 0.0,
+            "passed": true,
+            "score": 1.0,
             "task_name": "Calculator functional with extra text",
             "tool_usage_passed": true,
             "trajectory": {
+                "model": "gemma3:4b",
                 "step_count": 2,
                 "steps": [
                     {
                         "action": "calculator",
-                        "latency_ms": 6417,
+                        "latency_ms": 13477,
                         "result": "226",
                         "step": 1,
                         "thought": "```json\n{\n    \"type\": \"tool_call\",\n    \"name\": \"calculator\",\n    \"args\": {\n        \"expression\": \"17 * 13 + 5\"\n    }\n}\n```",
-                        "tokens_used": 1079
+                        "tokens_used": 1691
                     },
                     {
                         "action": "FINAL",
-                        "latency_ms": 5987,
+                        "latency_ms": 6211,
                         "result": "The result of 17 multiplied by 13 and added to 5 is 226.",
                         "step": 2,
                         "thought": "```json\n{\n    \"type\": \"final\",\n    \"content\": \"The result of 17 multiplied by 13 and added to 5 is 226.\"\n}\n```",
-                        "tokens_used": 1155
+                        "tokens_used": 1775
                     }
                 ],
+                "success": true,
                 "task": "Tính 17 nhân 13 và cộng thêm 5",
-                "total_time_ms": 12405,
-                "total_tokens": 2234
+                "task_id": "",
+                "total_time_ms": 19688,
+                "total_tokens": 3466
             },
             "used_tools": [
                 "calculator"
@@ -164,37 +176,40 @@
             "actual": "The result of (17 * 13) + (5 / 2) is 223.5",
             "execution_error": false,
             "expected": "223.5",
-            "feedback": "Actual result must contain exactly one valid number.",
+            "feedback": "Numeric result matches the expected value.",
             "input": "Tính (17 nhân 13) cộng (5 chia 2)",
-            "latency_ms": 13050,
+            "latency_ms": 18960,
             "missing_tools": [],
-            "passed": false,
-            "score": 0.0,
+            "passed": true,
+            "score": 1.0,
             "task_name": "Calculator functional with complex expression",
             "tool_usage_passed": true,
             "trajectory": {
+                "model": "gemma3:4b",
                 "step_count": 2,
                 "steps": [
                     {
                         "action": "calculator",
-                        "latency_ms": 6311,
+                        "latency_ms": 12632,
                         "result": "223.5",
                         "step": 1,
-                        "thought": "```json\n{\n    \"type\": \"tool_call\",\n    \"name\": \"calculator\",\n    \"args\": {\n        \"expression\": \"17 * 13 + 5 / 2\"\n    }\n}\n```",
-                        "tokens_used": 1085
+                        "thought": "```json\n{\n    \"type\": \"tool_call\",\n    \"name\": \"calculator\",\n    \"args\": {\n        \"expression\": \"(17 * 13) + (5 / 2)\"\n    }\n}\n```",
+                        "tokens_used": 1698
                     },
                     {
                         "action": "FINAL",
-                        "latency_ms": 6738,
+                        "latency_ms": 6327,
                         "result": "The result of (17 * 13) + (5 / 2) is 223.5",
                         "step": 2,
                         "thought": "```json\n{\n    \"type\": \"final\",\n    \"content\": \"The result of (17 * 13) + (5 / 2) is 223.5\"\n}\n```",
-                        "tokens_used": 1167
+                        "tokens_used": 1788
                     }
                 ],
+                "success": true,
                 "task": "Tính (17 nhân 13) cộng (5 chia 2)",
-                "total_time_ms": 13050,
-                "total_tokens": 2252
+                "task_id": "",
+                "total_time_ms": 18960,
+                "total_tokens": 3486
             },
             "used_tools": [
                 "calculator"
@@ -206,201 +221,216 @@
             "expected": "153",
             "feedback": "Actual result does not match the expected result.",
             "input": "Tính (17 nhân (13 cộng 5)) chia 2",
-            "latency_ms": 13287,
+            "latency_ms": 29318,
             "missing_tools": [],
             "passed": false,
             "score": 0.0,
             "task_name": "Calculator functional with parentheses",
             "tool_usage_passed": true,
             "trajectory": {
+                "model": "gemma3:4b",
                 "step_count": 2,
                 "steps": [
                     {
                         "action": "calculator",
-                        "latency_ms": 6910,
+                        "latency_ms": 11264,
                         "result": "153",
                         "step": 1,
-                        "thought": "```json\n{\n    \"type\": \"tool_call\",\n    \"name\": \"calculator\",\n    \"args\": {\n        \"expression\": \"17 * (13 + 5) / 2\"\n    }\n}\n```",
-                        "tokens_used": 1085
+                        "thought": "```json\n{\n    \"type\": \"tool_call\",\n    \"name\": \"calculator\",\n    \"args\": {\n        \"expression\": \"(17 * (13 + 5)) / 2\"\n    }\n}\n```",
+                        "tokens_used": 1697
                     },
                     {
                         "action": "FINAL",
-                        "latency_ms": 6377,
+                        "latency_ms": 18047,
                         "result": "The result of (17 * (13 + 5)) / 2 is 153.",
                         "step": 2,
                         "thought": "```json\n{\n    \"type\": \"final\",\n    \"content\": \"The result of (17 * (13 + 5)) / 2 is 153.\"\n}\n```",
-                        "tokens_used": 1162
+                        "tokens_used": 1782
                     }
                 ],
+                "success": false,
                 "task": "Tính (17 nhân (13 cộng 5)) chia 2",
-                "total_time_ms": 13287,
-                "total_tokens": 2247
+                "task_id": "",
+                "total_time_ms": 29318,
+                "total_tokens": 3479
             },
             "used_tools": [
                 "calculator"
             ]
         },
         {
-            "actual": "The result of -17 multiplied by -13 plus -5 is 216.",
+            "actual": "216",
             "execution_error": false,
             "expected": "216",
-            "feedback": "Actual result does not match the expected result.",
+            "feedback": "Actual result matches the expected result.",
             "input": "Tính -17 nhân -13 cộng -5",
-            "latency_ms": 12663,
+            "latency_ms": 14948,
             "missing_tools": [],
-            "passed": false,
-            "score": 0.0,
+            "passed": true,
+            "score": 1.0,
             "task_name": "Calculator functional with negative numbers",
             "tool_usage_passed": true,
             "trajectory": {
+                "model": "gemma3:4b",
                 "step_count": 2,
                 "steps": [
                     {
                         "action": "calculator",
-                        "latency_ms": 6053,
+                        "latency_ms": 10369,
                         "result": "216",
                         "step": 1,
-                        "thought": "```json\n{\n    \"type\": \"tool_call\",\n    \"name\": \"calculator\",\n    \"args\": {\n        \"expression\": \"(-17 * -13) + (-5)\"\n    }\n}\n```",
-                        "tokens_used": 1079
+                        "thought": "```json\n{\n    \"type\": \"tool_call\",\n    \"name\": \"calculator\",\n    \"args\": {\n        \"expression\": \"-17 * -13 + -5\"\n    }\n}\n```",
+                        "tokens_used": 1689
                     },
                     {
                         "action": "FINAL",
-                        "latency_ms": 6609,
-                        "result": "The result of -17 multiplied by -13 plus -5 is 216.",
+                        "latency_ms": 4572,
+                        "result": "216",
                         "step": 2,
-                        "thought": "```json\n{\n    \"type\": \"final\",\n    \"content\": \"The result of -17 multiplied by -13 plus -5 is 216.\"\n}\n```",
-                        "tokens_used": 1153
+                        "thought": "```json\n{\n    \"type\": \"final\",\n    \"content\": \"216\"\n}\n```",
+                        "tokens_used": 1755
                     }
                 ],
+                "success": true,
                 "task": "Tính -17 nhân -13 cộng -5",
-                "total_time_ms": 12663,
-                "total_tokens": 2232
+                "task_id": "",
+                "total_time_ms": 14948,
+                "total_tokens": 3444
             },
             "used_tools": [
                 "calculator"
             ]
         },
         {
-            "actual": "The result of 17.5 * 13.2 + 5.1 is 236.1",
+            "actual": "236.1",
             "execution_error": false,
             "expected": "234.6",
             "feedback": "Actual result does not match the expected result.",
             "input": "Tính 17.5 nhân 13.2 cộng 5.1",
-            "latency_ms": 14251,
+            "latency_ms": 14074,
             "missing_tools": [],
             "passed": false,
             "score": 0.0,
             "task_name": "Calculator functional with decimals",
             "tool_usage_passed": true,
             "trajectory": {
+                "model": "gemma3:4b",
                 "step_count": 2,
                 "steps": [
                     {
                         "action": "calculator",
-                        "latency_ms": 7270,
+                        "latency_ms": 10054,
                         "result": "236.1",
                         "step": 1,
                         "thought": "```json\n{\n    \"type\": \"tool_call\",\n    \"name\": \"calculator\",\n    \"args\": {\n        \"expression\": \"17.5 * 13.2 + 5.1\"\n    }\n}\n```",
-                        "tokens_used": 1089
+                        "tokens_used": 1701
                     },
                     {
                         "action": "FINAL",
-                        "latency_ms": 6980,
-                        "result": "The result of 17.5 * 13.2 + 5.1 is 236.1",
+                        "latency_ms": 4019,
+                        "result": "236.1",
                         "step": 2,
-                        "thought": "```json\n{\n    \"type\": \"final\",\n    \"content\": \"The result of 17.5 * 13.2 + 5.1 is 236.1\"\n}\n```",
-                        "tokens_used": 1172
+                        "thought": "```json\n{\n    \"type\": \"final\",\n    \"content\": \"236.1\"\n}\n```",
+                        "tokens_used": 1771
                     }
                 ],
+                "success": false,
                 "task": "Tính 17.5 nhân 13.2 cộng 5.1",
-                "total_time_ms": 14251,
-                "total_tokens": 2261
+                "task_id": "",
+                "total_time_ms": 14074,
+                "total_tokens": 3472
             },
             "used_tools": [
                 "calculator"
             ]
         },
         {
-            "actual": "The result of 123456789 multiplied by 987654321 plus 123456789 is 121932631236092048.",
+            "actual": "121932631236092048",
             "execution_error": false,
             "expected": "1219326311126352690",
             "feedback": "Actual result does not match the expected result.",
             "input": "Tính 123456789 nhân 987654321 cộng 123456789",
-            "latency_ms": 18031,
+            "latency_ms": 15491,
             "missing_tools": [],
             "passed": false,
             "score": 0.0,
             "task_name": "Calculator functional with large numbers",
             "tool_usage_passed": true,
             "trajectory": {
+                "model": "gemma3:4b",
                 "step_count": 2,
                 "steps": [
                     {
                         "action": "calculator",
-                        "latency_ms": 8630,
+                        "latency_ms": 9924,
                         "result": "121932631236092048",
                         "step": 1,
                         "thought": "```json\n{\n    \"type\": \"tool_call\",\n    \"name\": \"calculator\",\n    \"args\": {\n        \"expression\": \"123456789 * 987654321 + 123456789\"\n    }\n}\n```",
-                        "tokens_used": 1121
+                        "tokens_used": 1733
                     },
                     {
                         "action": "FINAL",
-                        "latency_ms": 9401,
-                        "result": "The result of 123456789 multiplied by 987654321 plus 123456789 is 121932631236092048.",
+                        "latency_ms": 5566,
+                        "result": "121932631236092048",
                         "step": 2,
-                        "thought": "```json\n{\n    \"type\": \"final\",\n    \"content\": \"The result of 123456789 multiplied by 987654321 plus 123456789 is 121932631236092048.\"\n}\n```",
-                        "tokens_used": 1247
+                        "thought": "```json\n{\n    \"type\": \"final\",\n    \"content\": \"121932631236092048\"\n}\n```",
+                        "tokens_used": 1829
                     }
                 ],
+                "success": false,
                 "task": "Tính 123456789 nhân 987654321 cộng 123456789",
-                "total_time_ms": 18031,
-                "total_tokens": 2368
+                "task_id": "",
+                "total_time_ms": 15491,
+                "total_tokens": 3562
             },
             "used_tools": [
                 "calculator"
             ]
         },
         {
-            "actual": "The result of 17 divided by 0 is undefined due to division by zero.",
+            "actual": "The result of 17 divided by 0 is an error: Calculator error: Division by zero.",
             "execution_error": false,
             "expected": "",
             "feedback": "Expected result cannot be empty.",
             "input": "Tính 17 chia 0",
-            "latency_ms": 10657,
+            "latency_ms": 12092,
             "missing_tools": [],
             "passed": false,
             "score": 0.0,
             "task_name": "Calculator functional with division by zero",
             "tool_usage_passed": true,
             "trajectory": {
+                "model": "gemma3:4b",
                 "step_count": 2,
                 "steps": [
                     {
                         "action": "calculator",
-                        "latency_ms": 5288,
+                        "latency_ms": 6464,
                         "result": "Calculator error: Division by zero",
                         "step": 1,
                         "thought": "```json\n{\n    \"type\": \"tool_call\",\n    \"name\": \"calculator\",\n    \"args\": {\n        \"expression\": \"17 / 0\"\n    }\n}\n```",
-                        "tokens_used": 1069
+                        "tokens_used": 1681
                     },
                     {
                         "action": "FINAL",
-                        "latency_ms": 5365,
-                        "result": "The result of 17 divided by 0 is undefined due to division by zero.",
+                        "latency_ms": 5627,
+                        "result": "The result of 17 divided by 0 is an error: Calculator error: Division by zero.",
                         "step": 2,
-                        "thought": "```json\n{\n    \"type\": \"final\",\n    \"content\": \"The result of 17 divided by 0 is undefined due to division by zero.\"\n}\n```",
-                        "tokens_used": 1143
+                        "thought": "```json\n{\n    \"type\": \"final\",\n    \"content\": \"The result of 17 divided by 0 is an error: Calculator error: Division by zero.\"\n}\n```",
+                        "tokens_used": 1766
                     }
                 ],
+                "success": false,
                 "task": "Tính 17 chia 0",
-                "total_time_ms": 10657,
-                "total_tokens": 2212
+                "task_id": "",
+                "total_time_ms": 12092,
+                "total_tokens": 3447
             },
             "used_tools": [
                 "calculator"
             ]
         }
     ],
-    "success_rate": 0.1,
+    "success_rate": 0.6,
     "total_tasks": 10
 }

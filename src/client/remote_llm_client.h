@@ -25,4 +25,5 @@ public:
     LLMResponse chat(
         std::span<const Message> messages
     ) override;
+    const std::string& getModelName() const override;
 };

@@ -149,5 +149,7 @@ LLMResponse OllamaClient::chat(
         );
     }
 }
-
+const std::string& OllamaClient::getModelName() const {
+    return model;
+}
 

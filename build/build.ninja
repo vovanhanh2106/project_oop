@@ -44,6 +44,22 @@ cmake_ninja_workdir = C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_251200
 
 build cmake_object_order_depends_target_AgentCore: phony || .
 
+build CMakeFiles/AgentCore.dir/src/environment/native_environment.cpp.obj: CXX_COMPILER__AgentCore_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/environment/native_environment.cpp || cmake_object_order_depends_target_AgentCore
+  DEP_FILE = CMakeFiles\AgentCore.dir\src\environment\native_environment.cpp.obj.d
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
+  INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
+  OBJECT_DIR = CMakeFiles\AgentCore.dir
+  OBJECT_FILE_DIR = CMakeFiles\AgentCore.dir\src\environment
+  TARGET_SUPPORT_DIR = CMakeFiles\AgentCore.dir
+
+build CMakeFiles/AgentCore.dir/src/environment/sandbox_environment.cpp.obj: CXX_COMPILER__AgentCore_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/environment/sandbox_environment.cpp || cmake_object_order_depends_target_AgentCore
+  DEP_FILE = CMakeFiles\AgentCore.dir\src\environment\sandbox_environment.cpp.obj.d
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
+  INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
+  OBJECT_DIR = CMakeFiles\AgentCore.dir
+  OBJECT_FILE_DIR = CMakeFiles\AgentCore.dir\src\environment
+  TARGET_SUPPORT_DIR = CMakeFiles\AgentCore.dir
+
 build CMakeFiles/AgentCore.dir/src/client/ollama_client.cpp.obj: CXX_COMPILER__AgentCore_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/client/ollama_client.cpp || cmake_object_order_depends_target_AgentCore
   DEP_FILE = CMakeFiles\AgentCore.dir\src\client\ollama_client.cpp.obj.d
   FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
@@ -132,6 +148,22 @@ build CMakeFiles/AgentCore.dir/src/tools/json_tool.cpp.obj: CXX_COMPILER__AgentC
   OBJECT_FILE_DIR = CMakeFiles\AgentCore.dir\src\tools
   TARGET_SUPPORT_DIR = CMakeFiles\AgentCore.dir
 
+build CMakeFiles/AgentCore.dir/src/tools/tool_factory.cpp.obj: CXX_COMPILER__AgentCore_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/tools/tool_factory.cpp || cmake_object_order_depends_target_AgentCore
+  DEP_FILE = CMakeFiles\AgentCore.dir\src\tools\tool_factory.cpp.obj.d
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
+  INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
+  OBJECT_DIR = CMakeFiles\AgentCore.dir
+  OBJECT_FILE_DIR = CMakeFiles\AgentCore.dir\src\tools
+  TARGET_SUPPORT_DIR = CMakeFiles\AgentCore.dir
+
+build CMakeFiles/AgentCore.dir/src/tools/register_default_tools.cpp.obj: CXX_COMPILER__AgentCore_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/tools/register_default_tools.cpp || cmake_object_order_depends_target_AgentCore
+  DEP_FILE = CMakeFiles\AgentCore.dir\src\tools\register_default_tools.cpp.obj.d
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
+  INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
+  OBJECT_DIR = CMakeFiles\AgentCore.dir
+  OBJECT_FILE_DIR = CMakeFiles\AgentCore.dir\src\tools
+  TARGET_SUPPORT_DIR = CMakeFiles\AgentCore.dir
+
 build CMakeFiles/AgentCore.dir/src/agent/skill_loader.cpp.obj: CXX_COMPILER__AgentCore_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/agent/skill_loader.cpp || cmake_object_order_depends_target_AgentCore
   DEP_FILE = CMakeFiles\AgentCore.dir\src\agent\skill_loader.cpp.obj.d
   FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
@@ -150,6 +182,14 @@ build CMakeFiles/AgentCore.dir/src/agent/loop_detector.cpp.obj: CXX_COMPILER__Ag
 
 build CMakeFiles/AgentCore.dir/src/agent/agent_loop.cpp.obj: CXX_COMPILER__AgentCore_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/agent/agent_loop.cpp || cmake_object_order_depends_target_AgentCore
   DEP_FILE = CMakeFiles\AgentCore.dir\src\agent\agent_loop.cpp.obj.d
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
+  INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
+  OBJECT_DIR = CMakeFiles\AgentCore.dir
+  OBJECT_FILE_DIR = CMakeFiles\AgentCore.dir\src\agent
+  TARGET_SUPPORT_DIR = CMakeFiles\AgentCore.dir
+
+build CMakeFiles/AgentCore.dir/src/agent/base_agent.cpp.obj: CXX_COMPILER__AgentCore_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/agent/base_agent.cpp || cmake_object_order_depends_target_AgentCore
+  DEP_FILE = CMakeFiles\AgentCore.dir\src\agent\base_agent.cpp.obj.d
   FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
   INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
   OBJECT_DIR = CMakeFiles\AgentCore.dir
@@ -220,7 +260,7 @@ build CMakeFiles/AgentCore.dir/src/benchmark/benchmark_runner.cpp.obj: CXX_COMPI
 #############################################
 # Link the static library libAgentCore.a
 
-build libAgentCore.a: CXX_STATIC_LIBRARY_LINKER__AgentCore_ CMakeFiles/AgentCore.dir/src/client/ollama_client.cpp.obj CMakeFiles/AgentCore.dir/src/client/remote_llm_client.cpp.obj CMakeFiles/AgentCore.dir/src/tools/tool_registry.cpp.obj CMakeFiles/AgentCore.dir/src/tools/calculator_tool.cpp.obj CMakeFiles/AgentCore.dir/src/tools/file_tool.cpp.obj CMakeFiles/AgentCore.dir/src/tools/exec_tool.cpp.obj CMakeFiles/AgentCore.dir/src/tools/web_search_tool.cpp.obj CMakeFiles/AgentCore.dir/src/tools/memory_tool.cpp.obj CMakeFiles/AgentCore.dir/src/tools/datetime_tool.cpp.obj CMakeFiles/AgentCore.dir/src/tools/git_tool.cpp.obj CMakeFiles/AgentCore.dir/src/tools/json_tool.cpp.obj CMakeFiles/AgentCore.dir/src/agent/skill_loader.cpp.obj CMakeFiles/AgentCore.dir/src/agent/loop_detector.cpp.obj CMakeFiles/AgentCore.dir/src/agent/agent_loop.cpp.obj CMakeFiles/AgentCore.dir/src/harness/keyword_evaluator.cpp.obj CMakeFiles/AgentCore.dir/src/harness/functional_evaluator.cpp.obj CMakeFiles/AgentCore.dir/src/harness/trajectory.cpp.obj CMakeFiles/AgentCore.dir/src/harness/harness_runner.cpp.obj CMakeFiles/AgentCore.dir/src/harness/numeric_evaluator.cpp.obj CMakeFiles/AgentCore.dir/src/benchmark/benchmark_dataset.cpp.obj CMakeFiles/AgentCore.dir/src/benchmark/benchmark_runner.cpp.obj
+build libAgentCore.a: CXX_STATIC_LIBRARY_LINKER__AgentCore_ CMakeFiles/AgentCore.dir/src/environment/native_environment.cpp.obj CMakeFiles/AgentCore.dir/src/environment/sandbox_environment.cpp.obj CMakeFiles/AgentCore.dir/src/client/ollama_client.cpp.obj CMakeFiles/AgentCore.dir/src/client/remote_llm_client.cpp.obj CMakeFiles/AgentCore.dir/src/tools/tool_registry.cpp.obj CMakeFiles/AgentCore.dir/src/tools/calculator_tool.cpp.obj CMakeFiles/AgentCore.dir/src/tools/file_tool.cpp.obj CMakeFiles/AgentCore.dir/src/tools/exec_tool.cpp.obj CMakeFiles/AgentCore.dir/src/tools/web_search_tool.cpp.obj CMakeFiles/AgentCore.dir/src/tools/memory_tool.cpp.obj CMakeFiles/AgentCore.dir/src/tools/datetime_tool.cpp.obj CMakeFiles/AgentCore.dir/src/tools/git_tool.cpp.obj CMakeFiles/AgentCore.dir/src/tools/json_tool.cpp.obj CMakeFiles/AgentCore.dir/src/tools/tool_factory.cpp.obj CMakeFiles/AgentCore.dir/src/tools/register_default_tools.cpp.obj CMakeFiles/AgentCore.dir/src/agent/skill_loader.cpp.obj CMakeFiles/AgentCore.dir/src/agent/loop_detector.cpp.obj CMakeFiles/AgentCore.dir/src/agent/agent_loop.cpp.obj CMakeFiles/AgentCore.dir/src/agent/base_agent.cpp.obj CMakeFiles/AgentCore.dir/src/harness/keyword_evaluator.cpp.obj CMakeFiles/AgentCore.dir/src/harness/functional_evaluator.cpp.obj CMakeFiles/AgentCore.dir/src/harness/trajectory.cpp.obj CMakeFiles/AgentCore.dir/src/harness/harness_runner.cpp.obj CMakeFiles/AgentCore.dir/src/harness/numeric_evaluator.cpp.obj CMakeFiles/AgentCore.dir/src/benchmark/benchmark_dataset.cpp.obj CMakeFiles/AgentCore.dir/src/benchmark/benchmark_runner.cpp.obj
   OBJECT_DIR = CMakeFiles\AgentCore.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
@@ -552,6 +592,41 @@ build GitToolManualTest.exe: CXX_EXECUTABLE_LINKER__GitToolManualTest_ CMakeFile
   TARGET_SUPPORT_DIR = CMakeFiles\GitToolManualTest.dir
 
 # =============================================================================
+# Object build statements for EXECUTABLE target WebSearchToolManualTest
+
+
+#############################################
+# Order-only phony target for WebSearchToolManualTest
+
+build cmake_object_order_depends_target_WebSearchToolManualTest: phony || cmake_object_order_depends_target_AgentCore
+
+build CMakeFiles/WebSearchToolManualTest.dir/src/tests/web_search_tool_manual_test.cpp.obj: CXX_COMPILER__WebSearchToolManualTest_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/tests/web_search_tool_manual_test.cpp || cmake_object_order_depends_target_WebSearchToolManualTest
+  DEP_FILE = CMakeFiles\WebSearchToolManualTest.dir\src\tests\web_search_tool_manual_test.cpp.obj.d
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
+  INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
+  OBJECT_DIR = CMakeFiles\WebSearchToolManualTest.dir
+  OBJECT_FILE_DIR = CMakeFiles\WebSearchToolManualTest.dir\src\tests
+  TARGET_SUPPORT_DIR = CMakeFiles\WebSearchToolManualTest.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target WebSearchToolManualTest
+
+
+#############################################
+# Link the executable WebSearchToolManualTest.exe
+
+build WebSearchToolManualTest.exe: CXX_EXECUTABLE_LINKER__WebSearchToolManualTest_ CMakeFiles/WebSearchToolManualTest.dir/src/tests/web_search_tool_manual_test.cpp.obj | libAgentCore.a C$:/msys64/ucrt64/lib/libcurl.dll.a C$:/msys64/ucrt64/lib/libsqlite3.dll.a || libAgentCore.a
+  LINK_LIBRARIES = libAgentCore.a  C:/msys64/ucrt64/lib/libcurl.dll.a  C:/msys64/ucrt64/lib/libsqlite3.dll.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\WebSearchToolManualTest.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = WebSearchToolManualTest.exe
+  TARGET_IMPLIB = libWebSearchToolManualTest.dll.a
+  TARGET_PDB = WebSearchToolManualTest.exe.dbg
+  TARGET_SUPPORT_DIR = CMakeFiles\WebSearchToolManualTest.dir
+
+# =============================================================================
 # Object build statements for EXECUTABLE target AgentLoopErrorTest
 
 
@@ -585,6 +660,146 @@ build AgentLoopErrorTest.exe: CXX_EXECUTABLE_LINKER__AgentLoopErrorTest_ CMakeFi
   TARGET_IMPLIB = libAgentLoopErrorTest.dll.a
   TARGET_PDB = AgentLoopErrorTest.exe.dbg
   TARGET_SUPPORT_DIR = CMakeFiles\AgentLoopErrorTest.dir
+
+# =============================================================================
+# Object build statements for EXECUTABLE target CaculatorTest
+
+
+#############################################
+# Order-only phony target for CaculatorTest
+
+build cmake_object_order_depends_target_CaculatorTest: phony || cmake_object_order_depends_target_AgentCore
+
+build CMakeFiles/CaculatorTest.dir/src/tests/caculator_test.cpp.obj: CXX_COMPILER__CaculatorTest_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/tests/caculator_test.cpp || cmake_object_order_depends_target_CaculatorTest
+  DEP_FILE = CMakeFiles\CaculatorTest.dir\src\tests\caculator_test.cpp.obj.d
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
+  INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
+  OBJECT_DIR = CMakeFiles\CaculatorTest.dir
+  OBJECT_FILE_DIR = CMakeFiles\CaculatorTest.dir\src\tests
+  TARGET_SUPPORT_DIR = CMakeFiles\CaculatorTest.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target CaculatorTest
+
+
+#############################################
+# Link the executable CaculatorTest.exe
+
+build CaculatorTest.exe: CXX_EXECUTABLE_LINKER__CaculatorTest_ CMakeFiles/CaculatorTest.dir/src/tests/caculator_test.cpp.obj | libAgentCore.a C$:/msys64/ucrt64/lib/libcurl.dll.a C$:/msys64/ucrt64/lib/libsqlite3.dll.a || libAgentCore.a
+  LINK_LIBRARIES = libAgentCore.a  C:/msys64/ucrt64/lib/libcurl.dll.a  C:/msys64/ucrt64/lib/libsqlite3.dll.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\CaculatorTest.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = CaculatorTest.exe
+  TARGET_IMPLIB = libCaculatorTest.dll.a
+  TARGET_PDB = CaculatorTest.exe.dbg
+  TARGET_SUPPORT_DIR = CMakeFiles\CaculatorTest.dir
+
+# =============================================================================
+# Object build statements for EXECUTABLE target ExecToolManualTest
+
+
+#############################################
+# Order-only phony target for ExecToolManualTest
+
+build cmake_object_order_depends_target_ExecToolManualTest: phony || cmake_object_order_depends_target_AgentCore
+
+build CMakeFiles/ExecToolManualTest.dir/src/tests/exec_tool_manual_test.cpp.obj: CXX_COMPILER__ExecToolManualTest_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/tests/exec_tool_manual_test.cpp || cmake_object_order_depends_target_ExecToolManualTest
+  DEP_FILE = CMakeFiles\ExecToolManualTest.dir\src\tests\exec_tool_manual_test.cpp.obj.d
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
+  INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
+  OBJECT_DIR = CMakeFiles\ExecToolManualTest.dir
+  OBJECT_FILE_DIR = CMakeFiles\ExecToolManualTest.dir\src\tests
+  TARGET_SUPPORT_DIR = CMakeFiles\ExecToolManualTest.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target ExecToolManualTest
+
+
+#############################################
+# Link the executable ExecToolManualTest.exe
+
+build ExecToolManualTest.exe: CXX_EXECUTABLE_LINKER__ExecToolManualTest_ CMakeFiles/ExecToolManualTest.dir/src/tests/exec_tool_manual_test.cpp.obj | libAgentCore.a C$:/msys64/ucrt64/lib/libcurl.dll.a C$:/msys64/ucrt64/lib/libsqlite3.dll.a || libAgentCore.a
+  LINK_LIBRARIES = libAgentCore.a  C:/msys64/ucrt64/lib/libcurl.dll.a  C:/msys64/ucrt64/lib/libsqlite3.dll.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\ExecToolManualTest.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = ExecToolManualTest.exe
+  TARGET_IMPLIB = libExecToolManualTest.dll.a
+  TARGET_PDB = ExecToolManualTest.exe.dbg
+  TARGET_SUPPORT_DIR = CMakeFiles\ExecToolManualTest.dir
+
+# =============================================================================
+# Object build statements for EXECUTABLE target ToolFactoryTest
+
+
+#############################################
+# Order-only phony target for ToolFactoryTest
+
+build cmake_object_order_depends_target_ToolFactoryTest: phony || cmake_object_order_depends_target_AgentCore
+
+build CMakeFiles/ToolFactoryTest.dir/src/tests/tool_factory_test.cpp.obj: CXX_COMPILER__ToolFactoryTest_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/tests/tool_factory_test.cpp || cmake_object_order_depends_target_ToolFactoryTest
+  DEP_FILE = CMakeFiles\ToolFactoryTest.dir\src\tests\tool_factory_test.cpp.obj.d
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
+  INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
+  OBJECT_DIR = CMakeFiles\ToolFactoryTest.dir
+  OBJECT_FILE_DIR = CMakeFiles\ToolFactoryTest.dir\src\tests
+  TARGET_SUPPORT_DIR = CMakeFiles\ToolFactoryTest.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target ToolFactoryTest
+
+
+#############################################
+# Link the executable ToolFactoryTest.exe
+
+build ToolFactoryTest.exe: CXX_EXECUTABLE_LINKER__ToolFactoryTest_ CMakeFiles/ToolFactoryTest.dir/src/tests/tool_factory_test.cpp.obj | libAgentCore.a C$:/msys64/ucrt64/lib/libcurl.dll.a C$:/msys64/ucrt64/lib/libsqlite3.dll.a || libAgentCore.a
+  LINK_LIBRARIES = libAgentCore.a  C:/msys64/ucrt64/lib/libcurl.dll.a  C:/msys64/ucrt64/lib/libsqlite3.dll.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\ToolFactoryTest.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = ToolFactoryTest.exe
+  TARGET_IMPLIB = libToolFactoryTest.dll.a
+  TARGET_PDB = ToolFactoryTest.exe.dbg
+  TARGET_SUPPORT_DIR = CMakeFiles\ToolFactoryTest.dir
+
+# =============================================================================
+# Object build statements for EXECUTABLE target RegisterDefaultToolsTest
+
+
+#############################################
+# Order-only phony target for RegisterDefaultToolsTest
+
+build cmake_object_order_depends_target_RegisterDefaultToolsTest: phony || cmake_object_order_depends_target_AgentCore
+
+build CMakeFiles/RegisterDefaultToolsTest.dir/src/tests/register_default_tools_test.cpp.obj: CXX_COMPILER__RegisterDefaultToolsTest_unscanned_ C$:/Users/ASUS-PRO/OneDrive/Máy$ tính/ADMIN/Agent_25120054/src/tests/register_default_tools_test.cpp || cmake_object_order_depends_target_RegisterDefaultToolsTest
+  DEP_FILE = CMakeFiles\RegisterDefaultToolsTest.dir\src\tests\register_default_tools_test.cpp.obj.d
+  FLAGS = -std=c++26 -finput-charset=UTF-8 -fexec-charset=UTF-8
+  INCLUDES = -I"C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/src"
+  OBJECT_DIR = CMakeFiles\RegisterDefaultToolsTest.dir
+  OBJECT_FILE_DIR = CMakeFiles\RegisterDefaultToolsTest.dir\src\tests
+  TARGET_SUPPORT_DIR = CMakeFiles\RegisterDefaultToolsTest.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target RegisterDefaultToolsTest
+
+
+#############################################
+# Link the executable RegisterDefaultToolsTest.exe
+
+build RegisterDefaultToolsTest.exe: CXX_EXECUTABLE_LINKER__RegisterDefaultToolsTest_ CMakeFiles/RegisterDefaultToolsTest.dir/src/tests/register_default_tools_test.cpp.obj | libAgentCore.a C$:/msys64/ucrt64/lib/libcurl.dll.a C$:/msys64/ucrt64/lib/libsqlite3.dll.a || libAgentCore.a
+  LINK_LIBRARIES = libAgentCore.a  C:/msys64/ucrt64/lib/libcurl.dll.a  C:/msys64/ucrt64/lib/libsqlite3.dll.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\RegisterDefaultToolsTest.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = RegisterDefaultToolsTest.exe
+  TARGET_IMPLIB = libRegisterDefaultToolsTest.dll.a
+  TARGET_PDB = RegisterDefaultToolsTest.exe.dbg
+  TARGET_SUPPORT_DIR = CMakeFiles\RegisterDefaultToolsTest.dir
 
 
 #############################################
@@ -632,6 +847,10 @@ build AgentLoopErrorTest: phony AgentLoopErrorTest.exe
 
 build BenchmarkTest: phony BenchmarkTest.exe
 
+build CaculatorTest: phony CaculatorTest.exe
+
+build ExecToolManualTest: phony ExecToolManualTest.exe
+
 build GitToolManualTest: phony GitToolManualTest.exe
 
 build HarnessTest: phony HarnessTest.exe
@@ -642,9 +861,15 @@ build JsonToolTest: phony JsonToolTest.exe
 
 build LoopDetectorTest: phony LoopDetectorTest.exe
 
+build RegisterDefaultToolsTest: phony RegisterDefaultToolsTest.exe
+
+build ToolFactoryTest: phony ToolFactoryTest.exe
+
 build ToolRegistryTest: phony ToolRegistryTest.exe
 
 build TrajectoryTest: phony TrajectoryTest.exe
+
+build WebSearchToolManualTest: phony WebSearchToolManualTest.exe
 
 # =============================================================================
 # Folder targets.
@@ -654,7 +879,7 @@ build TrajectoryTest: phony TrajectoryTest.exe
 #############################################
 # Folder: C:/Users/ASUS-PRO/OneDrive/Máy tính/ADMIN/Agent_25120054/build
 
-build all: phony libAgentCore.a AIAgent.exe TrajectoryTest.exe HarnessTest.exe ToolRegistryTest.exe LoopDetectorTest.exe BenchmarkTest.exe IntegrationTest.exe JsonToolTest.exe GitToolManualTest.exe AgentLoopErrorTest.exe
+build all: phony libAgentCore.a AIAgent.exe TrajectoryTest.exe HarnessTest.exe ToolRegistryTest.exe LoopDetectorTest.exe BenchmarkTest.exe IntegrationTest.exe JsonToolTest.exe GitToolManualTest.exe WebSearchToolManualTest.exe AgentLoopErrorTest.exe CaculatorTest.exe ExecToolManualTest.exe ToolFactoryTest.exe RegisterDefaultToolsTest.exe
 
 # =============================================================================
 # Built-in targets

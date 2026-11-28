@@ -23,6 +23,8 @@ find_package(SQLite3 REQUIRED)
 
 add_library(AgentCore STATIC
 
+    src/environment/native_environment.cpp
+    src/environment/sandbox_environment.cpp
     # Client
     src/client/ollama_client.cpp
     src/client/remote_llm_client.cpp
@@ -37,11 +39,14 @@ add_library(AgentCore STATIC
     src/tools/datetime_tool.cpp
     src/tools/git_tool.cpp
     src/tools/json_tool.cpp
+    src/tools/tool_factory.cpp
+    src/tools/register_default_tools.cpp
 
     # Agent
     src/agent/skill_loader.cpp
     src/agent/loop_detector.cpp
     src/agent/agent_loop.cpp
+    src/agent/base_agent.cpp
 
     # Harness
     src/harness/keyword_evaluator.cpp
@@ -159,12 +164,59 @@ target_link_libraries(GitToolManualTest PRIVATE
     nlohmann_json::nlohmann_json
 )
 
+
+add_executable(WebSearchToolManualTest
+    src/tests/web_search_tool_manual_test.cpp
+)
+
+target_link_libraries(WebSearchToolManualTest PRIVATE
+    AgentCore
+)
+
 add_executable(AgentLoopErrorTest
     src/tests/agent_loop_error_test.cpp
 )
 
 target_link_libraries(AgentLoopErrorTest PRIVATE
      AgentCore
+)
+
+add_executable(CaculatorTest
+    src/tests/caculator_test.cpp
+)
+
+target_link_libraries(CaculatorTest PRIVATE
+     AgentCore
+)
+
+add_executable(ExecToolManualTest
+    src/tests/exec_tool_manual_test.cpp
+)
+target_link_libraries(ExecToolManualTest PRIVATE AgentCore)
+
+add_executable(ToolFactoryTest
+    src/tests/tool_factory_test.cpp
+)
+
+target_link_libraries(ToolFactoryTest PRIVATE AgentCore)
+
+add_test(
+    NAME ToolFactoryTest
+    COMMAND ToolFactoryTest
+)
+
+add_executable(RegisterDefaultToolsTest
+    src/tests/register_default_tools_test.cpp
+)
+
+target_link_libraries(
+    RegisterDefaultToolsTest
+    PRIVATE AgentCore
+)
+
+add_test(
+    NAME RegisterDefaultToolsTest
+    COMMAND RegisterDefaultToolsTest
 )
 # ==========================================
 # CTest
@@ -183,3 +235,4 @@ add_test(
     NAME JsonToolTest
     COMMAND JsonToolTest
 )
+add_test(NAME ExecToolTest COMMAND ExecToolManualTest)
